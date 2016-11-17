@@ -12,6 +12,7 @@ tutorial = article []
   , Markdown.toHtml [] p3
   , expand True soln3
   , Markdown.toHtml [] p4
+  , expand True soln4
   ]
 
 p1 = """
@@ -268,7 +269,22 @@ import Html exposing (text)
 main = text "Hello, world!"
 ```
 
+### Imports
+
 Imports are a new concept, so let's break it down. `import Html exposing (text)` is going to import the `Html` module - which is built into the language. Importing means that the functions defined by that module are available for us to use. The `Html` module is quite large, and we're only interested in using the `text` function, so we add `exposing (text)` to our `import` statement. To import all functions from the `Html` module, we would do `import Html exposing (..)`. To import the `Html` module without interferring with the current namespace, we could simply `import Html` and call `Html.text "Hello, world!"` instead of `text "Hello, world!"`.
 
+**Your turn**: Using the documentation at http://package.elm-lang.org/packages/elm-lang/html/latest/ create a main function (with a type definition) that returns a `div` containing an `h1` title containing the text "Hello world" and a `button` containing the text "Click me!". *Hint*: You can use `elm-reactor` to view your application in a web browser.
+"""
 
+soln4 = """
+```elm
+import Html exposing (Html, div, button, h1, text)
+
+main : Html a
+main =
+  div []
+    [ h1 [] [ text "Hello world" ]
+    , button [] [ text "Click me!" ]
+    ]
+```
 """
