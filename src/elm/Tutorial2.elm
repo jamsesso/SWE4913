@@ -257,6 +257,25 @@ We can now use our `getGreeting` function as:
 
 Types might remind you of `enum`s from languages like Java. They are very similar to an enum.
 
+## Variable Types
+
+Imagine we wanted to create a function that counted the number of elements in a `List` with a type definition. How would we do that? This introduces the need for *type variables*. Type variables can be substituted for any type. They are very similar to Java Generics, if you're familiar with those. Let's see a brief example in Elm, implementing our `count` function to determine the number of elements in a `List`:
+
+```elm
+count : List a -> Int
+count list =
+  let
+    rest = case List.tail list of
+      Just value -> value
+      Nothing -> []
+  in
+    case List.head list of
+      Just value -> 1 + count rest
+      Nothing -> 0
+```
+
+Here we define a `count` function that returns the number of elements in a `List`. The type variable `a` means that our `List` can contain any type: it could be a list of `Int`, `String`, or even `List`.
+
 ## The `main` Function
 
 Like many other languages, the entry point to your programs are through a function called `main`. Because Elm is a web application language, it works on HTML. This means that your `main` function has to return HTML, not `void`, not `Int`, or anything else.
