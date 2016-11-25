@@ -1,9 +1,10 @@
-module Tutorial1 exposing (tutorial)
-
-import Html exposing (article)
+import Html exposing (Html, article)
 import Markdown
 
-tutorial = article [] [ Markdown.toHtml [] content ]
+main : Html a
+main = article [] [ Markdown.toHtml [] content ]
+
+content : String
 content = """
 # What is Functional Reactive Programming?
 

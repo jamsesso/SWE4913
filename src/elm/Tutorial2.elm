@@ -1,20 +1,51 @@
-module Tutorial2 exposing (tutorial)
-
-import Html exposing (article)
+import Html exposing (Html, article)
+import Html.App as App
 import Components.Expand exposing (expand)
-import Markdown
+import Array exposing (Array)
+import Util exposing (..)
 
-tutorial = article []
-  [ Markdown.toHtml [] p1
-  , expand True soln1
-  , Markdown.toHtml [] p2
-  , expand True soln2
-  , Markdown.toHtml [] p3
-  , expand True soln3
-  , Markdown.toHtml [] p4
-  , expand True soln4
+main : Program Never
+main = App.beginnerProgram { model = model
+                           , view = view
+                           , update = update
+                           }
+
+-- Model
+type alias Model = Array Bool
+
+model : Model
+model = Array.fromList [False, False, False, False]
+
+-- Update
+type Msg = ToggleSoln Int
+
+update : Msg -> Model -> Model
+update msg model =
+  let
+    nextValue : Int -> Bool
+    nextValue soln = not (getOrDefault soln model True)
+  in
+    case msg of
+      ToggleSoln soln -> Array.set soln (nextValue soln) model
+
+-- View
+solnExpander : Model -> Int -> String -> Html Msg
+solnExpander model i soln =
+  expand (ToggleSoln i) (getOrDefault i model False) soln
+
+view : Model -> Html Msg
+view model = article []
+  [ markdown p1
+  , solnExpander model 0 soln1
+  , markdown p2
+  , solnExpander model 1 soln2
+  , markdown p3
+  , solnExpander model 2 soln3
+  , markdown p4
+  , solnExpander model 3 soln4
   ]
 
+p1 : String
 p1 = """
 # An Introduction to Elm
 
@@ -113,6 +144,7 @@ Just as defining types on constants, we can define the type of a function as wel
 **Your turn:** try adding a type definition to the repeat function so that the first parameter is a `String`, the second parameter is an `Int`, and the return value is also a `String`.
 """
 
+soln1 : String
 soln1 = """
 ```elm
 repeat : String -> Int -> String
@@ -124,6 +156,7 @@ repeat s n =
 ```
 """
 
+p2 : String
 p2 = """
 The `repeat` function is known as a named function because it can be referenced by name. Elm has the concept of anonymous functions which cannot be referenced by name. Such functions are useful in one-off use cases.
 
@@ -144,16 +177,19 @@ Don't get too hung up on the syntax. `\\` identifies that the following expressi
 **Your turn:** define and call an anonymous function that accepts two parameters and returns their sum.
 """
 
+soln2 : String
 soln2 = """
 ```elm
 (\\a b -> a + b) 1 2
 ```
 """
 
+p3 : String
 p3 = """
 **Your turn:** To wrap up this section on functions, define a function called `factorial` that calculates the factorial of a given number. Add a type definition to your function to restrict input to `Int`s.
 """
 
+soln3 : String
 soln3 = """
 ```elm
 factorial : Int -> Int
@@ -165,6 +201,7 @@ factorial n =
 ```
 """
 
+p4 : String
 p4 = """
 ## Records
 
@@ -295,6 +332,7 @@ Imports are a new concept, so let's break it down. `import Html exposing (text)`
 **Your turn**: Using the documentation at http://package.elm-lang.org/packages/elm-lang/html/latest/ create a main function (with a type definition) that returns a `div` containing an `h1` title containing the text "Hello world" and a `button` containing the text "Click me!". *Hint*: You can use `elm-reactor` to view your application in a web browser.
 """
 
+soln4 : String
 soln4 = """
 ```elm
 import Html exposing (Html, div, button, h1, text)

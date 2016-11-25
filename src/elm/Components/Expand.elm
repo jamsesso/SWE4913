@@ -1,13 +1,16 @@
 module Components.Expand exposing (..)
 
-import Html exposing (button, div, text)
+import Html exposing (Html, button, div, text)
+import Html.Events exposing (onClick)
+import Html.Attributes exposing (class)
 import Markdown
 
-expand showing content =
+expand : a -> Bool -> String -> Html a
+expand click showing content =
   if showing then
     div []
-      [ button [] [ text "Hide Solution" ]
-      , Markdown.toHtml [] content
+      [ button [ onClick click ] [ text "Hide Solution" ]
+      , div [ class "soln" ] [ Markdown.toHtml [] content ]
       ]
   else
-    button [] [ text "Show Solution" ]
+    button [ onClick click ] [ text "Show Solution" ]

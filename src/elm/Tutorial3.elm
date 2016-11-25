@@ -1,15 +1,47 @@
-module Tutorial3 exposing (tutorial)
-
-import Html exposing (article, text)
+import Html exposing (Html, article, text)
+import Html.App as App
+import Array exposing (Array)
 import Components.Expand exposing (expand)
-import Markdown
+import Util exposing (..)
 
-tutorial = article []
-  [ Markdown.toHtml [] content
-  , expand True soln
+main : Program Never
+main = App.beginnerProgram { model = model
+                           , view = view
+                           , update = update
+                           }
+
+-- Model
+type alias Model = Array Bool
+
+model : Model
+model = Array.fromList [False]
+
+-- Update
+type Msg = ToggleSoln Int
+
+update : Msg -> Model -> Model
+update msg model =
+  let
+    nextValue : Int -> Bool
+    nextValue soln = not (getOrDefault soln model True)
+  in
+    case msg of
+      ToggleSoln soln -> Array.set soln (nextValue soln) model
+
+-- View
+solnExpander : Model -> Int -> String -> Html Msg
+solnExpander model i soln =
+  expand (ToggleSoln i) (getOrDefault i model False) soln
+
+view : Model -> Html Msg
+view model = article []
+  [ markdown p1
+  , solnExpander model 0 soln
+  , markdown p2
   ]
 
-content = """
+p1 : String
+p1 = """
 # The Elm Architecture
 
 The Elm architecture is the main selling point of the Elm language. Though it is not required that you use it, the Elm architecture is a highly opinionated way of organizing data and UI components in your application that is supported out of the box - no special frameworks or libraries to install.
@@ -143,9 +175,9 @@ Before we wrap up this tutorial, it's your turn to build an application on your 
 
 Here's some Elm documentation to help you out:
 
-- Input: http://package.elm-lang.org/packages/evancz/elm-html/4.0.2/Html#input
+- `input`: http://package.elm-lang.org/packages/evancz/elm-html/4.0.2/Html#input
 - The `onInput` event: http://package.elm-lang.org/packages/elm-lang/html/1.1.0/Html-Events#onInput
-- Set data structure: http://package.elm-lang.org/packages/elm-lang/core/5.0.0/Set
+- `Set` data structure: http://package.elm-lang.org/packages/elm-lang/core/5.0.0/Set
 
 *Hint*: You can use the following function to determine if a `String` is a palindrome:
 
@@ -155,6 +187,7 @@ isPalindrome s = String.length s >= 2 && String.reverse s == s
 ```
 """
 
+soln : String
 soln = """
 ```elm
 import Html exposing (Html, div, input, text)
@@ -207,4 +240,17 @@ main = Html.App.beginnerProgram { model = model
                                 , update = update
                                 }
 ```
+"""
+
+p2 : String
+p2 = """
+## Functionally Reactive UI
+
+Reflect for a moment on what we've built in this tutorial. We've constructed 2 different UI applications. Do you notice anything about the way we've constructed these applications?
+
+If you remember the first tutorial, our ultimate goal was to model our UI as a function of our application state: `UI = f(state)`. Have we accomplished that using Elm?
+
+Consider our type definiton on the function that renders our UI: `view : Model -> Html Msg`. That type definition satisfies our goal! Our state is the input, and our UI is the output. The only difference is that our UI produces *side-effects* called *events* when the user interacts with the UI (such as `onClick` and `onInput`).
+
+Using Elm, we've successfully modelled our UI in a functionally reactive way. That is, we've described *what* the UI should do, not *how* the UI should be constructed and modified. We describe the state, actions that can be performed on the state, and our UI; Elm takes care of re-rendering the UI everytime the state changes. This is similar to how Microsoft Excel takes care of re-calculating dependent cells when others are updated. You might also see this style of programming referred to as *declarative* programming (what) as opposed to traditional, Java style *imperative* programming (how).
 """
