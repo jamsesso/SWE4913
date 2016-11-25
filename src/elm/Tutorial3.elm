@@ -6,6 +6,7 @@ import Markdown
 
 tutorial = article []
   [ Markdown.toHtml [] content
+  , expand True soln
   ]
 
 content = """
@@ -59,6 +60,8 @@ update msg model =
 Having a large `if` statement is not the common pattern you'll find if you look at other Elm programs. Usually the `update` function is written using a `case` statement. I'll rewrite the `update` function above using `case` instead - make sure you understand how the two are related.
 
 ```elm
+type Msg = Increment | Decrement | Reset
+
 update : Msg -> Model -> Model
 update msg model =
   case msg of
@@ -72,6 +75,9 @@ update msg model =
 Lastly, we need to create our view. Our `view` function will have the following type definition: `view : Model -> Html Msg` (remember we defined `Msg` in the update section). This type definition means that we're returning `Html` that can produce `Msg`s. `Msg`s will be produced when we interact with the application; in our case when we click the buttons.
 
 ```elm
+import Html exposing (Html, div, button, text)
+import Html.Events exposing (onClick)
+
 view : Model -> Html Msg
 view model =
   div []
@@ -84,5 +90,121 @@ view model =
 
 ### Tying Everything Together
 
-As mentioned above, Elm does all of the work when it comes to tying our model, view, and update function together to create a functioning application.
+As mentioned above, Elm does all of the work when it comes to tying our model, view, and update function together to create a functioning application. Inside of the `Html.App` package are 2 functions: `Html.App.program` and `Html.App.beginnerProgram`. As you might imagine, `beginnerProgram` is a version of `program` that makes opinionated decisions about your application in order to make setup easier. We are going to use `beginnerProgram` to demonstrate tying your application together.
+
+```elm
+import Html exposing (Html, div, button, text)
+import Html.Events exposing (onClick)
+
+-- Model
+type alias Model = Int
+model : Model
+model = 0
+
+-- Update
+type Msg = Increment | Decrement | Reset
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    Increment -> model + 1
+    Decrement -> model - 1
+    Reset -> 0
+
+-- View
+view : Model -> Html Msg
+view model =
+  div []
+    [ button [ onClick Decrement ] [ text "-" ]
+    , text (toString model)
+    , button [ onClick Increment ] [ text "+" ]
+    , button [ onClick Reset ] [ text "Reset" ]
+    ]
+
+-- Tie it all together
+main = Html.App.beginnerProgram { model = model
+                                , view = view
+                                , update = update
+                                }
+```
+
+Using `elm-reactor`, we get the following output:
+
+![Counter example GIF](/static/img/counter-example.gif)
+
+## Your Turn
+
+Before we wrap up this tutorial, it's your turn to build an application on your own using Elm. Here are the requirements:
+
+- Display a text input that the user can type into.
+- Display the reverse value of the input as the user types.
+- If the value of the input is a palindrome, display "That's a palindrome!"
+- Display the total number of distinct palindromes found by the user.
+
+Here's some Elm documentation to help you out:
+
+- Input: http://package.elm-lang.org/packages/evancz/elm-html/4.0.2/Html#input
+- The `onInput` event: http://package.elm-lang.org/packages/elm-lang/html/1.1.0/Html-Events#onInput
+- Set data structure: http://package.elm-lang.org/packages/elm-lang/core/5.0.0/Set
+
+*Hint*: You can use the following function to determine if a `String` is a palindrome:
+
+```elm
+isPalindrome : String -> Bool
+isPalindrome s = String.length s >= 2 && String.reverse s == s
+```
+"""
+
+soln = """
+```elm
+import Html exposing (Html, div, input, text)
+import Html.App
+import Html.Events exposing (onInput)
+import Html.Attributes exposing (value)
+import Set exposing (Set)
+import String
+
+-- Model
+type alias Model = { value: String, palindromes: Set String }
+
+model : Model
+model = Model "" Set.empty
+
+-- Update
+type Msg = UpdateValue String
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    UpdateValue newValue ->
+      if isPalindrome newValue then
+        { model | value = newValue, palindromes = Set.insert newValue model.palindromes }
+      else
+        { model | value = newValue }
+
+isPalindrome : String -> Bool
+isPalindrome s = String.length s >= 2 && String.reverse s == s
+
+-- View
+view : Model -> Html Msg
+view model = div []
+  [ input
+    [ onInput UpdateValue, value model.value ] []
+  , div []
+    [ text (String.reverse model.value) ]
+  , div []
+    (if isPalindrome model.value then
+      [ text "That's a palindrome!" ]
+    else
+      [])
+  , div []
+    [ text ("Palindromes found: " ++ toString (Set.size model.palindromes)) ]
+  ]
+
+-- Main
+main = Html.App.beginnerProgram { model = model
+                                , view = view
+                                , update = update
+                                }
+```
 """
