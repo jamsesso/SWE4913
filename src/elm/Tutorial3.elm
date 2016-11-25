@@ -162,7 +162,7 @@ main = Html.App.beginnerProgram { model = model
 
 Using `elm-reactor`, we get the following output:
 
-![Counter example GIF](/static/img/counter-example.gif)
+![Counter example GIF](./static/img/counter-example.gif)
 
 ## Your Turn
 
