@@ -1,2 +1,2 @@
-var Elm = require('../elm/Main');
+var Elm = require('../elm/Tutorial4');
 Elm.Main.embed(document.getElementById('main'));

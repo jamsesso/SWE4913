@@ -1,23 +1,18 @@
 {
-  "name": "elm-webpack-starter",
-  "description": "Webpack setup for writing Elm apps",
-  "version": "0.7.1",
-  "license": "MIT",
-  "author": "Peter Morawiec",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/moarwick/elm-webpack-starter"
-  },
+  "name": "swe4913-elm-tutorials",
+  "description": "Tutorials for Elm for SWE4913",
+  "version": "1.0.0",
+  "author": "Sam",
+  "private": true,
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --content-base src/",
-    "build": "rimraf docs && webpack",
-    "watch": "webpack --watch"
+    "start": "echo 'Use `webpack --watch --page <your page>` to run in development mode.'",
+    "build": "rimraf docs && webpack --page index && webpack --page tutorial1 && webpack --page tutorial2 && webpack --page tutorial3 && webpack --page tutorial4"
   },
   "devDependencies": {
     "copy-webpack-plugin": "3.0.1",
-    "elm": "0.17.0",
+    "elm": "0.17.1",
     "elm-hot-loader": "0.3.2",
-    "elm-webpack-loader": "3.0.3",
+    "html-webpack-plugin": "2.24.1",
     "rimraf": "2.5.2",
     "webpack": "1.13.1",
     "webpack-dev-server": "1.14.1",

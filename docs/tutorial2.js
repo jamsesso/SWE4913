@@ -1,3 +1,8249 @@
-!function(e){function t(r){if(n[r])return n[r].exports;var o=n[r]={exports:{},id:r,loaded:!1};return e[r].call(o.exports,o,o.exports,t),o.loaded=!0,o.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){var r=n(3);r.Main.embed(document.getElementById("main"))},,,function(e,t){(function(){"use strict";function t(e){function t(t){return function(n){return e(t,n)}}return t.arity=2,t.func=e,t}function n(e){function t(t){return function(n){return function(r){return e(t,n,r)}}}return t.arity=3,t.func=e,t}function r(e){function t(t){return function(n){return function(r){return function(o){return e(t,n,r,o)}}}}return t.arity=4,t.func=e,t}function o(e){function t(t){return function(n){return function(r){return function(o){return function(i){return e(t,n,r,o,i)}}}}}return t.arity=5,t.func=e,t}function i(e){function t(t){return function(n){return function(r){return function(o){return function(i){return function(a){return e(t,n,r,o,i,a)}}}}}}return t.arity=6,t.func=e,t}function a(e){function t(t){return function(n){return function(r){return function(o){return function(i){return function(a){return function(u){return e(t,n,r,o,i,a,u)}}}}}}}return t.arity=7,t.func=e,t}function u(e){function t(t){return function(n){return function(r){return function(o){return function(i){return function(a){return function(u){return function(c){return e(t,n,r,o,i,a,u,c)}}}}}}}}return t.arity=8,t.func=e,t}function c(e){function t(t){return function(n){return function(r){return function(o){return function(i){return function(a){return function(u){return function(c){return function(l){return e(t,n,r,o,i,a,u,c,l)}}}}}}}}}return t.arity=9,t.func=e,t}function l(e,t,n){return 2===e.arity?e.func(t,n):e(t)(n)}function s(e,t,n,r){return 3===e.arity?e.func(t,n,r):e(t)(n)(r)}function f(e,t,n,r,o){return 4===e.arity?e.func(t,n,r,o):e(t)(n)(r)(o)}function h(e,t,n,r,o,i){return 5===e.arity?e.func(t,n,r,o,i):e(t)(n)(r)(o)(i)}var d=function(){function e(e,t){if(e<0||e>=P(t))throw new Error("Index "+e+" is out of range. Check the length of your array first or use getMaybe or getWithDefault.");return r(e,t)}function r(e,t){for(var n=t.height;n>0;n--){for(var r=e>>5*n;t.lengths[r]<=e;)r++;r>0&&(e-=t.lengths[r-1]),t=t.table[r]}return t.table[e]}function o(e,t,n){return e<0||P(n)<=e?n:i(e,t,n)}function i(e,t,n){if(n=j(n),0===n.height)n.table[e]=t;else{var r=J(e,n);r>0&&(e-=n.lengths[r-1]),n.table[r]=i(e,t,n.table[r])}return n}function a(e,t){if(e<=0)return Q;var n=Math.floor(Math.log(e)/Math.log(W));return u(t,n,0,e)}function u(e,t,n,r){if(0===t){for(var o=new Array((r-n)%(W+1)),i=0;i<o.length;i++)o[i]=e(n+i);return{ctor:"_Array",height:0,table:o}}for(var a=Math.pow(W,t),o=new Array(Math.ceil((r-n)/a)),c=new Array(o.length),i=0;i<o.length;i++)o[i]=u(e,t-1,n+i*a,Math.min(n+(i+1)*a,r)),c[i]=P(o[i])+(i>0?c[i-1]:0);return{ctor:"_Array",height:t,table:o,lengths:c}}function c(e){if("[]"===e.ctor)return Q;for(var t=new Array(W),n=[],r=0;"[]"!==e.ctor;)if(t[r]=e._0,e=e._1,r++,r===W){var o={ctor:"_Array",height:0,table:t};s(o,n),t=new Array(W),r=0}if(r>0){var o={ctor:"_Array",height:0,table:t.splice(0,r)};s(o,n)}for(var i=0;i<n.length-1;i++)n[i].table.length>0&&s(n[i],n);var a=n[n.length-1];return a.height>0&&1===a.table.length?a.table[0]:a}function s(e,t){var n=e.height;if(t.length===n){var r={ctor:"_Array",height:n+1,table:[],lengths:[]};t.push(r)}t[n].table.push(e);var o=P(e);t[n].lengths.length>0&&(o+=t[n].lengths[t[n].lengths.length-1]),t[n].lengths.push(o),t[n].table.length===W&&(s(t[n],t),t[n]={ctor:"_Array",height:n+1,table:[],lengths:[]})}function f(e,t){var n=h(e,t);if(null!==n)return n;var r=H(e,t.height);return q(t,r)}function h(e,t){if(0===t.height){if(t.table.length<W){var n={ctor:"_Array",height:0,table:t.table.slice()};return n.table.push(e),n}return null}var r=h(e,I(t));if(null!==r){var n=j(t);return n.table[n.table.length-1]=r,n.lengths[n.lengths.length-1]++,n}if(t.table.length<W){var o=H(e,t.height-1),n=j(t);return n.table.push(o),n.lengths.push(n.lengths[n.lengths.length-1]+P(o)),n}return null}function d(e){return _(x.Nil,e)}function _(e,t){for(var n=t.table.length-1;n>=0;n--)e=0===t.height?x.Cons(t.table[n],e):_(e,t.table[n]);return e}function p(e,t){var n={ctor:"_Array",height:t.height,table:new Array(t.table.length)};t.height>0&&(n.lengths=t.lengths);for(var r=0;r<t.table.length;r++)n.table[r]=0===t.height?e(t.table[r]):p(e,t.table[r]);return n}function g(e,t){return m(e,t,0)}function m(e,t,n){var r={ctor:"_Array",height:t.height,table:new Array(t.table.length)};t.height>0&&(r.lengths=t.lengths);for(var o=0;o<t.table.length;o++)r.table[o]=0===t.height?l(e,n+o,t.table[o]):m(e,t.table[o],0==o?n:n+t.lengths[o-1]);return r}function v(e,t,n){if(0===n.height)for(var r=0;r<n.table.length;r++)t=l(e,n.table[r],t);else for(var r=0;r<n.table.length;r++)t=v(e,t,n.table[r]);return t}function b(e,t,n){if(0===n.height)for(var r=n.table.length;r--;)t=l(e,n.table[r],t);else for(var r=n.table.length;r--;)t=b(e,t,n.table[r]);return t}function y(e,t,n){return e<0&&(e+=P(n)),t<0&&(t+=P(n)),w(e,k(t,n))}function k(e,t){if(e===P(t))return t;if(0===t.height){var n={ctor:"_Array",height:0};return n.table=t.table.slice(0,e),n}var r=J(e,t),o=k(e-(r>0?t.lengths[r-1]:0),t.table[r]);if(0===r)return o;var n={ctor:"_Array",height:t.height,table:t.table.slice(0,r),lengths:t.lengths.slice(0,r)};return o.table.length>0&&(n.table[r]=o,n.lengths[r]=P(o)+(r>0?n.lengths[r-1]:0)),n}function w(e,t){if(0===e)return t;if(0===t.height){var n={ctor:"_Array",height:0};return n.table=t.table.slice(e,t.table.length+1),n}var r=J(e,t),o=w(e-(r>0?t.lengths[r-1]:0),t.table[r]);if(r===t.table.length-1)return o;var n={ctor:"_Array",height:t.height,table:t.table.slice(r,t.table.length+1),lengths:new Array(t.table.length-r)};n.table[0]=o;for(var i=0,a=0;a<n.table.length;a++)i+=P(n.table[a]),n.lengths[a]=i;return n}function T(e,t){if(0===e.table.length)return t;if(0===t.table.length)return e;var n=A(e,t);if(n[0].table.length+n[1].table.length<=W){if(0===n[0].table.length)return n[1];if(0===n[1].table.length)return n[0];if(n[0].table=n[0].table.concat(n[1].table),n[0].height>0){for(var r=P(n[0]),o=0;o<n[1].lengths.length;o++)n[1].lengths[o]+=r;n[0].lengths=n[0].lengths.concat(n[1].lengths)}return n[0]}if(n[0].height>0){var i=R(e,t);i>Y&&(n=O(n[0],n[1],i))}return q(n[0],n[1])}function A(e,t){if(0===e.height&&0===t.height)return[e,t];if(1!==e.height||1!==t.height)if(e.height===t.height){e=j(e),t=j(t);var n=A(I(e),M(t));B(e,n[1]),E(t,n[0])}else if(e.height>t.height){e=j(e);var n=A(I(e),t);B(e,n[0]),t=$(n[1],n[1].height+1)}else{t=j(t);var n=A(e,M(t)),r=0===n[0].table.length?0:1,o=0===r?1:0;E(t,n[r]),e=$(n[o],n[o].height+1)}if(0===e.table.length||0===t.table.length)return[e,t];var i=R(e,t);return i<=Y?[e,t]:O(e,t,i)}function B(e,t){var n=e.table.length-1;e.table[n]=t,e.lengths[n]=P(t),e.lengths[n]+=n>0?e.lengths[n-1]:0}function E(e,t){if(t.table.length>0){e.table[0]=t,e.lengths[0]=P(t);for(var n=P(e.table[0]),r=1;r<e.lengths.length;r++)n+=P(e.table[r]),e.lengths[r]=n}else{e.table.shift();for(var r=1;r<e.lengths.length;r++)e.lengths[r]=e.lengths[r]-e.lengths[0];e.lengths.shift()}}function R(e,t){for(var n=0,r=0;r<e.table.length;r++)n+=e.table[r].table.length;for(var r=0;r<t.table.length;r++)n+=t.table[r].table.length;var o=e.table.length+t.table.length;return o-(Math.floor((n-1)/W)+1)}function S(e,t,n){return n<e.length?e[n]:t[n-e.length]}function N(e,t,n,r){n<e.length?e[n]=r:t[n-e.length]=r}function L(e,t,n,r){N(e.table,t.table,n,r);var o=0===n||n===e.lengths.length?0:S(e.lengths,e.lengths,n-1);N(e.lengths,t.lengths,n,o+P(r))}function C(e,t){t<0&&(t=0);var n={ctor:"_Array",height:e,table:new Array(t)};return e>0&&(n.lengths=new Array(t)),n}function O(e,t,n){for(var r=C(e.height,Math.min(W,e.table.length+t.table.length-n)),o=C(e.height,r.table.length-(e.table.length+t.table.length-n)),i=0;S(e.table,t.table,i).table.length%W===0;)N(r.table,o.table,i,S(e.table,t.table,i)),N(r.lengths,o.lengths,i,S(e.lengths,t.lengths,i)),i++;for(var a=i,u=new C(e.height-1,0),c=0;i-a-(u.table.length>0?1:0)<n;){var l=S(e.table,t.table,i),s=Math.min(W-u.table.length,l.table.length);if(u.table=u.table.concat(l.table.slice(c,s)),u.height>0)for(var f=u.lengths.length,h=f;h<f+s-c;h++)u.lengths[h]=P(u.table[h]),u.lengths[h]+=h>0?u.lengths[h-1]:0;c+=s,l.table.length<=s&&(i++,c=0),u.table.length===W&&(L(r,o,a,u),u=C(e.height-1,0),a++)}for(u.table.length>0&&(L(r,o,a,u),a++);i<e.table.length+t.table.length;)L(r,o,a,S(e.table,t.table,i)),i++,a++;return[r,o]}function I(e){return e.table[e.table.length-1]}function M(e){return e.table[0]}function j(e){var t={ctor:"_Array",height:e.height,table:e.table.slice()};return e.height>0&&(t.lengths=e.lengths.slice()),t}function P(e){return 0===e.height?e.table.length:e.lengths[e.lengths.length-1]}function J(e,t){for(var n=e>>5*t.height;t.lengths[n]<=e;)n++;return n}function H(e,t){return 0===t?{ctor:"_Array",height:0,table:[e]}:{ctor:"_Array",height:t,table:[H(e,t-1)],lengths:[1]}}function $(e,t){return t===e.height?e:{ctor:"_Array",height:t,table:[$(e,t-1)],lengths:[P(e)]}}function q(e,t){return{ctor:"_Array",height:e.height+1,table:[e,t],lengths:[P(e),P(e)+P(t)]}}function F(e){var t=new Array(P(e));return z(t,0,e),t}function z(e,t,n){for(var r=0;r<n.table.length;r++)if(0===n.height)e[t+r]=n.table[r];else{var o=0===r?0:n.lengths[r-1];z(e,t+o,n.table[r])}}function U(e){if(0===e.length)return Q;var t=Math.floor(Math.log(e.length)/Math.log(W));return D(e,t,0,e.length)}function D(e,t,n,r){if(0===t)return{ctor:"_Array",height:0,table:e.slice(n,r)};for(var o=Math.pow(W,t),i=new Array(Math.ceil((r-n)/o)),a=new Array(i.length),u=0;u<i.length;u++)i[u]=D(e,t-1,n+u*o,Math.min(n+(u+1)*o,r)),a[u]=P(i[u])+(u>0?a[u-1]:0);return{ctor:"_Array",height:t,table:i,lengths:a}}var W=32,Y=2,Q={ctor:"_Array",height:0,table:[]};return{empty:Q,fromList:c,toList:d,initialize:t(a),append:t(T),push:t(f),slice:n(y),get:t(e),set:n(o),map:t(p),indexedMap:t(g),foldl:n(v),foldr:n(b),length:P,toJSArray:F,fromJSArray:U}}(),_=function(){function e(e,t){return e/t|0}function r(e,t){return e%t}function o(e,t){if(0===t)throw new Error("Cannot perform mod 0. Division by zero error.");var n=e%t,r=0===e?0:t>0?e>=0?n:n+t:-o(-e,-t);return r===t?0:r}function i(e,t){return Math.log(t)/Math.log(e)}function a(e){return-e}function u(e){return e<0?-e:e}function c(e,t){return p.cmp(e,t)<0?e:t}function l(e,t){return p.cmp(e,t)>0?e:t}function s(e,t,n){return p.cmp(n,e)<0?e:p.cmp(n,t)>0?t:n}function f(e,t){return{ctor:k[p.cmp(e,t)+1]}}function h(e,t){return e!==t}function d(e){return!e}function _(e){return e===1/0||e===-(1/0)}function g(e){return 0|e}function m(e){return e*Math.PI/180}function v(e){return 2*Math.PI*e}function b(e){var t=e._0,n=e._1;return p.Tuple2(t*Math.cos(n),t*Math.sin(n))}function y(e){var t=e._0,n=e._1;return p.Tuple2(Math.sqrt(t*t+n*n),Math.atan2(n,t))}var k=["LT","EQ","GT"];return{div:t(e),rem:t(r),mod:t(o),pi:Math.PI,e:Math.E,cos:Math.cos,sin:Math.sin,tan:Math.tan,acos:Math.acos,asin:Math.asin,atan:Math.atan,atan2:t(Math.atan2),degrees:m,turns:v,fromPolar:b,toPolar:y,sqrt:Math.sqrt,logBase:t(i),negate:a,abs:u,min:t(c),max:t(l),clamp:n(s),compare:t(f),xor:t(h),not:d,truncate:g,ceiling:Math.ceil,floor:Math.floor,round:Math.round,toFloat:function(e){return e},isNaN:isNaN,isInfinite:_}}(),p=function(){function e(e,t){for(var r,o=[],i=n(e,t,0,o);i&&(r=o.pop());)i=n(r.x,r.y,0,o);return i}function n(e,t,r,o){if(r>100)return o.push({x:e,y:t}),!0;if(e===t)return!0;if("object"!=typeof e){if("function"==typeof e)throw new Error('Trying to use `(==)` on functions. There is no way to know if functions are "the same" in the Elm sense. Read more about this at http://package.elm-lang.org/packages/elm-lang/core/latest/Basics#== which describes why it is this way and what the better version will look like.');return!1}if(null===e||null===t)return!1;if(e instanceof Date)return e.getTime()===t.getTime();if(!("ctor"in e)){for(var i in e)if(!n(e[i],t[i],r+1,o))return!1;return!0}if("RBNode_elm_builtin"!==e.ctor&&"RBEmpty_elm_builtin"!==e.ctor||(e=re(e),t=re(t)),"Set_elm_builtin"===e.ctor&&(e=_elm_lang$core$Set$toList(e),t=_elm_lang$core$Set$toList(t)),"::"===e.ctor){for(var a=e,u=t;"::"===a.ctor&&"::"===u.ctor;){if(!n(a._0,u._0,r+1,o))return!1;a=a._1,u=u._1}return a.ctor===u.ctor}if("_Array"===e.ctor){var c=d.toJSArray(e),l=d.toJSArray(t);if(c.length!==l.length)return!1;for(var s=0;s<c.length;s++)if(!n(c[s],l[s],r+1,o))return!1;return!0}if(!n(e.ctor,t.ctor,r+1,o))return!1;for(var i in e)if(!n(e[i],t[i],r+1,o))return!1;return!0}function r(e,t){if("object"!=typeof e)return e===t?m:e<t?g:v;if(e instanceof String){var n=e.valueOf(),o=t.valueOf();return n===o?m:n<o?g:v}if("::"===e.ctor||"[]"===e.ctor){for(;"::"===e.ctor&&"::"===t.ctor;){var i=r(e._0,t._0);if(i!==m)return i;e=e._1,t=t._1}return e.ctor===t.ctor?m:"[]"===e.ctor?g:v}if("_Tuple"===e.ctor.slice(0,6)){var i,a=e.ctor.slice(6)-0,u="cannot compare tuples with more than 6 elements.";if(0===a)return m;if(a>=1){if(i=r(e._0,t._0),i!==m)return i;if(a>=2){if(i=r(e._1,t._1),i!==m)return i;if(a>=3){if(i=r(e._2,t._2),i!==m)return i;if(a>=4){if(i=r(e._3,t._3),i!==m)return i;if(a>=5){if(i=r(e._4,t._4),i!==m)return i;if(a>=6){if(i=r(e._5,t._5),i!==m)return i;if(a>=7)throw new Error("Comparison error: "+u)}}}}}}return m}throw new Error("Comparison error: comparison is only defined on ints, floats, times, chars, strings, lists of comparable values, and tuples of comparable values.")}function o(e,t){return{ctor:"_Tuple2",_0:e,_1:t}}function i(e){return new String(e)}function a(e){return y++}function u(e,t){var n={};for(var r in e){var o=r in t?t[r]:e[r];n[r]=o}return n}function c(e,t){return{ctor:"::",_0:e,_1:t}}function l(e,t){if("string"==typeof e)return e+t;if("[]"===e.ctor)return t;var n=c(e._0,k),r=n;for(e=e._1;"[]"!==e.ctor;)r._1=c(e._0,k),e=e._1,r=r._1;return r._1=t,n}function s(e,t){return function(n){throw new Error("Ran into a `Debug.crash` in module `"+e+"` "+h(t)+"\nThe message provided by the code author is:\n\n    "+n)}}function f(e,t,n){return function(r){throw new Error("Ran into a `Debug.crash` in module `"+e+"`\n\nThis was caused by the `case` expression "+h(t)+".\nOne of the branches ended with a crash and the following value got through:\n\n    "+_(n)+"\n\nThe message provided by the code author is:\n\n    "+r)}}function h(e){return e.start.line==e.end.line?"on line "+e.start.line:"between lines "+e.start.line+" and "+e.end.line}function _(e){var t=typeof e;if("function"===t){var n=e.func?e.func.name:e.name;return"<function"+(""===n?"":":")+n+">"}if("boolean"===t)return e?"True":"False";if("number"===t)return e+"";if(e instanceof String)return"'"+p(e,!0)+"'";if("string"===t)return'"'+p(e,!1)+'"';if(null===e)return"null";if("object"===t&&"ctor"in e){var r=e.ctor.substring(0,5);if("_Tupl"===r){var o=[];for(var i in e)"ctor"!==i&&o.push(_(e[i]));return"("+o.join(",")+")"}if("_Task"===r)return"<task>";if("_Array"===e.ctor){var a=q(e);return"Array.fromList "+_(a)}if("<decoder>"===e.ctor)return"<decoder>";if("_Process"===e.ctor)return"<process:"+e.id+">";if("::"===e.ctor){var o="["+_(e._0);for(e=e._1;"::"===e.ctor;)o+=","+_(e._0),e=e._1;return o+"]"}if("[]"===e.ctor)return"[]";if("Set_elm_builtin"===e.ctor)return"Set.fromList "+_(_elm_lang$core$Set$toList(e));if("RBNode_elm_builtin"===e.ctor||"RBEmpty_elm_builtin"===e.ctor)return"Dict.fromList "+_(re(e));var o="";for(var u in e)if("ctor"!==u){var c=_(e[u]),l=c[0],s="{"===l||"("===l||"<"===l||'"'===l||c.indexOf(" ")<0;o+=" "+(s?c:"("+c+")")}return e.ctor+o}if("object"===t){if(e instanceof Date)return"<"+e.toString()+">";if(e.elm_web_socket)return"<websocket>";var o=[];for(var i in e)o.push(i+" = "+_(e[i]));return 0===o.length?"{}":"{ "+o.join(", ")+" }"}return"<internal structure>"}function p(e,t){var n=e.replace(/\\/g,"\\\\").replace(/\n/g,"\\n").replace(/\t/g,"\\t").replace(/\r/g,"\\r").replace(/\v/g,"\\v").replace(/\0/g,"\\0");return t?n.replace(/\'/g,"\\'"):n.replace(/\"/g,'\\"')}var g=-1,m=0,v=1,b={ctor:"_Tuple0"},y=0,k={ctor:"[]"};return{eq:e,cmp:r,Tuple0:b,Tuple2:o,chr:i,update:u,guid:a,append:t(l),crash:s,crashCase:f,toString:_}}(),g=(t(function(e,t){var n=t;return l(e,n._0,n._1)}),n(function(e,t,n){return e({ctor:"_Tuple2",_0:t,_1:n})}),n(function(e,t,n){return l(e,n,t)}),t(function(e,t){return e})),m=m||{};m["<|"]=t(function(e,t){return e(t)});var m=m||{};m["|>"]=t(function(e,t){return t(e)});var m=m||{};m[">>"]=n(function(e,t,n){return t(e(n))});var m=m||{};m["<<"]=n(function(e,t,n){return e(t(n))});var m=m||{};m["++"]=p.append;var v=p.toString,b=(_.isInfinite,_.isNaN,_.toFloat,_.ceiling,_.floor,_.truncate,_.round,_.not),m=(_.xor,m||{});m["||"]=_.or;var m=m||{};m["&&"]=_.and;var y=(_.max,_.min,_.compare),m=m||{};m[">="]=_.ge;var m=m||{};m["<="]=_.le;var m=m||{};m[">"]=_.gt;var m=m||{};m["<"]=_.lt;var m=m||{};m["/="]=_.neq;var m=m||{};m["=="]=_.eq;var m=(_.e,_.pi,_.clamp,_.logBase,_.abs,_.negate,_.sqrt,_.atan2,_.atan,_.asin,_.acos,_.tan,_.sin,_.cos,m||{});m["^"]=_.exp;var m=m||{};m["%"]=_.mod;var m=(_.rem,m||{});m["//"]=_.div;var m=m||{};m["/"]=_.floatDiv;var m=m||{};m["*"]=_.mul;var m=m||{};m["-"]=_.sub;var m=m||{};m["+"]=_.add;var k=(_.toPolar,_.fromPolar,_.turns,_.degrees,t(function(e,t){var n=t;return"Just"===n.ctor?n._0:e}),{ctor:"Nothing"}),w=(t(function(e,t){var n=e;return"Just"===n.ctor?t(n._0):k}),function(e){return{ctor:"Just",_0:e}}),x=(t(function(e,t){var n=t;return"Just"===n.ctor?w(e(n._0)):k}),n(function(e,t,n){var r={ctor:"_Tuple2",_0:t,_1:n};return"_Tuple2"===r.ctor&&"Just"===r._0.ctor&&"Just"===r._1.ctor?w(l(e,r._0._0,r._1._0)):k}),r(function(e,t,n,r){var o={ctor:"_Tuple3",_0:t,_1:n,_2:r};return"_Tuple3"===o.ctor&&"Just"===o._0.ctor&&"Just"===o._1.ctor&&"Just"===o._2.ctor?w(s(e,o._0._0,o._1._0,o._2._0)):k}),o(function(e,t,n,r,o){var i={ctor:"_Tuple4",_0:t,_1:n,_2:r,_3:o};return"_Tuple4"===i.ctor&&"Just"===i._0.ctor&&"Just"===i._1.ctor&&"Just"===i._2.ctor&&"Just"===i._3.ctor?w(f(e,i._0._0,i._1._0,i._2._0,i._3._0)):k}),i(function(e,t,n,r,o,i){var a={ctor:"_Tuple5",_0:t,_1:n,_2:r,_3:o,_4:i};return"_Tuple5"===a.ctor&&"Just"===a._0.ctor&&"Just"===a._1.ctor&&"Just"===a._2.ctor&&"Just"===a._3.ctor&&"Just"===a._4.ctor?w(h(e,a._0._0,a._1._0,a._2._0,a._3._0,a._4._0)):k}),function(){function e(e,t){return{ctor:"::",_0:e,_1:t}}function a(t){for(var n=k,r=t.length;r--;)n=e(t[r],n);return n}function u(e){for(var t=[];"[]"!==e.ctor;)t.push(e._0),e=e._1;return t}function c(t,n){var r=k;if(t<=n)do r=e(n,r);while(n-- >t);return r}function d(e,t,n){for(var r=u(n),o=t,i=r.length;i--;)o=l(e,r[i],o);return o}function _(e,t,n){for(var r=[];"[]"!==t.ctor&&"[]"!==n.ctor;)r.push(l(e,t._0,n._0)),t=t._1,n=n._1;return a(r)}function g(e,t,n,r){for(var o=[];"[]"!==t.ctor&&"[]"!==n.ctor&&"[]"!==r.ctor;)o.push(s(e,t._0,n._0,r._0)),t=t._1,n=n._1,r=r._1;return a(o)}function m(e,t,n,r,o){for(var i=[];"[]"!==t.ctor&&"[]"!==n.ctor&&"[]"!==r.ctor&&"[]"!==o.ctor;)i.push(f(e,t._0,n._0,r._0,o._0)),t=t._1,n=n._1,r=r._1,o=o._1;return a(i)}function v(e,t,n,r,o,i){for(var u=[];"[]"!==t.ctor&&"[]"!==n.ctor&&"[]"!==r.ctor&&"[]"!==o.ctor&&"[]"!==i.ctor;)u.push(h(e,t._0,n._0,r._0,o._0,i._0)),t=t._1,n=n._1,r=r._1,o=o._1,i=i._1;return a(u)}function b(e,t){return a(u(t).sort(function(t,n){return p.cmp(e(t),e(n))}))}function y(e,t){return a(u(t).sort(function(t,n){var r=e(t)(n).ctor;return"EQ"===r?0:"LT"===r?-1:1}))}var k={ctor:"[]"};return{Nil:k,Cons:e,cons:t(e),toArray:u,fromArray:a,range:c,foldr:n(d),map2:n(_),map3:r(g),map4:o(m),map5:i(v),sortBy:t(b),sortWith:t(y)}}()),T=(x.sortWith,x.sortBy,t(function(e,t){for(;;){if(p.cmp(e,0)<1)return t;var n=t;if("[]"===n.ctor)return t;var r=e-1,o=n._1;e=r,t=o}}),x.map5,x.map4,x.map3,x.map2),A=t(function(e,t){for(;;){var n=t;if("[]"===n.ctor)return!1;if(e(n._0))return!0;var r=e,o=n._1;e=r,t=o}}),B=(t(function(e,t){return b(l(A,function(t){return b(e(t))},t))}),x.foldr),E=n(function(e,t,n){for(;;){var r=n;if("[]"===r.ctor)return t;var o=e,i=l(e,r._0,t),a=r._1;e=o,t=i,n=a}}),R=function(e){return s(E,t(function(e,t){return t+1}),0,e)},S=(t(function(e,t){return s(T,e,x.range(0,R(t)-1),t)}),t(function(e,t){return l(A,function(t){return p.eq(t,e)},t)}),S||{});S["::"]=x.cons;var N=t(function(e,n){return s(B,t(function(t,n){return l(S["::"],e(t),n)}),x.fromArray([]),n)}),L=(t(function(e,n){var r=t(function(t,n){return e(t)?l(S["::"],t,n):n});return s(B,r,x.fromArray([]),n)}),n(function(e,t,n){var r=e(t);return"Just"===r.ctor?l(S["::"],r._0,n):n})),C=(t(function(e,t){return s(B,L(e),x.fromArray([]),t)}),function(e){return s(E,t(function(e,t){return l(S["::"],e,t)}),x.fromArray([]),e)}),O=(n(function(e,n,r){var o=t(function(t,n){var r=n;return"::"===r.ctor?l(S["::"],l(e,t,r._0),n):x.fromArray([])});return C(s(E,o,x.fromArray([n]),r))}),t(function(e,n){var r=n;return"[]"===r.ctor?e:s(B,t(function(e,t){return l(S["::"],e,t)}),n,e)})),I=function(e){return s(B,O,x.fromArray([]),e)},M=(t(function(e,t){return I(l(N,e,t))}),t(function(e,n){var r=t(function(t,n){var r=n,o=r._0,i=r._1;return e(t)?{ctor:"_Tuple2",_0:l(S["::"],t,o),_1:i}:{ctor:"_Tuple2",_0:o,_1:l(S["::"],t,i)}});return s(B,r,{ctor:"_Tuple2",_0:x.fromArray([]),_1:x.fromArray([])},n)}),t(function(e,n){var r=n;if("[]"===r.ctor)return x.fromArray([]);var o=t(function(t,n){return l(S["::"],e,l(S["::"],t,n))}),i=s(B,o,x.fromArray([]),r._1);return l(S["::"],r._0,i)}),n(function(e,t,n){for(;;){if(p.cmp(e,0)<1)return n;var r=t;if("[]"===r.ctor)return n;var o=e-1,i=r._1,a=l(S["::"],r._0,n);e=o,t=i,n=a}})),j=t(function(e,t){return C(s(M,e,t,x.fromArray([])))}),P=n(function(e,t,n){if(p.cmp(t,0)<1)return x.fromArray([]);var r={ctor:"_Tuple2",_0:t,_1:n};e:do{t:do{if("_Tuple2"!==r.ctor)break e;if("[]"===r._1.ctor)return n;if("::"!==r._1._1.ctor){if(1===r._0)break t;break e}switch(r._0){case 1:break t;case 2:return x.fromArray([r._1._0,r._1._1._0]);case 3:if("::"===r._1._1._1.ctor)return x.fromArray([r._1._0,r._1._1._0,r._1._1._1._0]);break e;default:if("::"===r._1._1._1.ctor&&"::"===r._1._1._1._1.ctor){var o=r._1._1._1._0,i=r._1._1._0,a=r._1._0,u=r._1._1._1._1._0,c=r._1._1._1._1._1;return p.cmp(e,1e3)>0?l(S["::"],a,l(S["::"],i,l(S["::"],o,l(S["::"],u,l(j,t-4,c))))):l(S["::"],a,l(S["::"],i,l(S["::"],o,l(S["::"],u,s(P,e+1,t-4,c)))))}break e}}while(!1);return x.fromArray([r._1._0])}while(!1);return n}),J=(t(function(e,t){return s(P,0,e,t)}),n(function(e,t,n){for(;;){if(p.cmp(t,0)<1)return e;var r=l(S["::"],n,e),o=t-1,i=n;e=r,t=o,n=i}})),H=(t(function(e,t){return s(J,x.fromArray([]),e,t)}),d.append,d.length,d.slice,d.set),$=t(function(e,t){return p.cmp(0,e)<1&&p.cmp(e,d.length(t))<0?w(l(d.get,e,t)):k}),q=(d.push,d.empty,t(function(e,n){var r=t(function(t,n){return e(t)?l(d.push,t,n):n});return s(d.foldl,r,d.empty,n)}),d.foldr,d.foldl,d.indexedMap,d.map,d.toList),F=d.fromList,z=d.initialize,U=(t(function(e,t){return l(z,e,g(t))}),function(){return{fromCode:function(e){return p.chr(String.fromCharCode(e))},toCode:function(e){return e.charCodeAt(0)},toUpper:function(e){return p.chr(e.toUpperCase())},toLower:function(e){return p.chr(e.toLowerCase())},toLocaleUpper:function(e){return p.chr(e.toLocaleUpperCase())},toLocaleLower:function(e){return p.chr(e.toLocaleLowerCase())}}}()),D=(U.fromCode,U.toCode),W=(U.toLocaleLower,U.toLocaleUpper,U.toLower,U.toUpper,n(function(e,t,n){var r=D(n);return p.cmp(r,D(e))>-1&&p.cmp(r,D(t))<1})),Y=(l(W,p.chr("A"),p.chr("Z")),l(W,p.chr("a"),p.chr("z")),l(W,p.chr("0"),p.chr("9")),l(W,p.chr("0"),p.chr("7")),function(){function e(e){return{ctor:"_Task_succeed",value:e}}function n(e){return{ctor:"_Task_fail",value:e}}function r(e){return{ctor:"_Task_nativeBinding",callback:e,cancel:null}}function o(e,t){return{ctor:"_Task_andThen",task:e,callback:t}}function i(e,t){return{ctor:"_Task_onError",task:e,callback:t}}function a(e){return{ctor:"_Task_receive",callback:e}}function u(e){var t={ctor:"_Process",id:p.guid(),root:e,stack:null,mailbox:[]};return _(t),t}function c(t){return r(function(n){var r=u(t);n(e(r))})}function l(e,t){e.mailbox.push(t),_(e)}function s(t,n){return r(function(r){l(t,n),r(e(p.Tuple0))})}function f(t){return r(function(n){var r=t.root;"_Task_nativeBinding"===r.ctor&&r.cancel&&r.cancel(),t.root=null,n(e(p.Tuple0))})}function h(t){return r(function(n){var r=setTimeout(function(){n(e(p.Tuple0))},t);return function(){clearTimeout(r)}})}function d(e,t){for(;e<m;){var n=t.root.ctor;if("_Task_succeed"!==n)if("_Task_fail"!==n)if("_Task_andThen"!==n)if("_Task_onError"!==n){if("_Task_nativeBinding"===n){t.root.cancel=t.root.callback(function(e){t.root=e,_(t)});break}if("_Task_receive"!==n)throw new Error(n);var r=t.mailbox;if(0===r.length)break;t.root=t.root.callback(r.shift()),++e}else t.stack={ctor:"_Task_onError",callback:t.root.callback,rest:t.stack},t.root=t.root.task,++e;else t.stack={ctor:"_Task_andThen",callback:t.root.callback,rest:t.stack},t.root=t.root.task,++e;else{for(;t.stack&&"_Task_andThen"===t.stack.ctor;)t.stack=t.stack.rest;if(null===t.stack)break;t.root=t.stack.callback(t.root.value),t.stack=t.stack.rest,++e}else{for(;t.stack&&"_Task_onError"===t.stack.ctor;)t.stack=t.stack.rest;if(null===t.stack)break;t.root=t.stack.callback(t.root.value),t.stack=t.stack.rest,++e}}return e<m?e+1:(_(t),e)}function _(e){b.push(e),v||(setTimeout(g,0),v=!0)}function g(){for(var e,t=0;t<m&&(e=b.shift());)e.root&&(t=d(t,e));return e?void setTimeout(g,0):void(v=!1)}var m=1e4,v=!1,b=[];return{succeed:e,fail:n,nativeBinding:r,andThen:t(o),onError:t(i),receive:a,spawn:c,kill:f,sleep:h,send:t(s),rawSpawn:u,rawSend:l}}()),Q=function(){function e(e,t,n){var o=n?i(t,n):r(t);e.worker=function(e){return o(void 0,e,!1)},e.embed=function(e,t){return o(e,t,!0)},e.fullscreen=function(e){return o(document.body,e,!0)}}function r(e){return function(t){var n="Cannot initialize module `"+e+"` because it has no `main` value!\nWhat should I show on screen?";throw t.innerHTML=o(n),new Error(n)}}function o(e){return'<div style="padding-left:1em;"><h2 style="font-weight:normal;"><b>Oops!</b> Something went wrong when starting your Elm program.</h2><pre style="padding-left:1em;">'+e+"</pre></div>"}function i(e,t){return function(n,r,i){try{var c=u(e,t);return i||(c.renderer=a),d(e,c,n,r)}catch(e){throw n.innerHTML=o(e.message),e}}}function a(){return{update:function(){}}}function u(e,n){var r=n.main;if("undefined"==typeof r.init){var o=k(x.Nil),i=p.Tuple2(p.Tuple0,o);return et({init:function(){return i},view:function(){return r},update:t(function(){return i}),subscriptions:function(){return o}})}var a=n.flags,u=a?h(e,r.init,a):c(e,r.init);return et({init:u,view:r.view,update:r.update,subscriptions:r.subscriptions})}function c(e,t){return function(n){if("undefined"!=typeof n)throw new Error("You are giving module `"+e+"` an argument in JavaScript.\nThis module does not take arguments though! You probably need to change the\ninitialization code to something like `Elm."+e+".fullscreen()`");return t()}}function h(e,t,n){return function(r){var o=l(ze.run,n,r);if("Err"===o.ctor)throw new Error("You are trying to initialize module `"+e+"` with an unexpected argument.\nWhen trying to convert it to a usable Elm value, I run into this problem:\n\n"+o._0);return t(o._0)}}function d(e,t,n,r){function o(e,t){return Y.nativeBinding(function(n){var r=l(c,e,t);t=r._0,a.update(f(t));var o=r._1,i=s(t);T(d,o,i),n(Y.succeed(t))})}function i(e){Y.rawSend(g,e)}var a,u=t.init,c=t.update,s=t.subscriptions,f=t.view,h=t.renderer,d={},p=Y.nativeBinding(function(e){var t=u(r),o=t._0;a=h(n,i,f(o));var c=t._1,l=s(o);T(d,c,l),e(Y.succeed(o))}),g=b(p,o),m=_(d,i);return m?{ports:m}:{}}function _(e,t){var n;for(var r in O){var o=O[r];o.isForeign&&(n=n||{},n[r]="cmd"===o.tag?N(r):C(r,t)),e[r]=g(o,t)}return n}function g(e,t){function n(e,t){if("self"===e.ctor)return s(a,r,e._0,t);var n=e._0;switch(o){case"cmd":return s(i,r,n.cmds,t);case"sub":return s(i,r,n.subs,t);case"fx":return f(i,r,n.cmds,n.subs,t)}}var r={main:t,self:void 0},o=e.tag,i=e.onEffects,a=e.onSelfMsg,u=b(e.init,n);return r.self=u,u}function m(e,t){return Y.nativeBinding(function(n){e.main(t),n(Y.succeed(p.Tuple0))})}function v(e,t){return l(Y.send,e.self,{ctor:"self",_0:t})}function b(e,t){function n(e){var o=Y.receive(function(n){return t(n,e)});return l(r,o,n)}var r=Y.andThen,o=l(r,e,n);return Y.rawSpawn(o)}function y(e){return function(t){return{type:"leaf",home:e,value:t}}}function k(e){return{type:"node",branches:e}}function w(e,t){return{type:"map",tagger:e,tree:t}}function T(e,t,n){var r={};A(!0,t,r,null),A(!1,n,r,null);for(var o in e){var i=o in r?r[o]:{cmds:x.Nil,subs:x.Nil};Y.rawSend(e[o],{ctor:"fx",_0:i})}}function A(e,t,n,r){switch(t.type){case"leaf":var o=t.home,i=B(e,o,r,t.value);return void(n[o]=E(e,i,n[o]));case"node":for(var a=t.branches;"[]"!==a.ctor;)A(e,a._0,n,r),a=a._1;return;case"map":return void A(e,t.tree,n,{tagger:t.tagger,rest:r})}}function B(e,t,n,r){function o(e){for(var t=n;t;)e=t.tagger(e),t=t.rest;return e}var i=e?O[t].cmdMap:O[t].subMap;return l(i,o,r)}function E(e,t,n){return n=n||{cmds:x.Nil,subs:x.Nil},e?(n.cmds=x.Cons(t,n.cmds),n):(n.subs=x.Cons(t,n.subs),n)}function R(e){if(e in O)throw new Error("There can only be one port named `"+e+"`, but your program has multiple.")}function S(e,t){return R(e),O[e]={tag:"cmd",cmdMap:I,converter:t,isForeign:!0},y(e)}function N(e){function t(e,t,n){for(;"[]"!==t.ctor;){for(var r=a(t._0),o=0;o<i.length;o++)i[o](r);t=t._1}return u}function r(e){i.push(e)}function o(e){var t=i.indexOf(e);t>=0&&i.splice(t,1)}var i=[],a=O[e].converter,u=Y.succeed(null);return O[e].init=u,O[e].onEffects=n(t),{subscribe:r,unsubscribe:o}}function L(e,t){return R(e),O[e]={tag:"sub",subMap:M,converter:t,isForeign:!0},y(e)}function C(e,t){function r(e,t,n){for(var r=o(e,t,n),i=0;i<s.length;i++)u(s[i]);return s=null,_=u,d=o,r}function o(e,t,n){return f=t,p}function i(e,t,n){return d(e,t,n)}function a(e){s.push(e)}function u(n){var r=l(Ye,h,n);if("Err"===r.ctor)throw new Error("Trying to send an unexpected type of value through port `"+e+"`:\n"+r._0);for(var o=r._0,i=f;"[]"!==i.ctor;)t(i._0(o)),i=i._1}function c(e){_(e)}var s=[],f=x.Nil,h=O[e].converter,d=r,_=a,p=Y.succeed(null);return O[e].init=p,O[e].onEffects=n(i),{send:c}}var O={},I=t(function(e,t){return t}),M=t(function(e,t){return function(n){return e(t(n))}});return{sendToApp:t(m),sendToSelf:t(v),mainToProgram:u,effectManagers:O,outgoingPort:S,incomingPort:L,addPublicModule:e,leaf:y,batch:k,map:t(w)}}(),G=(Y.succeed,Q.sendToSelf,Q.sendToApp,Q.batch),K=(G(x.fromArray([])),K||{});K["!"]=t(function(e,t){return{ctor:"_Tuple2",_0:e,_1:G(t)}});var V=(Q.map,t(function(e,t){var n=t;return"Ok"===n.ctor?n._0:e}),function(e){return{ctor:"Err",_0:e}}),X=(t(function(e,t){var n=e;return"Ok"===n.ctor?t(n._0):V(n._0)}),function(e){return{ctor:"Ok",_0:e}}),Z=(t(function(e,t){var n=t;return"Ok"===n.ctor?X(e(n._0)):V(n._0)}),n(function(e,t,n){var r={ctor:"_Tuple2",_0:t,_1:n};return"Ok"===r._0.ctor?"Ok"===r._1.ctor?X(l(e,r._0._0,r._1._0)):V(r._1._0):V(r._0._0)}),r(function(e,t,n,r){var o={ctor:"_Tuple3",_0:t,_1:n,_2:r};return"Ok"===o._0.ctor?"Ok"===o._1.ctor?"Ok"===o._2.ctor?X(s(e,o._0._0,o._1._0,o._2._0)):V(o._2._0):V(o._1._0):V(o._0._0)}),o(function(e,t,n,r,o){var i={ctor:"_Tuple4",_0:t,_1:n,_2:r,_3:o};return"Ok"===i._0.ctor?"Ok"===i._1.ctor?"Ok"===i._2.ctor?"Ok"===i._3.ctor?X(f(e,i._0._0,i._1._0,i._2._0,i._3._0)):V(i._3._0):V(i._2._0):V(i._1._0):V(i._0._0)}),i(function(e,t,n,r,o,i){var a={ctor:"_Tuple5",_0:t,_1:n,_2:r,_3:o,_4:i};return"Ok"===a._0.ctor?"Ok"===a._1.ctor?"Ok"===a._2.ctor?"Ok"===a._3.ctor?"Ok"===a._4.ctor?X(h(e,a._0._0,a._1._0,a._2._0,a._3._0,a._4._0)):V(a._4._0):V(a._3._0):V(a._2._0):V(a._1._0):V(a._0._0)}),t(function(e,t){var n=t;return"Ok"===n.ctor?X(n._0):V(e(n._0))}),t(function(e,t){var n=t;return"Just"===n.ctor?X(n._0):V(e)}),function(){function e(e,t){var n=e+": "+p.toString(t),r=r||{};return r.stdout?r.stdout.write(n):console.log(n),t}function n(e){throw new Error(e)}return{crash:n,log:t(e)}}()),ee=function(){function e(e){return 0===e.length}function r(e,t){return e+t}function o(e){var t=e[0];return t?w(p.Tuple2(p.chr(t),e.slice(1))):k;
-}function i(e,t){return e+t}function a(e){return x.toArray(e).join("")}function u(e){return e.length}function c(e,t){for(var n=t.split(""),r=n.length;r--;)n[r]=e(p.chr(n[r]));return n.join("")}function s(e,t){return t.split("").map(p.chr).filter(e).join("")}function f(e){return e.split("").reverse().join("")}function h(e,t,n){for(var r=n.length,o=0;o<r;++o)t=l(e,p.chr(n[o]),t);return t}function d(e,t,n){for(var r=n.length;r--;)t=l(e,p.chr(n[r]),t);return t}function _(e,t){return x.fromArray(t.split(e))}function g(e,t){return x.toArray(t).join(e)}function m(e,t){for(var n="";e>0;)1&e&&(n+=t),e>>=1,t+=t;return n}function v(e,t,n){return n.slice(e,t)}function b(e,t){return e<1?"":t.slice(0,e)}function y(e,t){return e<1?"":t.slice(-e)}function T(e,t){return e<1?t:t.slice(e)}function A(e,t){return e<1?t:t.slice(0,-e)}function B(e,t,n){var r=(e-n.length)/2;return m(Math.ceil(r),t)+n+m(0|r,t)}function E(e,t,n){return n+m(e-n.length,t)}function R(e,t,n){return m(e-n.length,t)+n}function S(e){return e.trim()}function N(e){return e.replace(/^\s+/,"")}function L(e){return e.replace(/\s+$/,"")}function C(e){return x.fromArray(e.trim().split(/\s+/g))}function O(e){return x.fromArray(e.split(/\r\n|\r|\n/g))}function I(e){return e.toUpperCase()}function M(e){return e.toLowerCase()}function j(e,t){for(var n=t.length;n--;)if(e(p.chr(t[n])))return!0;return!1}function P(e,t){for(var n=t.length;n--;)if(!e(p.chr(t[n])))return!1;return!0}function J(e,t){return t.indexOf(e)>-1}function H(e,t){return 0===t.indexOf(e)}function $(e,t){return t.length>=e.length&&t.lastIndexOf(e)===t.length-e.length}function q(e,t){var n=e.length;if(n<1)return x.Nil;for(var r=0,o=[];(r=t.indexOf(e,r))>-1;)o.push(r),r+=n;return x.fromArray(o)}function F(e){var t=e.length;if(0===t)return V("could not convert string '"+e+"' to an Int");var n=0;if("-"===e[0]){if(1===t)return V("could not convert string '"+e+"' to an Int");n=1}for(var r=n;r<t;++r){var o=e[r];if(o<"0"||"9"<o)return V("could not convert string '"+e+"' to an Int")}return X(parseInt(e,10))}function z(e){var t=e.length;if(0===t)return V("could not convert string '"+e+"' to a Float");var n=0;if("-"===e[0]){if(1===t)return V("could not convert string '"+e+"' to a Float");n=1}for(var r=0,o=n;o<t;++o){var i=e[o];if(!("0"<=i&&i<="9"||"."===i&&(r+=1,r<=1)))return V("could not convert string '"+e+"' to a Float")}return X(parseFloat(e))}function U(e){return x.fromArray(e.split("").map(p.chr))}function D(e){return x.toArray(e).join("")}return{isEmpty:e,cons:t(r),uncons:o,append:t(i),concat:a,length:u,map:t(c),filter:t(s),reverse:f,foldl:n(h),foldr:n(d),split:t(_),join:t(g),repeat:t(m),slice:n(v),left:t(b),right:t(y),dropLeft:t(T),dropRight:t(A),pad:n(B),padLeft:n(R),padRight:n(E),trim:S,trimLeft:N,trimRight:L,words:C,lines:O,toUpper:I,toLower:M,any:t(j),all:t(P),contains:t(J),startsWith:t(H),endsWith:t($),indexes:t(q),toInt:F,toFloat:z,toList:U,fromList:D}}(),te=(ee.fromList,ee.toList,ee.toFloat,ee.toInt,ee.indexes,ee.indexes,ee.endsWith,ee.startsWith,ee.contains,ee.all,ee.any,ee.toLower,ee.toUpper,ee.lines,ee.words,ee.trimRight,ee.trimLeft,ee.trim,ee.padRight,ee.padLeft,ee.pad,ee.dropRight,ee.dropLeft,ee.right,ee.left,ee.slice,ee.repeat,ee.join,ee.split,ee.foldr,ee.foldl,ee.reverse,ee.filter,ee.map,ee.length,ee.concat),ne=(ee.append,ee.uncons,ee.cons,ee.isEmpty,n(function(e,t,n){for(;;){var r=n;if("RBEmpty_elm_builtin"===r.ctor)return t;var o=e,i=s(e,r._1,r._2,s(ne,e,t,r._4)),a=r._3;e=o,t=i,n=a}})),re=function(e){return s(ne,n(function(e,t,n){return l(S["::"],{ctor:"_Tuple2",_0:e,_1:t},n)}),x.fromArray([]),e)},oe=n(function(e,t,n){for(;;){var r=n;if("RBEmpty_elm_builtin"===r.ctor)return t;var o=e,i=s(e,r._1,r._2,s(oe,e,t,r._3)),a=r._4;e=o,t=i,n=a}}),ie=(i(function(e,r,o,i,a,u){var c=n(function(t,n,i){for(;;){var a=i,u=a._1,c=a._0,l=c;if("[]"===l.ctor)return{ctor:"_Tuple2",_0:c,_1:s(o,t,n,u)};var h=l._1,d=l._0._1,_=l._0._0;if(!(p.cmp(_,t)<0))return p.cmp(_,t)>0?{ctor:"_Tuple2",_0:c,_1:s(o,t,n,u)}:{ctor:"_Tuple2",_0:h,_1:f(r,_,d,n,u)};var g=t,m=n,v={ctor:"_Tuple2",_0:h,_1:s(e,_,d,u)};t=g,n=m,i=v}}),l=s(oe,c,{ctor:"_Tuple2",_0:re(i),_1:u},a),h=l._0,d=l._1;return s(E,t(function(t,n){var r=t;return s(e,r._0,r._1,n)}),d,h)}),r(function(e,t,n,r){return Z.crash(te(x.fromArray(["Internal red-black tree invariant violated, expected ",e," and got ",v(t),"/",n,"/",r,"\nPlease report this bug to <https://github.com/elm-lang/core/issues>"])))})),ae=function(e){var t=e;e:do{if("RBNode_elm_builtin"===t.ctor){if("BBlack"===t._0.ctor)return!0;break e}if("LBBlack"===t._0.ctor)return!0;break e}while(!1);return!1},ue=t(function(e,t){for(;;){var n=t;if("RBEmpty_elm_builtin"===n.ctor)return e;var r=l(ue,e+1,n._4),o=n._3;e=r,t=o}}),ce=t(function(e,t){e:for(;;){var n=t;if("RBEmpty_elm_builtin"===n.ctor)return k;var r=l(y,e,n._1);switch(r.ctor){case"LT":var o=e,i=n._3;e=o,t=i;continue e;case"EQ":return w(n._2);default:var a=e,u=n._4;e=a,t=u;continue e}}}),le=t(function(e,t){var n=l(ce,e,t);return"Just"===n.ctor}),se=n(function(e,t,n){for(;;){var r=n;if("RBEmpty_elm_builtin"===r.ctor)return{ctor:"_Tuple2",_0:e,_1:t};var o=r._1,i=r._2,a=r._4;e=o,t=i,n=a}}),fe={ctor:"NBlack"},he={ctor:"BBlack"},de={ctor:"Black"},_e=function(e){var t=e;if("RBNode_elm_builtin"===t.ctor){var n=t._0;return p.eq(n,de)||p.eq(n,he)}return!0},pe={ctor:"Red"},ge=function(e){var t=e;switch(t.ctor){case"Black":return he;case"Red":return de;case"NBlack":return pe;default:return Z.crash("Can't make a double black node more black!")}},me=function(e){var t=e;switch(t.ctor){case"BBlack":return de;case"Black":return pe;case"Red":return fe;default:return Z.crash("Can't make a negative black node less black!")}},ve={ctor:"LBBlack"},be={ctor:"LBlack"},ye=function(e){return{ctor:"RBEmpty_elm_builtin",_0:e}},ke=ye(be),we=o(function(e,t,n,r,o){return{ctor:"RBNode_elm_builtin",_0:e,_1:t,_2:n,_3:r,_4:o}}),xe=function(e){var t=e;return"RBNode_elm_builtin"===t.ctor&&"Red"===t._0.ctor?h(we,de,t._1,t._2,t._3,t._4):e},Te=function(e){var t=e;return"RBNode_elm_builtin"===t.ctor?h(we,me(t._0),t._1,t._2,t._3,t._4):ye(be)},Ae=function(e){return function(t){return function(n){return function(r){return function(o){return function(i){return function(a){return function(u){return function(c){return function(l){return function(s){return h(we,me(e),r,o,h(we,de,t,n,u,c),h(we,de,i,a,l,s))}}}}}}}}}}},Be=function(e){var t=e;return"RBEmpty_elm_builtin"===t.ctor?ye(be):h(we,de,t._1,t._2,t._3,t._4)},Ee=function(e){var t=e;return"RBEmpty_elm_builtin"===t.ctor?Z.crash("can't make a Leaf red"):h(we,pe,t._1,t._2,t._3,t._4)},Re=function(e){var t=e;e:do{t:do{n:do{r:do{o:do{i:do{a:do{if("RBNode_elm_builtin"!==t.ctor)break e;if("RBNode_elm_builtin"===t._3.ctor)if("RBNode_elm_builtin"===t._4.ctor)switch(t._3._0.ctor){case"Red":switch(t._4._0.ctor){case"Red":if("RBNode_elm_builtin"===t._3._3.ctor&&"Red"===t._3._3._0.ctor)break a;if("RBNode_elm_builtin"===t._3._4.ctor&&"Red"===t._3._4._0.ctor)break i;if("RBNode_elm_builtin"===t._4._3.ctor&&"Red"===t._4._3._0.ctor)break o;if("RBNode_elm_builtin"===t._4._4.ctor&&"Red"===t._4._4._0.ctor)break r;break e;case"NBlack":if("RBNode_elm_builtin"===t._3._3.ctor&&"Red"===t._3._3._0.ctor)break a;if("RBNode_elm_builtin"===t._3._4.ctor&&"Red"===t._3._4._0.ctor)break i;if("BBlack"===t._0.ctor&&"RBNode_elm_builtin"===t._4._3.ctor&&"Black"===t._4._3._0.ctor&&"RBNode_elm_builtin"===t._4._4.ctor&&"Black"===t._4._4._0.ctor)break n;break e;default:if("RBNode_elm_builtin"===t._3._3.ctor&&"Red"===t._3._3._0.ctor)break a;if("RBNode_elm_builtin"===t._3._4.ctor&&"Red"===t._3._4._0.ctor)break i;break e}case"NBlack":switch(t._4._0.ctor){case"Red":if("RBNode_elm_builtin"===t._4._3.ctor&&"Red"===t._4._3._0.ctor)break o;if("RBNode_elm_builtin"===t._4._4.ctor&&"Red"===t._4._4._0.ctor)break r;if("BBlack"===t._0.ctor&&"RBNode_elm_builtin"===t._3._3.ctor&&"Black"===t._3._3._0.ctor&&"RBNode_elm_builtin"===t._3._4.ctor&&"Black"===t._3._4._0.ctor)break t;break e;case"NBlack":if("BBlack"===t._0.ctor){if("RBNode_elm_builtin"===t._4._3.ctor&&"Black"===t._4._3._0.ctor&&"RBNode_elm_builtin"===t._4._4.ctor&&"Black"===t._4._4._0.ctor)break n;if("RBNode_elm_builtin"===t._3._3.ctor&&"Black"===t._3._3._0.ctor&&"RBNode_elm_builtin"===t._3._4.ctor&&"Black"===t._3._4._0.ctor)break t;break e}break e;default:if("BBlack"===t._0.ctor&&"RBNode_elm_builtin"===t._3._3.ctor&&"Black"===t._3._3._0.ctor&&"RBNode_elm_builtin"===t._3._4.ctor&&"Black"===t._3._4._0.ctor)break t;break e}default:switch(t._4._0.ctor){case"Red":if("RBNode_elm_builtin"===t._4._3.ctor&&"Red"===t._4._3._0.ctor)break o;if("RBNode_elm_builtin"===t._4._4.ctor&&"Red"===t._4._4._0.ctor)break r;break e;case"NBlack":if("BBlack"===t._0.ctor&&"RBNode_elm_builtin"===t._4._3.ctor&&"Black"===t._4._3._0.ctor&&"RBNode_elm_builtin"===t._4._4.ctor&&"Black"===t._4._4._0.ctor)break n;break e;default:break e}}else switch(t._3._0.ctor){case"Red":if("RBNode_elm_builtin"===t._3._3.ctor&&"Red"===t._3._3._0.ctor)break a;if("RBNode_elm_builtin"===t._3._4.ctor&&"Red"===t._3._4._0.ctor)break i;break e;case"NBlack":if("BBlack"===t._0.ctor&&"RBNode_elm_builtin"===t._3._3.ctor&&"Black"===t._3._3._0.ctor&&"RBNode_elm_builtin"===t._3._4.ctor&&"Black"===t._3._4._0.ctor)break t;break e;default:break e}else{if("RBNode_elm_builtin"!==t._4.ctor)break e;switch(t._4._0.ctor){case"Red":if("RBNode_elm_builtin"===t._4._3.ctor&&"Red"===t._4._3._0.ctor)break o;if("RBNode_elm_builtin"===t._4._4.ctor&&"Red"===t._4._4._0.ctor)break r;break e;case"NBlack":if("BBlack"===t._0.ctor&&"RBNode_elm_builtin"===t._4._3.ctor&&"Black"===t._4._3._0.ctor&&"RBNode_elm_builtin"===t._4._4.ctor&&"Black"===t._4._4._0.ctor)break n;break e;default:break e}}}while(!1);return Ae(t._0)(t._3._3._1)(t._3._3._2)(t._3._1)(t._3._2)(t._1)(t._2)(t._3._3._3)(t._3._3._4)(t._3._4)(t._4)}while(!1);return Ae(t._0)(t._3._1)(t._3._2)(t._3._4._1)(t._3._4._2)(t._1)(t._2)(t._3._3)(t._3._4._3)(t._3._4._4)(t._4)}while(!1);return Ae(t._0)(t._1)(t._2)(t._4._3._1)(t._4._3._2)(t._4._1)(t._4._2)(t._3)(t._4._3._3)(t._4._3._4)(t._4._4)}while(!1);return Ae(t._0)(t._1)(t._2)(t._4._1)(t._4._2)(t._4._4._1)(t._4._4._2)(t._3)(t._4._3)(t._4._4._3)(t._4._4._4)}while(!1);return h(we,de,t._4._3._1,t._4._3._2,h(we,de,t._1,t._2,t._3,t._4._3._3),h(Se,de,t._4._1,t._4._2,t._4._3._4,Ee(t._4._4)))}while(!1);return h(we,de,t._3._4._1,t._3._4._2,h(Se,de,t._3._1,t._3._2,Ee(t._3._3),t._3._4._3),h(we,de,t._1,t._2,t._3._4._4,t._4))}while(!1);return e},Se=o(function(e,t,n,r,o){var i=h(we,e,t,n,r,o);return _e(i)?Re(i):i}),Ne=o(function(e,t,n,r,o){return ae(r)||ae(o)?h(Se,ge(e),t,n,Te(r),Te(o)):h(we,e,t,n,r,o)}),Le=o(function(e,t,n,r,o){var i=o;return"RBEmpty_elm_builtin"===i.ctor?s(Ce,e,r,o):h(Ne,e,t,n,r,h(Le,i._0,i._1,i._2,i._3,i._4))}),Ce=n(function(e,t,n){var r={ctor:"_Tuple2",_0:t,_1:n};if("RBEmpty_elm_builtin"!==r._0.ctor){if("RBEmpty_elm_builtin"===r._1.ctor){var o=r._1._0,i=r._0._0,a={ctor:"_Tuple3",_0:e,_1:i,_2:o};return"_Tuple3"===a.ctor&&"Black"===a._0.ctor&&"Red"===a._1.ctor&&"LBlack"===a._2.ctor?h(we,de,r._0._1,r._0._2,r._0._3,r._0._4):f(ie,"Black/Red/LBlack",e,v(i),v(o))}var u=r._0._2,c=r._0._4,l=r._0._1,d=h(Le,r._0._0,l,u,r._0._3,c),_=s(se,l,u,c),p=_._0,g=_._1;return h(Ne,e,p,g,d,n)}if("RBEmpty_elm_builtin"!==r._1.ctor){var m=r._1._0,b=r._0._0,y={ctor:"_Tuple3",_0:e,_1:b,_2:m};return"_Tuple3"===y.ctor&&"Black"===y._0.ctor&&"LBlack"===y._1.ctor&&"Red"===y._2.ctor?h(we,de,r._1._1,r._1._2,r._1._3,r._1._4):f(ie,"Black/LBlack/Red",e,v(b),v(m))}var k=e;switch(k.ctor){case"Red":return ye(be);case"Black":return ye(ve);default:return Z.crash("cannot have bblack or nblack nodes at this point")}}),Oe=t(function(e,t){var n=t;if("RBEmpty_elm_builtin"===n.ctor)return ye(be);var r=n._1;return h(we,n._0,r,l(e,r,n._2),l(Oe,e,n._3),l(Oe,e,n._4))}),Ie={ctor:"Same"},Me={ctor:"Remove"},je={ctor:"Insert"},Pe=n(function(e,t,n){var r=function(n){var o=n;if("RBEmpty_elm_builtin"===o.ctor){var i=t(k);return"Nothing"===i.ctor?{ctor:"_Tuple2",_0:Ie,_1:ke}:{ctor:"_Tuple2",_0:je,_1:h(we,pe,e,i._0,ke,ke)}}var a=o._2,u=o._4,c=o._3,f=o._1,d=o._0,_=l(y,e,f);switch(_.ctor){case"EQ":var p=t(w(a));return"Nothing"===p.ctor?{ctor:"_Tuple2",_0:Me,_1:s(Ce,d,c,u)}:{ctor:"_Tuple2",_0:Ie,_1:h(we,d,f,p._0,c,u)};case"LT":var g=r(c),m=g._0,v=g._1,b=m;switch(b.ctor){case"Same":return{ctor:"_Tuple2",_0:Ie,_1:h(we,d,f,a,v,u)};case"Insert":return{ctor:"_Tuple2",_0:je,_1:h(Se,d,f,a,v,u)};default:return{ctor:"_Tuple2",_0:Me,_1:h(Ne,d,f,a,v,u)}}default:var x=r(u),m=x._0,T=x._1,A=m;switch(A.ctor){case"Same":return{ctor:"_Tuple2",_0:Ie,_1:h(we,d,f,a,c,T)};case"Insert":return{ctor:"_Tuple2",_0:je,_1:h(Se,d,f,a,c,T)};default:return{ctor:"_Tuple2",_0:Me,_1:h(Ne,d,f,a,c,T)}}}},o=r(n),i=o._0,a=o._1,u=i;switch(u.ctor){case"Same":return a;case"Insert":return xe(a);default:return Be(a)}}),Je=n(function(e,t,n){return s(Pe,e,g(w(t)),n)}),He=(t(function(e,t){return s(Je,e,t,ke)}),t(function(e,t){return s(oe,Je,t,e)}),t(function(e,t){var r=n(function(t,n,r){return l(e,t,n)?s(Je,t,n,r):r});return s(oe,r,ke,t)})),$e=(t(function(e,n){return l(He,t(function(e,t){return l(le,e,n)}),e)}),t(function(e,t){var r=n(function(t,n,r){var o=r,i=o._1,a=o._0;return l(e,t,n)?{ctor:"_Tuple2",_0:s(Je,t,n,a),_1:i}:{ctor:"_Tuple2",_0:a,_1:s(Je,t,n,i)}});return s(oe,r,{ctor:"_Tuple2",_0:ke,_1:ke},t)}),t(function(e,t){return s(Pe,e,g(k),t)})),qe=(t(function(e,t){return s(oe,n(function(e,t,n){return l($e,e,n)}),e,t)}),Q.batch),Fe=qe(x.fromArray([])),ze=(Q.map,Z.crash,Z.log,function(){function e(e){return{ctor:"<decoder>",tag:"succeed",msg:e}}function l(e){return{ctor:"<decoder>",tag:"fail",msg:e}}function s(e){return{ctor:"<decoder>",tag:e}}function f(e,t){return{ctor:"<decoder>",tag:e,decoder:t}}function h(e){return{ctor:"<decoder>",tag:"null",value:e}}function _(e,t){return{ctor:"<decoder>",tag:"field",field:e,decoder:t}}function g(e){return{ctor:"<decoder>",tag:"key-value",decoder:e}}function m(e,t){return{ctor:"<decoder>",tag:"map-many",func:e,decoders:t}}function v(e,t){return{ctor:"<decoder>",tag:"tuple",func:e,decoders:t}}function b(e,t){return{ctor:"<decoder>",tag:"andThen",decoder:e,callback:t}}function y(e,t){return{ctor:"<decoder>",tag:"customAndThen",decoder:e,callback:t}}function T(e){return{ctor:"<decoder>",tag:"oneOf",decoders:e}}function A(e,t){return m(e,[t])}function B(e,t,n){return m(e,[t,n])}function E(e,t,n,r){return m(e,[t,n,r])}function R(e,t,n,r,o){return m(e,[t,n,r,o])}function S(e,t,n,r,o,i){return m(e,[t,n,r,o,i])}function N(e,t,n,r,o,i,a){return m(e,[t,n,r,o,i,a])}function L(e,t,n,r,o,i,a,u){return m(e,[t,n,r,o,i,a,u])}function C(e,t,n,r,o,i,a,u,c){return m(e,[t,n,r,o,i,a,u,c])}function O(e,t){return v(e,[t])}function I(e,t,n){return v(e,[t,n])}function M(e,t,n,r){return v(e,[t,n,r])}function j(e,t,n,r,o){return v(e,[t,n,r,o])}function P(e,t,n,r,o,i){return v(e,[t,n,r,o,i])}function J(e,t,n,r,o,i,a){return v(e,[t,n,r,o,i,a])}function H(e,t,n,r,o,i,a,u){return v(e,[t,n,r,o,i,a,u])}function $(e,t,n,r,o,i,a,u,c){return v(e,[t,n,r,o,i,a,u,c])}function q(e){return{tag:"ok",value:e}}function F(e,t){return{tag:"primitive",type:e,value:t}}function z(e,t){return{tag:"index",index:e,rest:t}}function U(e,t){return{tag:"field",field:e,rest:t}}function D(e){return{tag:"oneOf",problems:e}}function W(e){return{tag:"custom",msg:e}}function Y(e){return{tag:"fail",msg:e}}function Q(e){for(var t="_";e;)switch(e.tag){case"primitive":return"Expecting "+e.type+("_"===t?"":" at "+t)+" but instead got: "+G(e.value);case"index":t+="["+e.index+"]",e=e.rest;break;case"field":t+="."+e.field,e=e.rest;break;case"oneOf":for(var n=e.problems,r=0;r<n.length;r++)n[r]=Q(n[r]);return"I ran into the following problems"+("_"===t?"":" at "+t)+":\n\n"+n.join("\n");case"custom":return"A `customDecoder` failed"+("_"===t?"":" at "+t)+" with the message: "+e.msg;case"fail":return"I ran into a `fail` decoder"+("_"===t?"":" at "+t)+": "+e.msg}}function G(e){return void 0===e?"undefined":JSON.stringify(e)}function K(e,t){var n;try{n=JSON.parse(t)}catch(e){return V("Given an invalid JSON: "+e.message)}return Z(e,n)}function Z(e,t){var n=ee(e,t);return"ok"===n.tag?X(n.value):V(Q(n))}function ee(e,t){switch(e.tag){case"bool":return"boolean"==typeof t?q(t):F("a Bool",t);case"int":return"number"!=typeof t?F("an Int",t):-2147483647<t&&t<2147483647&&(0|t)===t?q(t):!isFinite(t)||t%1?F("an Int",t):q(t);case"float":return"number"==typeof t?q(t):F("a Float",t);case"string":return"string"==typeof t?q(t):t instanceof String?q(t+""):F("a String",t);case"null":return null===t?q(e.value):F("null",t);case"value":return q(t);case"list":if(!(t instanceof Array))return F("a List",t);for(var n=x.Nil,r=t.length;r--;){var o=ee(e.decoder,t[r]);if("ok"!==o.tag)return z(r,o);n=x.Cons(o.value,n)}return q(n);case"array":if(!(t instanceof Array))return F("an Array",t);for(var i=t.length,a=new Array(i),r=i;r--;){var o=ee(e.decoder,t[r]);if("ok"!==o.tag)return z(r,o);a[r]=o.value}return q(d.fromJSArray(a));case"maybe":var o=ee(e.decoder,t);return q("ok"===o.tag?w(o.value):k);case"field":var u=e.field;if("object"!=typeof t||null===t||!(u in t))return F("an object with a field named `"+u+"`",t);var o=ee(e.decoder,t[u]);return"ok"===o.tag?o:U(u,o);case"key-value":if("object"!=typeof t||null===t||t instanceof Array)return F("an object",t);var c=x.Nil;for(var l in t){var o=ee(e.decoder,t[l]);if("ok"!==o.tag)return U(l,o);var s=p.Tuple2(l,o.value);c=x.Cons(s,c)}return q(c);case"map-many":for(var f=e.func,h=e.decoders,r=0;r<h.length;r++){var o=ee(h[r],t);if("ok"!==o.tag)return o;f=f(o.value)}return q(f);case"tuple":var h=e.decoders,i=h.length;if(!(t instanceof Array)||t.length!==i)return F("a Tuple with "+i+" entries",t);for(var f=e.func,r=0;r<i;r++){var o=ee(h[r],t[r]);if("ok"!==o.tag)return z(r,o);f=f(o.value)}return q(f);case"customAndThen":var o=ee(e.decoder,t);if("ok"!==o.tag)return o;var _=e.callback(o.value);return"Err"===_.ctor?W(_._0):q(_._0);case"andThen":var o=ee(e.decoder,t);return"ok"!==o.tag?o:ee(e.callback(o.value),t);case"oneOf":for(var g=[],m=e.decoders;"[]"!==m.ctor;){var o=ee(m._0,t);if("ok"===o.tag)return o;g.push(o),m=m._1}return D(g);case"fail":return Y(e.msg);case"succeed":return q(e.msg)}}function te(e,t){if(e===t)return!0;if(e.tag!==t.tag)return!1;switch(e.tag){case"succeed":case"fail":return e.msg===t.msg;case"bool":case"int":case"float":case"string":case"value":return!0;case"null":return e.value===t.value;case"list":case"array":case"maybe":case"key-value":return te(e.decoder,t.decoder);case"field":return e.field===t.field&&te(e.decoder,t.decoder);case"map-many":case"tuple":return e.func===t.func&&ne(e.decoders,t.decoders);case"andThen":case"customAndThen":return e.callback===t.callback&&te(e.decoder,t.decoder);case"oneOf":return ne(e.decoders,t.decoders)}}function ne(e,t){var n=e.length;if(n!==t.length)return!1;for(var r=0;r<n;r++)if(!te(e[r],t[r]))return!1;return!0}function re(e,t){return JSON.stringify(t,null,e)}function oe(e){return e}function ie(e){for(var t={};"[]"!==e.ctor;){var n=e._0;t[n._0]=n._1,e=e._1}return t}return{encode:t(re),runOnString:t(K),run:t(Z),decodeNull:h,decodePrimitive:s,decodeContainer:t(f),decodeField:t(_),decodeObject1:t(A),decodeObject2:n(B),decodeObject3:r(E),decodeObject4:o(R),decodeObject5:i(S),decodeObject6:a(N),decodeObject7:u(L),decodeObject8:c(C),decodeKeyValuePairs:g,decodeTuple1:t(O),decodeTuple2:n(I),decodeTuple3:r(M),decodeTuple4:o(j),decodeTuple5:i(P),decodeTuple6:a(J),decodeTuple7:u(H),decodeTuple8:c($),andThen:t(b),customAndThen:t(y),fail:l,succeed:e,oneOf:T,identity:oe,encodeNull:null,encodeArray:d.toJSArray,encodeList:x.toArray,encodeObject:ie,equality:te}}()),Ue=(ze.encodeList,ze.encodeArray,ze.encodeObject,ze.encodeNull,ze.identity),De=(ze.identity,ze.identity,ze.identity),We=(ze.encode,ze.decodeTuple8,ze.decodeTuple7,ze.decodeTuple6,ze.decodeTuple5,ze.decodeTuple4,ze.decodeTuple3,ze.decodeTuple2,ze.decodeTuple1,ze.succeed),Ye=(ze.fail,ze.andThen,ze.customAndThen,ze.run),Qe=(ze.decodePrimitive("value"),ze.decodeNull,ze.decodePrimitive("bool")),Ge=ze.decodePrimitive("int"),Ke=(ze.decodePrimitive("float"),ze.decodePrimitive("string")),Ve=(ze.oneOf,ze.decodeKeyValuePairs,ze.decodeObject8,ze.decodeObject7,ze.decodeObject6,ze.decodeObject5,ze.decodeObject4,ze.decodeObject3,ze.decodeObject2,ze.decodeObject1,Ve||{});Ve[":="]=ze.decodeField;var Xe=t(function(e,n){return s(B,t(function(e,t){return l(Ve[":="],e,t)}),n,e)}),Ze=(ze.runOnString,ze.decodeObject1,function(){function e(e){return{type:"text",text:e}}function o(e){return t(function(t,n){return i(e,t,n)})}function i(e,t,n){for(var r=p(t),o=r.namespace,i=r.facts,a=[],u=0;"[]"!==n.ctor;){var c=n._0;u+=c.descendantsCount||0,a.push(c),n=n._1}return u+=a.length,{type:"node",tag:e,facts:i,children:a,namespace:o,descendantsCount:u}}function a(e,t,n){for(var r=p(t),o=r.namespace,i=r.facts,a=[],u=0;"[]"!==n.ctor;){var c=n._0;u+=c._1.descendantsCount||0,a.push(c),n=n._1}return u+=a.length,{type:"keyed-node",tag:e,facts:i,children:a,namespace:o,descendantsCount:u}}function u(e,t,n){var r=p(e).facts;return{type:"custom",facts:r,model:t,impl:n}}function c(e,t){return{type:"tagger",tagger:e,node:t,descendantsCount:1+(t.descendantsCount||0)}}function f(e,t,n){return{type:"thunk",func:e,args:t,thunk:n,node:void 0}}function h(e,t){return f(e,[t],function(){return e(t)})}function d(e,t,n){return f(e,[t,n],function(){return l(e,t,n)})}function _(e,t,n,r){return f(e,[t,n,r],function(){return s(e,t,n,r)})}function p(e){for(var t,n={};"[]"!==e.ctor;){var r=e._0,o=r.key;if(o===K||o===V||o===G){var i=n[o]||{};i[r.realKey]=r.value,n[o]=i}else if(o===Q){for(var a=n[o]||{},u=r.value;"[]"!==u.ctor;){var c=u._0;a[c._0]=c._1,u=u._1}n[o]=a}else"namespace"===o?t=r.value:n[o]=r.value;e=e._1}return{facts:n,namespace:t}}function g(e){return{key:Q,value:e}}function m(e,t){return{key:e,value:t}}function v(e,t){return{key:K,realKey:e,value:t}}function b(e,t,n){return{key:V,realKey:t,value:{value:n,namespace:e}}}function y(e,t,n){return{key:G,realKey:e,value:{options:t,decoder:n}}}function k(e,t){return(!e.options!==t.options||e.stopPropagation===t.stopPropagation&&e.preventDefault===t.preventDefault)&&ze.equality(e.decoder,t.decoder)}function w(e,t,n){function r(e){"NO_REQUEST"===u&&X(o),u="PENDING_REQUEST",l=e}function o(){switch(u){case"NO_REQUEST":throw new Error("Unexpected draw callback.\nPlease report this to <https://github.com/elm-lang/core/issues>.");case"PENDING_REQUEST":X(o),u="EXTRA_REQUEST";var e=N(c,l);return a=q(a,c,e,i),void(c=l);case"EXTRA_REQUEST":return void(u="NO_REQUEST")}}var i={tagger:t,parent:void 0},a=x(n,i);e.appendChild(a);var u="NO_REQUEST",c=n,l=n;return{update:r}}function x(e,t){switch(e.type){case"thunk":return e.node||(e.node=e.thunk()),x(e.node,t);case"tagger":for(var n=e.node,r=e.tagger;"tagger"===n.type;)"object"!=typeof r?r=[r,n.tagger]:r.push(n.tagger),n=n.node;var o={tagger:r,parent:t},i=x(n,o);return i.elm_event_node_ref=o,i;case"text":return document.createTextNode(e.text);case"node":var i=e.namespace?document.createElementNS(e.namespace,e.tag):document.createElement(e.tag);T(i,t,e.facts);for(var a=e.children,u=0;u<a.length;u++)i.appendChild(x(a[u],t));return i;case"keyed-node":var i=e.namespace?document.createElementNS(e.namespace,e.tag):document.createElement(e.tag);T(i,t,e.facts);for(var a=e.children,u=0;u<a.length;u++)i.appendChild(x(a[u]._1,t));return i;case"custom":var i=e.impl.render(e.model);return T(i,t,e.facts),i}}function T(e,t,n){for(var r in n){var o=n[r];switch(r){case Q:A(e,o);break;case G:B(e,t,o);break;case K:R(e,o);break;case V:S(e,o);break;case"value":e[r]!==o&&(e[r]=o);break;default:e[r]=o}}}function A(e,t){var n=e.style;for(var r in t)n[r]=t[r]}function B(e,t,n){var r=e.elm_handlers||{};for(var o in n){var i=r[o],a=n[o];if("undefined"==typeof a)e.removeEventListener(o,i),r[o]=void 0;else if("undefined"==typeof i){var i=E(t,a);e.addEventListener(o,i),r[o]=i}else i.info=a}e.elm_handlers=r}function E(e,t){function n(t){var r=n.info,o=l(ze.run,r.decoder,t);if("Ok"===o.ctor){var i=r.options;i.stopPropagation&&t.stopPropagation(),i.preventDefault&&t.preventDefault();for(var a=o._0,u=e;u;){var c=u.tagger;if("function"==typeof c)a=c(a);else for(var s=c.length;s--;)a=c[s](a);u=u.parent}}}return n.info=t,n}function R(e,t){for(var n in t){var r=t[n];"undefined"==typeof r?e.removeAttribute(n):e.setAttribute(n,r)}}function S(e,t){for(var n in t){var r=t[n],o=r.namespace,i=r.value;"undefined"==typeof i?e.removeAttributeNS(o,n):e.setAttributeNS(o,n,i)}}function N(e,t){var n=[];return C(e,t,n,0),n}function L(e,t,n){return{index:t,type:e,data:n,domNode:void 0,eventNode:void 0}}function C(e,t,n,r){if(e!==t){var o=e.type,i=t.type;if(o!==i)return void n.push(L("p-redraw",r,t));switch(i){case"thunk":for(var a=e.args,u=t.args,c=a.length,l=e.func===t.func&&c===u.length;l&&c--;)l=a[c]===u[c];if(l)return void(t.node=e.node);t.node=t.thunk();var s=[];return C(e.node,t.node,s,0),void(s.length>0&&n.push(L("p-thunk",r,s)));case"tagger":for(var f=e.tagger,h=t.tagger,d=!1,_=e.node;"tagger"===_.type;)d=!0,"object"!=typeof f?f=[f,_.tagger]:f.push(_.tagger),_=_.node;for(var p=t.node;"tagger"===p.type;)d=!0,"object"!=typeof h?h=[h,p.tagger]:h.push(p.tagger),p=p.node;return d&&f.length!==h.length?void n.push(L("p-redraw",r,t)):((d?O(f,h):f===h)||n.push(L("p-tagger",r,h)),void C(_,p,n,r+1));case"text":if(e.text!==t.text)return void n.push(L("p-text",r,t.text));return;case"node":if(e.tag!==t.tag||e.namespace!==t.namespace)return void n.push(L("p-redraw",r,t));var g=I(e.facts,t.facts);return"undefined"!=typeof g&&n.push(L("p-facts",r,g)),void M(e,t,n,r);case"keyed-node":if(e.tag!==t.tag||e.namespace!==t.namespace)return void n.push(L("p-redraw",r,t));var g=I(e.facts,t.facts);return"undefined"!=typeof g&&n.push(L("p-facts",r,g)),void j(e,t,n,r);case"custom":if(e.impl!==t.impl)return void n.push(L("p-redraw",r,t));var g=I(e.facts,t.facts);"undefined"!=typeof g&&n.push(L("p-facts",r,g));var m=t.impl.diff(e,t);if(m)return void n.push(L("p-custom",r,m));return}}}function O(e,t){for(var n=0;n<e.length;n++)if(e[n]!==t[n])return!1;return!0}function I(e,t,n){var r;for(var o in e)if(o!==Q&&o!==G&&o!==K&&o!==V)if(o in t){var i=e[o],a=t[o];i===a&&"value"!==o||n===G&&k(i,a)||(r=r||{},r[o]=a)}else r=r||{},r[o]="undefined"==typeof n?"string"==typeof e[o]?"":null:n===Q?"":n===G||n===K?void 0:{namespace:e[o].namespace,value:void 0};else{var u=I(e[o],t[o]||{},o);u&&(r=r||{},r[o]=u)}for(var c in t)c in e||(r=r||{},r[c]=t[c]);return r}function M(e,t,n,r){var o=e.children,i=t.children,a=o.length,u=i.length;a>u?n.push(L("p-remove-last",r,a-u)):a<u&&n.push(L("p-append",r,i.slice(a)));for(var c=r,l=a<u?a:u,s=0;s<l;s++){c++;var f=o[s];C(f,i[s],n,c),c+=f.descendantsCount||0}}function j(e,t,n,r){for(var o=[],i={},a=[],u=e.children,c=t.children,l=u.length,s=c.length,f=0,h=0,d=r;f<l&&h<s;){var _=u[f],p=c[h],g=_._0,m=p._0,v=_._1,b=p._1;if(g!==m){var y=f+1<l,k=h+1<s;if(y)var w=u[f+1],x=w._0,T=w._1,A=m===x;if(k)var B=c[h+1],E=B._0,R=B._1,S=g===E;if(y&&k&&S&&A)d++,C(v,R,o,d),P(i,o,g,b,h,a),d+=v.descendantsCount||0,d++,J(i,o,g,T,d),d+=T.descendantsCount||0,f+=2,h+=2;else if(k&&S)d++,P(i,o,m,b,h,a),C(v,R,o,d),d+=v.descendantsCount||0,f+=1,h+=2;else if(y&&A)d++,J(i,o,g,v,d),d+=v.descendantsCount||0,d++,C(T,b,o,d),d+=T.descendantsCount||0,f+=2,h+=1;else{if(!y||!k||x!==E)break;d++,J(i,o,g,v,d),P(i,o,m,b,h,a),d+=v.descendantsCount||0,d++,C(T,R,o,d),d+=T.descendantsCount||0,f+=2,h+=2}}else d++,C(v,b,o,d),d+=v.descendantsCount||0,f++,h++}for(;f<l;){d++;var _=u[f],v=_._1;J(i,o,_._0,v,d),d+=v.descendantsCount||0,f++}for(var N;h<s;){N=N||[];var p=c[h];P(i,o,p._0,p._1,void 0,N),h++}(o.length>0||a.length>0||"undefined"!=typeof N)&&n.push(L("p-reorder",r,{patches:o,inserts:a,endInserts:N}))}function P(e,t,n,r,o,i){var a=e[n];if("undefined"==typeof a)return a={tag:"insert",vnode:r,index:o,data:void 0},i.push({index:o,entry:a}),void(e[n]=a);if("remove"===a.tag){i.push({index:o,entry:a}),a.tag="move";var u=[];return C(a.vnode,r,u,a.index),a.index=o,void(a.data.data={patches:u,entry:a})}P(e,t,n+Z,r,o,i)}function J(e,t,n,r,o){var i=e[n];if("undefined"==typeof i){var a=L("p-remove",o,void 0);return t.push(a),void(e[n]={tag:"remove",vnode:r,index:o,data:a})}if("insert"===i.tag){i.tag="move";var u=[];C(r,i.vnode,u,o);var a=L("p-remove",o,{patches:u,entry:i});return void t.push(a)}J(e,t,n+Z,r,o)}function H(e,t,n,r){$(e,t,n,0,0,t.descendantsCount,r)}function $(e,t,n,r,o,i,a){for(var u=n[r],c=u.index;c===o;){var l=u.type;if("p-thunk"===l)H(e,t.node,u.data,a);else if("p-reorder"===l){u.domNode=e,u.eventNode=a;var s=u.data.patches;s.length>0&&$(e,t,s,0,o,i,a)}else if("p-remove"===l){u.domNode=e,u.eventNode=a;var f=u.data;if("undefined"!=typeof f){f.entry.data=e;var s=f.patches;s.length>0&&$(e,t,s,0,o,i,a)}}else u.domNode=e,u.eventNode=a;if(r++,!(u=n[r])||(c=u.index)>i)return r}switch(t.type){case"tagger":for(var h=t.node;"tagger"===h.type;)h=h.node;return $(e,h,n,r,o+1,i,e.elm_event_node_ref);case"node":for(var d=t.children,_=e.childNodes,p=0;p<d.length;p++){o++;var g=d[p],m=o+(g.descendantsCount||0);if(o<=c&&c<=m&&(r=$(_[p],g,n,r,o,m,a),!(u=n[r])||(c=u.index)>i))return r;o=m}return r;case"keyed-node":for(var d=t.children,_=e.childNodes,p=0;p<d.length;p++){o++;var g=d[p]._1,m=o+(g.descendantsCount||0);if(o<=c&&c<=m&&(r=$(_[p],g,n,r,o,m,a),!(u=n[r])||(c=u.index)>i))return r;o=m}return r;case"text":case"thunk":throw new Error("should never traverse `text` or `thunk` nodes like this")}}function q(e,t,n,r){return 0===n.length?e:(H(e,t,n,r),F(e,n))}function F(e,t){for(var n=0;n<t.length;n++){var r=t[n],o=r.domNode,i=z(o,r);o===e&&(e=i)}return e}function z(e,t){switch(t.type){case"p-redraw":return U(e,t.data,t.eventNode);case"p-facts":return T(e,t.eventNode,t.data),e;case"p-text":return e.replaceData(0,e.length,t.data),e;case"p-thunk":return F(e,t.data);case"p-tagger":return e.elm_event_node_ref.tagger=t.data,e;case"p-remove-last":for(var n=t.data;n--;)e.removeChild(e.lastChild);return e;case"p-append":for(var r=t.data,n=0;n<r.length;n++)e.appendChild(x(r[n],t.eventNode));return e;case"p-remove":var o=t.data;if("undefined"==typeof o)return e.parentNode.removeChild(e),e;var i=o.entry;return"undefined"!=typeof i.index&&e.parentNode.removeChild(e),i.data=F(e,o.patches),e;case"p-reorder":return D(e,t);case"p-custom":var a=t.data;return a.applyPatch(e,a.data);default:throw new Error("Ran into an unknown patch!")}}function U(e,t,n){var r=e.parentNode,o=x(t,n);return"undefined"==typeof o.elm_event_node_ref&&(o.elm_event_node_ref=e.elm_event_node_ref),r&&o!==e&&r.replaceChild(o,e),o}function D(e,t){var n=t.data,r=W(n.endInserts,t);e=F(e,n.patches);for(var o=n.inserts,i=0;i<o.length;i++){var a=o[i],u=a.entry,c="move"===u.tag?u.data:x(u.vnode,t.eventNode);e.insertBefore(c,e.childNodes[a.index])}return"undefined"!=typeof r&&e.appendChild(r),e}function W(e,t){if("undefined"!=typeof e){for(var n=document.createDocumentFragment(),r=0;r<e.length;r++){var o=e[r],i=o.entry;n.appendChild("move"===i.tag?i.data:x(i.vnode,t.eventNode))}return n}}function Y(e){return{init:e.init,update:e.update,subscriptions:e.subscriptions,view:e.view,renderer:w}}var Q="STYLE",G="EVENT",K="ATTR",V="ATTR_NS",X="undefined"!=typeof requestAnimationFrame?requestAnimationFrame:function(e){setTimeout(e,1e3/60)},Z="_elmW6BL";return{node:o,text:e,custom:u,map:t(c),on:n(y),style:g,property:t(m),attribute:t(v),attributeNS:n(b),lazy:t(h),lazy2:n(d),lazy3:r(_),keyedNode:n(a),programWithFlags:Y}}()),et=Ze.programWithFlags,tt=(Ze.keyedNode,Ze.lazy3,Ze.lazy2,Ze.lazy,{stopPropagation:!1,preventDefault:!1}),nt=Ze.on,rt=t(function(e,t){return s(nt,e,tt,t)}),ot=(Ze.style,Ze.attributeNS,Ze.attribute,Ze.property),it=(Ze.map,Ze.text),at=Ze.node,ut=(t(function(e,t){return{stopPropagation:e,preventDefault:t}}),it),ct=at,lt=(ct("body"),ct("section"),ct("nav"),ct("article")),st=(ct("aside"),ct("h1"),ct("h2"),ct("h3"),ct("h4"),ct("h5"),ct("h6"),ct("header"),ct("footer"),ct("address"),ct("main"),ct("p"),ct("hr"),ct("pre"),ct("blockquote"),ct("ol"),ct("ul"),ct("li"),ct("dl"),ct("dt"),ct("dd"),ct("figure"),ct("figcaption"),ct("div")),ft=(ct("a"),ct("em"),ct("strong"),ct("small"),ct("s"),ct("cite"),
-ct("q"),ct("dfn"),ct("abbr"),ct("time"),ct("code"),ct("var"),ct("samp"),ct("kbd"),ct("sub"),ct("sup"),ct("i"),ct("b"),ct("u"),ct("mark"),ct("ruby"),ct("rt"),ct("rp"),ct("bdi"),ct("bdo"),ct("span"),ct("br"),ct("wbr"),ct("ins"),ct("del"),ct("img"),ct("iframe"),ct("embed"),ct("object"),ct("param"),ct("video"),ct("audio"),ct("source"),ct("track"),ct("canvas"),ct("svg"),ct("math"),ct("table"),ct("caption"),ct("colgroup"),ct("col"),ct("tbody"),ct("thead"),ct("tfoot"),ct("tr"),ct("td"),ct("th"),ct("form"),ct("fieldset"),ct("legend"),ct("label"),ct("input"),ct("button")),ht=(ct("select"),ct("datalist"),ct("optgroup"),ct("option"),ct("textarea"),ct("keygen"),ct("output"),ct("progress"),ct("meter"),ct("details"),ct("summary"),ct("menuitem"),ct("menu"),et),dt=function(e){var n=e;return ht({init:function(e){return l(K["!"],n.model,x.fromArray([]))},update:t(function(e,t){return l(K["!"],l(n.update,e,t),x.fromArray([]))}),view:n.view,subscriptions:function(e){return Fe}})},_t=ot,pt=t(function(e,t){return l(_t,e,De(t))}),gt=function(e){return l(pt,"className",e)},mt=(t(function(e,t){return l(_t,e,Ue(t))}),l(Ve[":="],"keyCode",Ge),l(Xe,x.fromArray(["target","checked"]),Qe),l(Xe,x.fromArray(["target","value"]),Ke),tt),vt=rt,bt=(p.update(mt,{preventDefault:!0}),function(e){return l(vt,"click",We(e))}),yt=(t(function(e,t){return{stopPropagation:e,preventDefault:t}}),function(){function e(e,t,n){var r={options:e,markdown:n};return Ze.custom(t,r,a)}function t(e){var t=u(e.markdown,i(e.options)),n=document.createElement("div");return n.innerHTML=t,n}function r(e,t){return e.model.markdown===t.model.markdown&&e.model.options===t.model.options?null:{applyPatch:o,data:u(t.model.markdown,i(t.model.options))}}function o(e,t){return e.innerHTML=t,e}function i(e){function t(t,n){return n||"Just"!==e.defaultHighlighting.ctor||(n=e.defaultHighlighting._0),"undefined"!=typeof hljs&&n&&hljs.listLanguages().indexOf(n)>=0?hljs.highlight(n,t,!0).value:t}var n=e.githubFlavored;return"Just"===n.ctor?{highlight:t,gfm:!0,tables:n._0.tables,breaks:n._0.breaks,sanitize:e.sanitize,smartypants:e.smartypants}:{highlight:t,gfm:!1,tables:!1,breaks:!1,sanitize:e.sanitize,smartypants:e.smartypants}}var a={render:t,diff:r},u=function(){var e={},t=e.exports={};return function(){function n(e){this.tokens=[],this.tokens.links={},this.options=e||f.defaults,this.rules=h.normal,this.options.gfm&&(this.options.tables?this.rules=h.tables:this.rules=h.gfm)}function r(e,t){if(this.options=t||f.defaults,this.links=e,this.rules=d.normal,this.renderer=this.options.renderer||new o,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.gfm?this.options.breaks?this.rules=d.breaks:this.rules=d.gfm:this.options.pedantic&&(this.rules=d.pedantic)}function o(e){this.options=e||{}}function i(e){this.tokens=[],this.token=null,this.options=e||f.defaults,this.options.renderer=this.options.renderer||new o,this.renderer=this.options.renderer,this.renderer.options=this.options}function a(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function u(e){return e.replace(/&([#\w]+);/g,function(e,t){return t=t.toLowerCase(),"colon"===t?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function c(e,t){return e=e.source,t=t||"",function n(r,o){return r?(o=o.source||o,o=o.replace(/(^|[^\[])\^/g,"$1"),e=e.replace(r,o),n):new RegExp(e,t)}}function l(){}function s(e){for(var t,n,r=1;r<arguments.length;r++){t=arguments[r];for(n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}function f(e,t,r){if(r||"function"==typeof t){r||(r=t,t=null),t=s({},f.defaults,t||{});var o,u,c=t.highlight,l=0;try{o=n.lex(e,t)}catch(e){return r(e)}u=o.length;var h=function(e){if(e)return t.highlight=c,r(e);var n;try{n=i.parse(o,t)}catch(t){e=t}return t.highlight=c,e?r(e):r(null,n)};if(!c||c.length<3)return h();if(delete t.highlight,!u)return h();for(;l<o.length;l++)!function(e){return"code"!==e.type?--u||h():c(e.text,e.lang,function(t,n){return t?h(t):null==n||n===e.text?--u||h():(e.text=n,e.escaped=!0,void(--u||h()))})}(o[l])}else try{return t&&(t=s({},f.defaults,t)),i.parse(n.lex(e,t),t)}catch(e){if(e.message+="\nPlease report this to https://github.com/chjj/marked.",(t||f.defaults).silent)return"<p>An error occured:</p><pre>"+a(e.message+"",!0)+"</pre>";throw e}}var h={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:l,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:l,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment|closed|closing) *(?:\n{2,}|\s*$)/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:l,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};h.bullet=/(?:[*+-]|\d+\.)/,h.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,h.item=c(h.item,"gm")(/bull/g,h.bullet)(),h.list=c(h.list)(/bull/g,h.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+h.def.source+")")(),h.blockquote=c(h.blockquote)("def",h.def)(),h._tag="(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b",h.html=c(h.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,h._tag)(),h.paragraph=c(h.paragraph)("hr",h.hr)("heading",h.heading)("lheading",h.lheading)("blockquote",h.blockquote)("tag","<"+h._tag)("def",h.def)(),h.normal=s({},h),h.gfm=s({},h.normal,{fences:/^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,paragraph:/^/}),h.gfm.paragraph=c(h.paragraph)("(?!","(?!"+h.gfm.fences.source.replace("\\1","\\2")+"|"+h.list.source.replace("\\1","\\3")+"|")(),h.tables=s({},h.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/}),n.rules=h,n.lex=function(e,t){var r=new n(t);return r.lex(e)},n.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},n.prototype.token=function(e,t,n){for(var r,o,i,a,u,c,l,s,f,e=e.replace(/^ +$/gm,"");e;)if((i=this.rules.newline.exec(e))&&(e=e.substring(i[0].length),i[0].length>1&&this.tokens.push({type:"space"})),i=this.rules.code.exec(e))e=e.substring(i[0].length),i=i[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?i:i.replace(/\n+$/,"")});else if(i=this.rules.fences.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"code",lang:i[2],text:i[3]});else if(i=this.rules.heading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:i[1].length,text:i[2]});else if(t&&(i=this.rules.nptable.exec(e))){for(e=e.substring(i[0].length),c={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/\n$/,"").split("\n")},s=0;s<c.align.length;s++)/^ *-+: *$/.test(c.align[s])?c.align[s]="right":/^ *:-+: *$/.test(c.align[s])?c.align[s]="center":/^ *:-+ *$/.test(c.align[s])?c.align[s]="left":c.align[s]=null;for(s=0;s<c.cells.length;s++)c.cells[s]=c.cells[s].split(/ *\| */);this.tokens.push(c)}else if(i=this.rules.lheading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:"="===i[2]?1:2,text:i[1]});else if(i=this.rules.hr.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"hr"});else if(i=this.rules.blockquote.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"blockquote_start"}),i=i[0].replace(/^ *> ?/gm,""),this.token(i,t,!0),this.tokens.push({type:"blockquote_end"});else if(i=this.rules.list.exec(e)){for(e=e.substring(i[0].length),a=i[2],this.tokens.push({type:"list_start",ordered:a.length>1}),i=i[0].match(this.rules.item),r=!1,f=i.length,s=0;s<f;s++)c=i[s],l=c.length,c=c.replace(/^ *([*+-]|\d+\.) +/,""),~c.indexOf("\n ")&&(l-=c.length,c=this.options.pedantic?c.replace(/^ {1,4}/gm,""):c.replace(new RegExp("^ {1,"+l+"}","gm"),"")),this.options.smartLists&&s!==f-1&&(u=h.bullet.exec(i[s+1])[0],a===u||a.length>1&&u.length>1||(e=i.slice(s+1).join("\n")+e,s=f-1)),o=r||/\n\n(?!\s*$)/.test(c),s!==f-1&&(r="\n"===c.charAt(c.length-1),o||(o=r)),this.tokens.push({type:o?"loose_item_start":"list_item_start"}),this.token(c,!1,n),this.tokens.push({type:"list_item_end"});this.tokens.push({type:"list_end"})}else if(i=this.rules.html.exec(e))e=e.substring(i[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:"pre"===i[1]||"script"===i[1]||"style"===i[1],text:i[0]});else if(!n&&t&&(i=this.rules.def.exec(e)))e=e.substring(i[0].length),this.tokens.links[i[1].toLowerCase()]={href:i[2],title:i[3]};else if(t&&(i=this.rules.table.exec(e))){for(e=e.substring(i[0].length),c={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/(?: *\| *)?\n$/,"").split("\n")},s=0;s<c.align.length;s++)/^ *-+: *$/.test(c.align[s])?c.align[s]="right":/^ *:-+: *$/.test(c.align[s])?c.align[s]="center":/^ *:-+ *$/.test(c.align[s])?c.align[s]="left":c.align[s]=null;for(s=0;s<c.cells.length;s++)c.cells[s]=c.cells[s].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */);this.tokens.push(c)}else if(t&&(i=this.rules.paragraph.exec(e)))e=e.substring(i[0].length),this.tokens.push({type:"paragraph",text:"\n"===i[1].charAt(i[1].length-1)?i[1].slice(0,-1):i[1]});else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"text",text:i[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var d={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:l,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:l,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};d._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/,d._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/,d.link=c(d.link)("inside",d._inside)("href",d._href)(),d.reflink=c(d.reflink)("inside",d._inside)(),d.normal=s({},d),d.pedantic=s({},d.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/}),d.gfm=s({},d.normal,{escape:c(d.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:c(d.text)("]|","~]|")("|","|https?://|")()}),d.breaks=s({},d.gfm,{br:c(d.br)("{2,}","*")(),text:c(d.gfm.text)("{2,}","*")()}),r.rules=d,r.output=function(e,t,n){var o=new r(t,n);return o.output(e)},r.prototype.output=function(e){for(var t,n,r,o,i="";e;)if(o=this.rules.escape.exec(e))e=e.substring(o[0].length),i+=o[1];else if(o=this.rules.autolink.exec(e))e=e.substring(o[0].length),"@"===o[2]?(n=":"===o[1].charAt(6)?this.mangle(o[1].substring(7)):this.mangle(o[1]),r=this.mangle("mailto:")+n):(n=a(o[1]),r=n),i+=this.renderer.link(r,null,n);else if(this.inLink||!(o=this.rules.url.exec(e))){if(o=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(o[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(o[0])&&(this.inLink=!1),e=e.substring(o[0].length),i+=this.options.sanitize?a(o[0]):o[0];else if(o=this.rules.link.exec(e))e=e.substring(o[0].length),this.inLink=!0,i+=this.outputLink(o,{href:o[2],title:o[3]}),this.inLink=!1;else if((o=this.rules.reflink.exec(e))||(o=this.rules.nolink.exec(e))){if(e=e.substring(o[0].length),t=(o[2]||o[1]).replace(/\s+/g," "),t=this.links[t.toLowerCase()],!t||!t.href){i+=o[0].charAt(0),e=o[0].substring(1)+e;continue}this.inLink=!0,i+=this.outputLink(o,t),this.inLink=!1}else if(o=this.rules.strong.exec(e))e=e.substring(o[0].length),i+=this.renderer.strong(this.output(o[2]||o[1]));else if(o=this.rules.em.exec(e))e=e.substring(o[0].length),i+=this.renderer.em(this.output(o[2]||o[1]));else if(o=this.rules.code.exec(e))e=e.substring(o[0].length),i+=this.renderer.codespan(a(o[2],!0));else if(o=this.rules.br.exec(e))e=e.substring(o[0].length),i+=this.renderer.br();else if(o=this.rules.del.exec(e))e=e.substring(o[0].length),i+=this.renderer.del(this.output(o[1]));else if(o=this.rules.text.exec(e))e=e.substring(o[0].length),i+=a(this.smartypants(o[0]));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else e=e.substring(o[0].length),n=a(o[1]),r=n,i+=this.renderer.link(r,null,n);return i},r.prototype.outputLink=function(e,t){var n=a(t.href),r=t.title?a(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,a(e[1]))},r.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/--/g,"—").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},r.prototype.mangle=function(e){for(var t,n="",r=e.length,o=0;o<r;o++)t=e.charCodeAt(o),Math.random()>.5&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},o.prototype.code=function(e,t,n){if(this.options.highlight){var r=this.options.highlight(e,t);null!=r&&r!==e&&(n=!0,e=r)}return t?'<pre><code class="'+this.options.langPrefix+a(t,!0)+'">'+(n?e:a(e,!0))+"\n</code></pre>\n":"<pre><code>"+(n?e:a(e,!0))+"\n</code></pre>"},o.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},o.prototype.html=function(e){return e},o.prototype.heading=function(e,t,n){return"<h"+t+' id="'+this.options.headerPrefix+n.toLowerCase().replace(/[^\w]+/g,"-")+'">'+e+"</h"+t+">\n"},o.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},o.prototype.list=function(e,t){var n=t?"ol":"ul";return"<"+n+">\n"+e+"</"+n+">\n"},o.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},o.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},o.prototype.table=function(e,t){return"<table>\n<thead>\n"+e+"</thead>\n<tbody>\n"+t+"</tbody>\n</table>\n"},o.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},o.prototype.tablecell=function(e,t){var n=t.header?"th":"td",r=t.align?"<"+n+' style="text-align:'+t.align+'">':"<"+n+">";return r+e+"</"+n+">\n"},o.prototype.strong=function(e){return"<strong>"+e+"</strong>"},o.prototype.em=function(e){return"<em>"+e+"</em>"},o.prototype.codespan=function(e){return"<code>"+e+"</code>"},o.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},o.prototype.del=function(e){return"<del>"+e+"</del>"},o.prototype.link=function(e,t,n){if(this.options.sanitize){try{var r=decodeURIComponent(u(e)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return""}if(0===r.indexOf("javascript:"))return""}var o='<a href="'+e+'"';return t&&(o+=' title="'+t+'"'),o+=">"+n+"</a>"},o.prototype.image=function(e,t,n){var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},i.parse=function(e,t,n){var r=new i(t,n);return r.parse(e)},i.prototype.parse=function(e){this.inline=new r(e.links,this.options,this.renderer),this.tokens=e.reverse();for(var t="";this.next();)t+=this.tok();return t},i.prototype.next=function(){return this.token=this.tokens.pop()},i.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},i.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},i.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text);case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,o,i="",a="";for(n="",e=0;e<this.token.header.length;e++)r={header:!0,align:this.token.align[e]},n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(i+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",o=0;o<t.length;o++)n+=this.renderer.tablecell(this.inline.output(t[o]),{header:!1,align:this.token.align[o]});a+=this.renderer.tablerow(n)}return this.renderer.table(i,a);case"blockquote_start":for(var a="";"blockquote_end"!==this.next().type;)a+=this.tok();return this.renderer.blockquote(a);case"list_start":for(var a="",u=this.token.ordered;"list_end"!==this.next().type;)a+=this.tok();return this.renderer.list(a,u);case"list_item_start":for(var a="";"list_item_end"!==this.next().type;)a+="text"===this.token.type?this.parseText():this.tok();return this.renderer.listitem(a);case"loose_item_start":for(var a="";"list_item_end"!==this.next().type;)a+=this.tok();return this.renderer.listitem(a);case"html":var c=this.token.pre||this.options.pedantic?this.token.text:this.inline.output(this.token.text);return this.renderer.html(c);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText())}},l.exec=l,f.options=f.setOptions=function(e){return s(f.defaults,e),f},f.defaults={gfm:!0,tables:!0,breaks:!1,pedantic:!1,sanitize:!1,smartLists:!1,silent:!1,highlight:null,langPrefix:"lang-",smartypants:!1,headerPrefix:"",renderer:new o,xhtml:!1},f.Parser=i,f.parser=i.parse,f.Renderer=o,f.Lexer=n,f.lexer=n.lex,f.InlineLexer=r,f.inlineLexer=r.output,f.parse=f,"undefined"!=typeof e&&"object"==typeof t?e.exports=f:"function"==typeof define&&define.amd?define(function(){return f}):this.marked=f}.call(function(){return this||("undefined"!=typeof window?window:global)}()),e.exports}();return{toHtml:n(e)}}()),kt=(yt.toHtml,{githubFlavored:w({tables:!1,breaks:!1}),defaultHighlighting:k,sanitize:!1,smartypants:!1}),wt=t(function(e,t){return s(yt.toHtml,kt,e,t)}),xt=(r(function(e,t,n,r){return{githubFlavored:e,defaultHighlighting:t,sanitize:n,smartypants:r}}),n(function(e,t,n){return t?l(st,x.fromArray([]),x.fromArray([l(ft,x.fromArray([bt(e)]),x.fromArray([ut("Hide Solution")])),l(st,x.fromArray([gt("soln")]),x.fromArray([l(wt,x.fromArray([]),n)]))])):l(ft,x.fromArray([bt(e)]),x.fromArray([ut("Show Solution")]))})),Tt=function(e){return l(wt,x.fromArray([]),e)},At=n(function(e,t,n){var r=l($,e,t);return"Just"===r.ctor?r._0:n}),Bt='\n```elm\nimport Html exposing (Html, div, button, h1, text)\n\nmain : Html a\nmain =\n  div []\n    [ h1 [] [ text "Hello world" ]\n    , button [] [ text "Click me!" ]\n    ]\n```\n',Et='\n## Records\n\nRecords are another important data structure in Elm, and as you\'ll see, are used heavily. They\'re like `struct`s in C. Records are a set of key-value pairs, much like the `Map` data structure in Java. Unlike Java, the values don\'t have to be the same type.\n\n```elm\n> me = { name = "Sam", age = 22 }\n{ name = "Sam", age = 22 } : { age : number, name : String }\n\n> me.name\n"Sam" : String\n\n> me.age\n22 : number\n```\n\nRecords are not modified, you can only create new records. Because it would be cumbersome to copy each key-value pair to a new record when you want to update a single value, Elm offers the pipe operator `|` that can be used to create new records based on old ones.\n\n```elm\n> older = { me | age = 30 }\n{ name = "Sam", age = 30 } : { name : String, age : number }\n\n> older.name\n"Sam" : String\n\n> older.age\n30 : number\n\n> me.age\n22 : number\n```\n\nNotice how we didn\'t update the record values in `me`, we created an entirely new record `older` with a new value for `age`.\n\n## Type Aliases\n\nRecords are great, but what if we want to create a number of records with the same structure? Type aliases allow us to do that. We just define each key\'s type and assign it to a special identifier called a type alias. It makes our code more condense and easier to read.\n\n```elm\n> type alias Person = { name : String, age : Int }\n\n> me = Person "Sam" 22\n{ name = "Sam", age = 22 } : Person\n\n> me.name\n"Sam" : String\n\n> me.age\n22 : Int\n```\n\nOur type alias also allows us to shorten our type definitions as well. You can think of a type alias as a substitution for the type definition.\n\n```elm\n-- Without type aliases\ngreet : { name : String, age : Int } -> String\ngreet p = "Hello " ++ p.name ++ "! You are " ++ (toString p.age) ++ " years old."\n\n-- With type aliases\ntype alias Person = { name : String, age : Int }\ngreet : Person -> String\ngreet p = "Hello " ++ p.name ++ "! You are " ++ (toString p.age) ++ " years old."\n```\n\nFinally, you can also type alias non-record data types in Elm such as `type alias MyBooleanAlias = Bool`\n\n## Types\n\nTypes are a bit more complicated because they introduce the idea of symbols. All you\'ll need to understand about symbols is that they are just like strings except they don\'t require quotations. Symbols allow you to essentially define your own keywords in Elm. Let\'s see an example:\n\n```elm\ntype Language = English | French\n\ngetGreeting : Language -> String\ngetGreeting lang =\n  case lang of\n    English -> "Hello"\n    French -> "Bonjour"\n```\n\nWe can now use our `getGreeting` function as:\n\n```elm\n> getGreeting English\n"Hello" : String\n\n> getGreeting French\n"Bonjour" : String\n```\n\nTypes might remind you of `enum`s from languages like Java. They are very similar to an enum.\n\n## Variable Types\n\nImagine we wanted to create a function that counted the number of elements in a `List` with a type definition. How would we do that? This introduces the need for *type variables*. Type variables can be substituted for any type. They are very similar to Java Generics, if you\'re familiar with those. Let\'s see a brief example in Elm, implementing our `count` function to determine the number of elements in a `List`:\n\n```elm\ncount : List a -> Int\ncount list =\n  let\n    rest = case List.tail list of\n      Just value -> value\n      Nothing -> []\n  in\n    case List.head list of\n      Just value -> 1 + count rest\n      Nothing -> 0\n```\n\nHere we define a `count` function that returns the number of elements in a `List`. The type variable `a` means that our `List` can contain any type: it could be a list of `Int`, `String`, or even `List`.\n\n## The `main` Function\n\nLike many other languages, the entry point to your programs are through a function called `main`. Because Elm is a web application language, it works on HTML. This means that your `main` function has to return HTML, not `void`, not `Int`, or anything else.\n\nThe most basic HTML element available in Elm is the `text` element. `text` represents an element on the page that contains, as you might guess, text. A "hello world" Elm program would look something like:\n\n```elm\nimport Html exposing (text)\n\nmain = text "Hello, world!"\n```\n\n### Imports\n\nImports are a new concept, so let\'s break it down. `import Html exposing (text)` is going to import the `Html` module - which is built into the language. Importing means that the functions defined by that module are available for us to use. The `Html` module is quite large, and we\'re only interested in using the `text` function, so we add `exposing (text)` to our `import` statement. To import all functions from the `Html` module, we would do `import Html exposing (..)`. To import the `Html` module without interferring with the current namespace, we could simply `import Html` and call `Html.text "Hello, world!"` instead of `text "Hello, world!"`.\n\n**Your turn**: Using the documentation at http://package.elm-lang.org/packages/elm-lang/html/latest/ create a main function (with a type definition) that returns a `div` containing an `h1` title containing the text "Hello world" and a `button` containing the text "Click me!". *Hint*: You can use `elm-reactor` to view your application in a web browser.\n',Rt="\n```elm\nfactorial : Int -> Int\nfactorial n =\n  if n == 0 then\n    1\n  else\n    n * factorial (n-1)\n```\n",St="\n**Your turn:** To wrap up this section on functions, define a function called `factorial` that calculates the factorial of a given number. Add a type definition to your function to restrict input to `Int`s.\n",Nt="\n```elm\n(\\a b -> a + b) 1 2\n```\n",Lt="\nThe `repeat` function is known as a named function because it can be referenced by name. Elm has the concept of anonymous functions which cannot be referenced by name. Such functions are useful in one-off use cases.\n\n### Anonymous Functions\n\nAnonymous functions are simply functions without a name. Let's take a look:\n\n```elm\n> \\x -> x + 1\n<function> : number -> number\n\n> (\\x -> x + 1) 6\n7 : number\n```\n\nDon't get too hung up on the syntax. `\\` identifies that the following expression is an anonymous function. Next comes the list of parameters that our function accepts, in this case `x`. `->` signifies the beginning of the function body. Finally, we return `x + 1`.\n\n**Your turn:** define and call an anonymous function that accepts two parameters and returns their sum.\n",Ct="\n```elm\nrepeat : String -> Int -> String\nrepeat s n =\n  if n == 1 then\n    s\n  else\n    s ++ repeat s (n-1)\n```\n",Ot="\n# An Introduction to Elm\n\nElm is a relatively new programming language meant for building web applications. It interfaces with Javascript but focuses on bringing functional reactive programming to UI development. Remember, our overall goal is to define our application UI as a function of our application state.\n\nBefore we can dive into building functionally reactive interfaces, we need to understand the tools we're working with. This tutorial will introduce the Elm language to the reader.\n\n## Primitive Types\n\nThis section should be pretty familiar. Launch `elm-repl` in your terminal to follow along. Elm, like every language, distinguishes data by types. Primitive types are those that are built into the language. In Java, primitive types are `int`, `char`, `byte`, `boolean`, etc...\n\nElm has many of those same primitives that we can see while using the REPL:\n\n```elm\n> 1\n1 : number\n\n> 1.2\n1.2 : Float\n\n> \"Hello!\"\n\"Hello!\" : String\n\n> \\x -> x + 1\n<function> : number -> number\n\n> 'a'\n'a' : Char\n\n> True\nTrue : Bool\n\n> False\nFalse : Bool\n\n> [1, 2, 3, 4]\n[1,2,3,4] : List number\n```\n\nIn Elm, a `number` represents either an `Int` or `Float`. We'll talk more about the function notation `\\x -> x + 1` in the next section.\n\n## Constants\n\nConstants are quite easily defined in Elm and are cannot be changed. (Note: In the REPL, values can be changed) Attempting to modify the value of a constant will cause the compiler to throw an error notifying you that it cannot be done.\n\n```elm\n> x = 1\n1 : number\n\n> x\n1 : number\n```\n\nIn Elm, you can also add types to your variable definitions. If you leave the type out, Elm will infer what type it should be. Even though Elm may not always look it, it is a statically typed language.\n\n```elm\nx : Int\nx = 4\n```\n\n## Lists\n\nAn important data structure in Elm, a `List` is akin to arrays in other langauges. Lists, like arrays in many other languages, can only contain elements of the same type. There are a number of utility functions built into the language used to traverse and manipulate lists. I won't go over the whole API, but it is important to be aware of lists.\n\nYou can find more information at http://package.elm-lang.org/packages/elm-lang/core/1.0.0/List\n\n## Named & Anonymous Functions\n\nAs mentioned in the last tutorial, functions are first class values in Elm. Here's how we would define a function to repeat a string `n` times.\n\n```elm\nrepeat s n =\n  if n == 1 then\n    s\n  else\n    s ++ repeat s (n-1)\n```\n\nYou can define the `repeat` function in the Elm REPL in the following way:\n\n```elm\n> repeat s n = \\\n|  if n == 1 then \\\n|    s \\\n|  else \\\n|    s ++ repeat s (n-1) \\\n<function> : appendable -> number -> appendable\n\n> repeat \"lol\" 10\n\"lollollollollollollollollollol\" : String\n```\nWhat exactly is going on with the function type `<function> : appendable -> number -> appendable`? This is thanks to Elm's type inference. Because we haven't specified a type, Elm does it's best to infer what types could be used. In this case, the `++` operator is used for concatenation just like `+` is used for concatenation in Java. The difference here is that Elm allows concatenation on any type declared `appendable`.\n\nJust as defining types on constants, we can define the type of a function as well. In this case, I wanted to only repeat strings. Also consider that it is not possible to repeat a string 2.3 times.\n\n**Your turn:** try adding a type definition to the repeat function so that the first parameter is a `String`, the second parameter is an `Int`, and the return value is also a `String`.\n",It=t(function(e,t){var n=function(e){return b(s(At,e,t,!0))},r=e,o=r._0;return s(H,o,n(o),t)}),Mt=F(x.fromArray([!1,!1,!1,!1])),jt=function(e){return{ctor:"ToggleSoln",_0:e}},Pt=n(function(e,t,n){return s(xt,jt(t),s(At,t,e,!1),n)}),Jt=function(e){return l(lt,x.fromArray([]),x.fromArray([Tt(Ot),s(Pt,e,0,Ct),Tt(Lt),s(Pt,e,1,Nt),Tt(St),s(Pt,e,2,Rt),Tt(Et),s(Pt,e,3,Bt)]))},Ht={main:dt({model:Mt,view:Jt,update:It})},$t={};if($t.Main=$t.Main||{},Q.addPublicModule($t.Main,"Main","undefined"==typeof Ht?null:Ht),"function"==typeof define&&define.amd)return void define([],function(){return $t});if("object"==typeof e)return void(e.exports=$t);var qt=this.Elm;if("undefined"==typeof qt)return void(this.Elm=$t);for(var Ft in $t){if(Ft in qt)throw new Error("There are two Elm modules called `"+Ft+"` on this page! Rename one of them.");qt[Ft]=$t[Ft]}}).call(this)}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Elm = __webpack_require__(1);
+	Elm.Main.embed(document.getElementById('main'));
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+	
+	(function() {
+	'use strict';
+
+	function F2(fun)
+	{
+	  function wrapper(a) { return function(b) { return fun(a,b); }; }
+	  wrapper.arity = 2;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function F3(fun)
+	{
+	  function wrapper(a) {
+	    return function(b) { return function(c) { return fun(a, b, c); }; };
+	  }
+	  wrapper.arity = 3;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function F4(fun)
+	{
+	  function wrapper(a) { return function(b) { return function(c) {
+	    return function(d) { return fun(a, b, c, d); }; }; };
+	  }
+	  wrapper.arity = 4;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function F5(fun)
+	{
+	  function wrapper(a) { return function(b) { return function(c) {
+	    return function(d) { return function(e) { return fun(a, b, c, d, e); }; }; }; };
+	  }
+	  wrapper.arity = 5;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function F6(fun)
+	{
+	  function wrapper(a) { return function(b) { return function(c) {
+	    return function(d) { return function(e) { return function(f) {
+	    return fun(a, b, c, d, e, f); }; }; }; }; };
+	  }
+	  wrapper.arity = 6;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function F7(fun)
+	{
+	  function wrapper(a) { return function(b) { return function(c) {
+	    return function(d) { return function(e) { return function(f) {
+	    return function(g) { return fun(a, b, c, d, e, f, g); }; }; }; }; }; };
+	  }
+	  wrapper.arity = 7;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function F8(fun)
+	{
+	  function wrapper(a) { return function(b) { return function(c) {
+	    return function(d) { return function(e) { return function(f) {
+	    return function(g) { return function(h) {
+	    return fun(a, b, c, d, e, f, g, h); }; }; }; }; }; }; };
+	  }
+	  wrapper.arity = 8;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function F9(fun)
+	{
+	  function wrapper(a) { return function(b) { return function(c) {
+	    return function(d) { return function(e) { return function(f) {
+	    return function(g) { return function(h) { return function(i) {
+	    return fun(a, b, c, d, e, f, g, h, i); }; }; }; }; }; }; }; };
+	  }
+	  wrapper.arity = 9;
+	  wrapper.func = fun;
+	  return wrapper;
+	}
+
+	function A2(fun, a, b)
+	{
+	  return fun.arity === 2
+	    ? fun.func(a, b)
+	    : fun(a)(b);
+	}
+	function A3(fun, a, b, c)
+	{
+	  return fun.arity === 3
+	    ? fun.func(a, b, c)
+	    : fun(a)(b)(c);
+	}
+	function A4(fun, a, b, c, d)
+	{
+	  return fun.arity === 4
+	    ? fun.func(a, b, c, d)
+	    : fun(a)(b)(c)(d);
+	}
+	function A5(fun, a, b, c, d, e)
+	{
+	  return fun.arity === 5
+	    ? fun.func(a, b, c, d, e)
+	    : fun(a)(b)(c)(d)(e);
+	}
+	function A6(fun, a, b, c, d, e, f)
+	{
+	  return fun.arity === 6
+	    ? fun.func(a, b, c, d, e, f)
+	    : fun(a)(b)(c)(d)(e)(f);
+	}
+	function A7(fun, a, b, c, d, e, f, g)
+	{
+	  return fun.arity === 7
+	    ? fun.func(a, b, c, d, e, f, g)
+	    : fun(a)(b)(c)(d)(e)(f)(g);
+	}
+	function A8(fun, a, b, c, d, e, f, g, h)
+	{
+	  return fun.arity === 8
+	    ? fun.func(a, b, c, d, e, f, g, h)
+	    : fun(a)(b)(c)(d)(e)(f)(g)(h);
+	}
+	function A9(fun, a, b, c, d, e, f, g, h, i)
+	{
+	  return fun.arity === 9
+	    ? fun.func(a, b, c, d, e, f, g, h, i)
+	    : fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
+	}
+
+	//import Native.List //
+
+	var _elm_lang$core$Native_Array = function() {
+
+	// A RRB-Tree has two distinct data types.
+	// Leaf -> "height"  is always 0
+	//         "table"   is an array of elements
+	// Node -> "height"  is always greater than 0
+	//         "table"   is an array of child nodes
+	//         "lengths" is an array of accumulated lengths of the child nodes
+
+	// M is the maximal table size. 32 seems fast. E is the allowed increase
+	// of search steps when concatting to find an index. Lower values will
+	// decrease balancing, but will increase search steps.
+	var M = 32;
+	var E = 2;
+
+	// An empty array.
+	var empty = {
+		ctor: '_Array',
+		height: 0,
+		table: []
+	};
+
+
+	function get(i, array)
+	{
+		if (i < 0 || i >= length(array))
+		{
+			throw new Error(
+				'Index ' + i + ' is out of range. Check the length of ' +
+				'your array first or use getMaybe or getWithDefault.');
+		}
+		return unsafeGet(i, array);
+	}
+
+
+	function unsafeGet(i, array)
+	{
+		for (var x = array.height; x > 0; x--)
+		{
+			var slot = i >> (x * 5);
+			while (array.lengths[slot] <= i)
+			{
+				slot++;
+			}
+			if (slot > 0)
+			{
+				i -= array.lengths[slot - 1];
+			}
+			array = array.table[slot];
+		}
+		return array.table[i];
+	}
+
+
+	// Sets the value at the index i. Only the nodes leading to i will get
+	// copied and updated.
+	function set(i, item, array)
+	{
+		if (i < 0 || length(array) <= i)
+		{
+			return array;
+		}
+		return unsafeSet(i, item, array);
+	}
+
+
+	function unsafeSet(i, item, array)
+	{
+		array = nodeCopy(array);
+
+		if (array.height === 0)
+		{
+			array.table[i] = item;
+		}
+		else
+		{
+			var slot = getSlot(i, array);
+			if (slot > 0)
+			{
+				i -= array.lengths[slot - 1];
+			}
+			array.table[slot] = unsafeSet(i, item, array.table[slot]);
+		}
+		return array;
+	}
+
+
+	function initialize(len, f)
+	{
+		if (len <= 0)
+		{
+			return empty;
+		}
+		var h = Math.floor( Math.log(len) / Math.log(M) );
+		return initialize_(f, h, 0, len);
+	}
+
+	function initialize_(f, h, from, to)
+	{
+		if (h === 0)
+		{
+			var table = new Array((to - from) % (M + 1));
+			for (var i = 0; i < table.length; i++)
+			{
+			  table[i] = f(from + i);
+			}
+			return {
+				ctor: '_Array',
+				height: 0,
+				table: table
+			};
+		}
+
+		var step = Math.pow(M, h);
+		var table = new Array(Math.ceil((to - from) / step));
+		var lengths = new Array(table.length);
+		for (var i = 0; i < table.length; i++)
+		{
+			table[i] = initialize_(f, h - 1, from + (i * step), Math.min(from + ((i + 1) * step), to));
+			lengths[i] = length(table[i]) + (i > 0 ? lengths[i-1] : 0);
+		}
+		return {
+			ctor: '_Array',
+			height: h,
+			table: table,
+			lengths: lengths
+		};
+	}
+
+	function fromList(list)
+	{
+		if (list.ctor === '[]')
+		{
+			return empty;
+		}
+
+		// Allocate M sized blocks (table) and write list elements to it.
+		var table = new Array(M);
+		var nodes = [];
+		var i = 0;
+
+		while (list.ctor !== '[]')
+		{
+			table[i] = list._0;
+			list = list._1;
+			i++;
+
+			// table is full, so we can push a leaf containing it into the
+			// next node.
+			if (i === M)
+			{
+				var leaf = {
+					ctor: '_Array',
+					height: 0,
+					table: table
+				};
+				fromListPush(leaf, nodes);
+				table = new Array(M);
+				i = 0;
+			}
+		}
+
+		// Maybe there is something left on the table.
+		if (i > 0)
+		{
+			var leaf = {
+				ctor: '_Array',
+				height: 0,
+				table: table.splice(0, i)
+			};
+			fromListPush(leaf, nodes);
+		}
+
+		// Go through all of the nodes and eventually push them into higher nodes.
+		for (var h = 0; h < nodes.length - 1; h++)
+		{
+			if (nodes[h].table.length > 0)
+			{
+				fromListPush(nodes[h], nodes);
+			}
+		}
+
+		var head = nodes[nodes.length - 1];
+		if (head.height > 0 && head.table.length === 1)
+		{
+			return head.table[0];
+		}
+		else
+		{
+			return head;
+		}
+	}
+
+	// Push a node into a higher node as a child.
+	function fromListPush(toPush, nodes)
+	{
+		var h = toPush.height;
+
+		// Maybe the node on this height does not exist.
+		if (nodes.length === h)
+		{
+			var node = {
+				ctor: '_Array',
+				height: h + 1,
+				table: [],
+				lengths: []
+			};
+			nodes.push(node);
+		}
+
+		nodes[h].table.push(toPush);
+		var len = length(toPush);
+		if (nodes[h].lengths.length > 0)
+		{
+			len += nodes[h].lengths[nodes[h].lengths.length - 1];
+		}
+		nodes[h].lengths.push(len);
+
+		if (nodes[h].table.length === M)
+		{
+			fromListPush(nodes[h], nodes);
+			nodes[h] = {
+				ctor: '_Array',
+				height: h + 1,
+				table: [],
+				lengths: []
+			};
+		}
+	}
+
+	// Pushes an item via push_ to the bottom right of a tree.
+	function push(item, a)
+	{
+		var pushed = push_(item, a);
+		if (pushed !== null)
+		{
+			return pushed;
+		}
+
+		var newTree = create(item, a.height);
+		return siblise(a, newTree);
+	}
+
+	// Recursively tries to push an item to the bottom-right most
+	// tree possible. If there is no space left for the item,
+	// null will be returned.
+	function push_(item, a)
+	{
+		// Handle resursion stop at leaf level.
+		if (a.height === 0)
+		{
+			if (a.table.length < M)
+			{
+				var newA = {
+					ctor: '_Array',
+					height: 0,
+					table: a.table.slice()
+				};
+				newA.table.push(item);
+				return newA;
+			}
+			else
+			{
+			  return null;
+			}
+		}
+
+		// Recursively push
+		var pushed = push_(item, botRight(a));
+
+		// There was space in the bottom right tree, so the slot will
+		// be updated.
+		if (pushed !== null)
+		{
+			var newA = nodeCopy(a);
+			newA.table[newA.table.length - 1] = pushed;
+			newA.lengths[newA.lengths.length - 1]++;
+			return newA;
+		}
+
+		// When there was no space left, check if there is space left
+		// for a new slot with a tree which contains only the item
+		// at the bottom.
+		if (a.table.length < M)
+		{
+			var newSlot = create(item, a.height - 1);
+			var newA = nodeCopy(a);
+			newA.table.push(newSlot);
+			newA.lengths.push(newA.lengths[newA.lengths.length - 1] + length(newSlot));
+			return newA;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	// Converts an array into a list of elements.
+	function toList(a)
+	{
+		return toList_(_elm_lang$core$Native_List.Nil, a);
+	}
+
+	function toList_(list, a)
+	{
+		for (var i = a.table.length - 1; i >= 0; i--)
+		{
+			list =
+				a.height === 0
+					? _elm_lang$core$Native_List.Cons(a.table[i], list)
+					: toList_(list, a.table[i]);
+		}
+		return list;
+	}
+
+	// Maps a function over the elements of an array.
+	function map(f, a)
+	{
+		var newA = {
+			ctor: '_Array',
+			height: a.height,
+			table: new Array(a.table.length)
+		};
+		if (a.height > 0)
+		{
+			newA.lengths = a.lengths;
+		}
+		for (var i = 0; i < a.table.length; i++)
+		{
+			newA.table[i] =
+				a.height === 0
+					? f(a.table[i])
+					: map(f, a.table[i]);
+		}
+		return newA;
+	}
+
+	// Maps a function over the elements with their index as first argument.
+	function indexedMap(f, a)
+	{
+		return indexedMap_(f, a, 0);
+	}
+
+	function indexedMap_(f, a, from)
+	{
+		var newA = {
+			ctor: '_Array',
+			height: a.height,
+			table: new Array(a.table.length)
+		};
+		if (a.height > 0)
+		{
+			newA.lengths = a.lengths;
+		}
+		for (var i = 0; i < a.table.length; i++)
+		{
+			newA.table[i] =
+				a.height === 0
+					? A2(f, from + i, a.table[i])
+					: indexedMap_(f, a.table[i], i == 0 ? from : from + a.lengths[i - 1]);
+		}
+		return newA;
+	}
+
+	function foldl(f, b, a)
+	{
+		if (a.height === 0)
+		{
+			for (var i = 0; i < a.table.length; i++)
+			{
+				b = A2(f, a.table[i], b);
+			}
+		}
+		else
+		{
+			for (var i = 0; i < a.table.length; i++)
+			{
+				b = foldl(f, b, a.table[i]);
+			}
+		}
+		return b;
+	}
+
+	function foldr(f, b, a)
+	{
+		if (a.height === 0)
+		{
+			for (var i = a.table.length; i--; )
+			{
+				b = A2(f, a.table[i], b);
+			}
+		}
+		else
+		{
+			for (var i = a.table.length; i--; )
+			{
+				b = foldr(f, b, a.table[i]);
+			}
+		}
+		return b;
+	}
+
+	// TODO: currently, it slices the right, then the left. This can be
+	// optimized.
+	function slice(from, to, a)
+	{
+		if (from < 0)
+		{
+			from += length(a);
+		}
+		if (to < 0)
+		{
+			to += length(a);
+		}
+		return sliceLeft(from, sliceRight(to, a));
+	}
+
+	function sliceRight(to, a)
+	{
+		if (to === length(a))
+		{
+			return a;
+		}
+
+		// Handle leaf level.
+		if (a.height === 0)
+		{
+			var newA = { ctor:'_Array', height:0 };
+			newA.table = a.table.slice(0, to);
+			return newA;
+		}
+
+		// Slice the right recursively.
+		var right = getSlot(to, a);
+		var sliced = sliceRight(to - (right > 0 ? a.lengths[right - 1] : 0), a.table[right]);
+
+		// Maybe the a node is not even needed, as sliced contains the whole slice.
+		if (right === 0)
+		{
+			return sliced;
+		}
+
+		// Create new node.
+		var newA = {
+			ctor: '_Array',
+			height: a.height,
+			table: a.table.slice(0, right),
+			lengths: a.lengths.slice(0, right)
+		};
+		if (sliced.table.length > 0)
+		{
+			newA.table[right] = sliced;
+			newA.lengths[right] = length(sliced) + (right > 0 ? newA.lengths[right - 1] : 0);
+		}
+		return newA;
+	}
+
+	function sliceLeft(from, a)
+	{
+		if (from === 0)
+		{
+			return a;
+		}
+
+		// Handle leaf level.
+		if (a.height === 0)
+		{
+			var newA = { ctor:'_Array', height:0 };
+			newA.table = a.table.slice(from, a.table.length + 1);
+			return newA;
+		}
+
+		// Slice the left recursively.
+		var left = getSlot(from, a);
+		var sliced = sliceLeft(from - (left > 0 ? a.lengths[left - 1] : 0), a.table[left]);
+
+		// Maybe the a node is not even needed, as sliced contains the whole slice.
+		if (left === a.table.length - 1)
+		{
+			return sliced;
+		}
+
+		// Create new node.
+		var newA = {
+			ctor: '_Array',
+			height: a.height,
+			table: a.table.slice(left, a.table.length + 1),
+			lengths: new Array(a.table.length - left)
+		};
+		newA.table[0] = sliced;
+		var len = 0;
+		for (var i = 0; i < newA.table.length; i++)
+		{
+			len += length(newA.table[i]);
+			newA.lengths[i] = len;
+		}
+
+		return newA;
+	}
+
+	// Appends two trees.
+	function append(a,b)
+	{
+		if (a.table.length === 0)
+		{
+			return b;
+		}
+		if (b.table.length === 0)
+		{
+			return a;
+		}
+
+		var c = append_(a, b);
+
+		// Check if both nodes can be crunshed together.
+		if (c[0].table.length + c[1].table.length <= M)
+		{
+			if (c[0].table.length === 0)
+			{
+				return c[1];
+			}
+			if (c[1].table.length === 0)
+			{
+				return c[0];
+			}
+
+			// Adjust .table and .lengths
+			c[0].table = c[0].table.concat(c[1].table);
+			if (c[0].height > 0)
+			{
+				var len = length(c[0]);
+				for (var i = 0; i < c[1].lengths.length; i++)
+				{
+					c[1].lengths[i] += len;
+				}
+				c[0].lengths = c[0].lengths.concat(c[1].lengths);
+			}
+
+			return c[0];
+		}
+
+		if (c[0].height > 0)
+		{
+			var toRemove = calcToRemove(a, b);
+			if (toRemove > E)
+			{
+				c = shuffle(c[0], c[1], toRemove);
+			}
+		}
+
+		return siblise(c[0], c[1]);
+	}
+
+	// Returns an array of two nodes; right and left. One node _may_ be empty.
+	function append_(a, b)
+	{
+		if (a.height === 0 && b.height === 0)
+		{
+			return [a, b];
+		}
+
+		if (a.height !== 1 || b.height !== 1)
+		{
+			if (a.height === b.height)
+			{
+				a = nodeCopy(a);
+				b = nodeCopy(b);
+				var appended = append_(botRight(a), botLeft(b));
+
+				insertRight(a, appended[1]);
+				insertLeft(b, appended[0]);
+			}
+			else if (a.height > b.height)
+			{
+				a = nodeCopy(a);
+				var appended = append_(botRight(a), b);
+
+				insertRight(a, appended[0]);
+				b = parentise(appended[1], appended[1].height + 1);
+			}
+			else
+			{
+				b = nodeCopy(b);
+				var appended = append_(a, botLeft(b));
+
+				var left = appended[0].table.length === 0 ? 0 : 1;
+				var right = left === 0 ? 1 : 0;
+				insertLeft(b, appended[left]);
+				a = parentise(appended[right], appended[right].height + 1);
+			}
+		}
+
+		// Check if balancing is needed and return based on that.
+		if (a.table.length === 0 || b.table.length === 0)
+		{
+			return [a, b];
+		}
+
+		var toRemove = calcToRemove(a, b);
+		if (toRemove <= E)
+		{
+			return [a, b];
+		}
+		return shuffle(a, b, toRemove);
+	}
+
+	// Helperfunctions for append_. Replaces a child node at the side of the parent.
+	function insertRight(parent, node)
+	{
+		var index = parent.table.length - 1;
+		parent.table[index] = node;
+		parent.lengths[index] = length(node);
+		parent.lengths[index] += index > 0 ? parent.lengths[index - 1] : 0;
+	}
+
+	function insertLeft(parent, node)
+	{
+		if (node.table.length > 0)
+		{
+			parent.table[0] = node;
+			parent.lengths[0] = length(node);
+
+			var len = length(parent.table[0]);
+			for (var i = 1; i < parent.lengths.length; i++)
+			{
+				len += length(parent.table[i]);
+				parent.lengths[i] = len;
+			}
+		}
+		else
+		{
+			parent.table.shift();
+			for (var i = 1; i < parent.lengths.length; i++)
+			{
+				parent.lengths[i] = parent.lengths[i] - parent.lengths[0];
+			}
+			parent.lengths.shift();
+		}
+	}
+
+	// Returns the extra search steps for E. Refer to the paper.
+	function calcToRemove(a, b)
+	{
+		var subLengths = 0;
+		for (var i = 0; i < a.table.length; i++)
+		{
+			subLengths += a.table[i].table.length;
+		}
+		for (var i = 0; i < b.table.length; i++)
+		{
+			subLengths += b.table[i].table.length;
+		}
+
+		var toRemove = a.table.length + b.table.length;
+		return toRemove - (Math.floor((subLengths - 1) / M) + 1);
+	}
+
+	// get2, set2 and saveSlot are helpers for accessing elements over two arrays.
+	function get2(a, b, index)
+	{
+		return index < a.length
+			? a[index]
+			: b[index - a.length];
+	}
+
+	function set2(a, b, index, value)
+	{
+		if (index < a.length)
+		{
+			a[index] = value;
+		}
+		else
+		{
+			b[index - a.length] = value;
+		}
+	}
+
+	function saveSlot(a, b, index, slot)
+	{
+		set2(a.table, b.table, index, slot);
+
+		var l = (index === 0 || index === a.lengths.length)
+			? 0
+			: get2(a.lengths, a.lengths, index - 1);
+
+		set2(a.lengths, b.lengths, index, l + length(slot));
+	}
+
+	// Creates a node or leaf with a given length at their arrays for perfomance.
+	// Is only used by shuffle.
+	function createNode(h, length)
+	{
+		if (length < 0)
+		{
+			length = 0;
+		}
+		var a = {
+			ctor: '_Array',
+			height: h,
+			table: new Array(length)
+		};
+		if (h > 0)
+		{
+			a.lengths = new Array(length);
+		}
+		return a;
+	}
+
+	// Returns an array of two balanced nodes.
+	function shuffle(a, b, toRemove)
+	{
+		var newA = createNode(a.height, Math.min(M, a.table.length + b.table.length - toRemove));
+		var newB = createNode(a.height, newA.table.length - (a.table.length + b.table.length - toRemove));
+
+		// Skip the slots with size M. More precise: copy the slot references
+		// to the new node
+		var read = 0;
+		while (get2(a.table, b.table, read).table.length % M === 0)
+		{
+			set2(newA.table, newB.table, read, get2(a.table, b.table, read));
+			set2(newA.lengths, newB.lengths, read, get2(a.lengths, b.lengths, read));
+			read++;
+		}
+
+		// Pulling items from left to right, caching in a slot before writing
+		// it into the new nodes.
+		var write = read;
+		var slot = new createNode(a.height - 1, 0);
+		var from = 0;
+
+		// If the current slot is still containing data, then there will be at
+		// least one more write, so we do not break this loop yet.
+		while (read - write - (slot.table.length > 0 ? 1 : 0) < toRemove)
+		{
+			// Find out the max possible items for copying.
+			var source = get2(a.table, b.table, read);
+			var to = Math.min(M - slot.table.length, source.table.length);
+
+			// Copy and adjust size table.
+			slot.table = slot.table.concat(source.table.slice(from, to));
+			if (slot.height > 0)
+			{
+				var len = slot.lengths.length;
+				for (var i = len; i < len + to - from; i++)
+				{
+					slot.lengths[i] = length(slot.table[i]);
+					slot.lengths[i] += (i > 0 ? slot.lengths[i - 1] : 0);
+				}
+			}
+
+			from += to;
+
+			// Only proceed to next slots[i] if the current one was
+			// fully copied.
+			if (source.table.length <= to)
+			{
+				read++; from = 0;
+			}
+
+			// Only create a new slot if the current one is filled up.
+			if (slot.table.length === M)
+			{
+				saveSlot(newA, newB, write, slot);
+				slot = createNode(a.height - 1, 0);
+				write++;
+			}
+		}
+
+		// Cleanup after the loop. Copy the last slot into the new nodes.
+		if (slot.table.length > 0)
+		{
+			saveSlot(newA, newB, write, slot);
+			write++;
+		}
+
+		// Shift the untouched slots to the left
+		while (read < a.table.length + b.table.length )
+		{
+			saveSlot(newA, newB, write, get2(a.table, b.table, read));
+			read++;
+			write++;
+		}
+
+		return [newA, newB];
+	}
+
+	// Navigation functions
+	function botRight(a)
+	{
+		return a.table[a.table.length - 1];
+	}
+	function botLeft(a)
+	{
+		return a.table[0];
+	}
+
+	// Copies a node for updating. Note that you should not use this if
+	// only updating only one of "table" or "lengths" for performance reasons.
+	function nodeCopy(a)
+	{
+		var newA = {
+			ctor: '_Array',
+			height: a.height,
+			table: a.table.slice()
+		};
+		if (a.height > 0)
+		{
+			newA.lengths = a.lengths.slice();
+		}
+		return newA;
+	}
+
+	// Returns how many items are in the tree.
+	function length(array)
+	{
+		if (array.height === 0)
+		{
+			return array.table.length;
+		}
+		else
+		{
+			return array.lengths[array.lengths.length - 1];
+		}
+	}
+
+	// Calculates in which slot of "table" the item probably is, then
+	// find the exact slot via forward searching in  "lengths". Returns the index.
+	function getSlot(i, a)
+	{
+		var slot = i >> (5 * a.height);
+		while (a.lengths[slot] <= i)
+		{
+			slot++;
+		}
+		return slot;
+	}
+
+	// Recursively creates a tree with a given height containing
+	// only the given item.
+	function create(item, h)
+	{
+		if (h === 0)
+		{
+			return {
+				ctor: '_Array',
+				height: 0,
+				table: [item]
+			};
+		}
+		return {
+			ctor: '_Array',
+			height: h,
+			table: [create(item, h - 1)],
+			lengths: [1]
+		};
+	}
+
+	// Recursively creates a tree that contains the given tree.
+	function parentise(tree, h)
+	{
+		if (h === tree.height)
+		{
+			return tree;
+		}
+
+		return {
+			ctor: '_Array',
+			height: h,
+			table: [parentise(tree, h - 1)],
+			lengths: [length(tree)]
+		};
+	}
+
+	// Emphasizes blood brotherhood beneath two trees.
+	function siblise(a, b)
+	{
+		return {
+			ctor: '_Array',
+			height: a.height + 1,
+			table: [a, b],
+			lengths: [length(a), length(a) + length(b)]
+		};
+	}
+
+	function toJSArray(a)
+	{
+		var jsArray = new Array(length(a));
+		toJSArray_(jsArray, 0, a);
+		return jsArray;
+	}
+
+	function toJSArray_(jsArray, i, a)
+	{
+		for (var t = 0; t < a.table.length; t++)
+		{
+			if (a.height === 0)
+			{
+				jsArray[i + t] = a.table[t];
+			}
+			else
+			{
+				var inc = t === 0 ? 0 : a.lengths[t - 1];
+				toJSArray_(jsArray, i + inc, a.table[t]);
+			}
+		}
+	}
+
+	function fromJSArray(jsArray)
+	{
+		if (jsArray.length === 0)
+		{
+			return empty;
+		}
+		var h = Math.floor(Math.log(jsArray.length) / Math.log(M));
+		return fromJSArray_(jsArray, h, 0, jsArray.length);
+	}
+
+	function fromJSArray_(jsArray, h, from, to)
+	{
+		if (h === 0)
+		{
+			return {
+				ctor: '_Array',
+				height: 0,
+				table: jsArray.slice(from, to)
+			};
+		}
+
+		var step = Math.pow(M, h);
+		var table = new Array(Math.ceil((to - from) / step));
+		var lengths = new Array(table.length);
+		for (var i = 0; i < table.length; i++)
+		{
+			table[i] = fromJSArray_(jsArray, h - 1, from + (i * step), Math.min(from + ((i + 1) * step), to));
+			lengths[i] = length(table[i]) + (i > 0 ? lengths[i - 1] : 0);
+		}
+		return {
+			ctor: '_Array',
+			height: h,
+			table: table,
+			lengths: lengths
+		};
+	}
+
+	return {
+		empty: empty,
+		fromList: fromList,
+		toList: toList,
+		initialize: F2(initialize),
+		append: F2(append),
+		push: F2(push),
+		slice: F3(slice),
+		get: F2(get),
+		set: F3(set),
+		map: F2(map),
+		indexedMap: F2(indexedMap),
+		foldl: F3(foldl),
+		foldr: F3(foldr),
+		length: length,
+
+		toJSArray: toJSArray,
+		fromJSArray: fromJSArray
+	};
+
+	}();
+	//import Native.Utils //
+
+	var _elm_lang$core$Native_Basics = function() {
+
+	function div(a, b)
+	{
+		return (a / b) | 0;
+	}
+	function rem(a, b)
+	{
+		return a % b;
+	}
+	function mod(a, b)
+	{
+		if (b === 0)
+		{
+			throw new Error('Cannot perform mod 0. Division by zero error.');
+		}
+		var r = a % b;
+		var m = a === 0 ? 0 : (b > 0 ? (a >= 0 ? r : r + b) : -mod(-a, -b));
+
+		return m === b ? 0 : m;
+	}
+	function logBase(base, n)
+	{
+		return Math.log(n) / Math.log(base);
+	}
+	function negate(n)
+	{
+		return -n;
+	}
+	function abs(n)
+	{
+		return n < 0 ? -n : n;
+	}
+
+	function min(a, b)
+	{
+		return _elm_lang$core$Native_Utils.cmp(a, b) < 0 ? a : b;
+	}
+	function max(a, b)
+	{
+		return _elm_lang$core$Native_Utils.cmp(a, b) > 0 ? a : b;
+	}
+	function clamp(lo, hi, n)
+	{
+		return _elm_lang$core$Native_Utils.cmp(n, lo) < 0
+			? lo
+			: _elm_lang$core$Native_Utils.cmp(n, hi) > 0
+				? hi
+				: n;
+	}
+
+	var ord = ['LT', 'EQ', 'GT'];
+
+	function compare(x, y)
+	{
+		return { ctor: ord[_elm_lang$core$Native_Utils.cmp(x, y) + 1] };
+	}
+
+	function xor(a, b)
+	{
+		return a !== b;
+	}
+	function not(b)
+	{
+		return !b;
+	}
+	function isInfinite(n)
+	{
+		return n === Infinity || n === -Infinity;
+	}
+
+	function truncate(n)
+	{
+		return n | 0;
+	}
+
+	function degrees(d)
+	{
+		return d * Math.PI / 180;
+	}
+	function turns(t)
+	{
+		return 2 * Math.PI * t;
+	}
+	function fromPolar(point)
+	{
+		var r = point._0;
+		var t = point._1;
+		return _elm_lang$core$Native_Utils.Tuple2(r * Math.cos(t), r * Math.sin(t));
+	}
+	function toPolar(point)
+	{
+		var x = point._0;
+		var y = point._1;
+		return _elm_lang$core$Native_Utils.Tuple2(Math.sqrt(x * x + y * y), Math.atan2(y, x));
+	}
+
+	return {
+		div: F2(div),
+		rem: F2(rem),
+		mod: F2(mod),
+
+		pi: Math.PI,
+		e: Math.E,
+		cos: Math.cos,
+		sin: Math.sin,
+		tan: Math.tan,
+		acos: Math.acos,
+		asin: Math.asin,
+		atan: Math.atan,
+		atan2: F2(Math.atan2),
+
+		degrees: degrees,
+		turns: turns,
+		fromPolar: fromPolar,
+		toPolar: toPolar,
+
+		sqrt: Math.sqrt,
+		logBase: F2(logBase),
+		negate: negate,
+		abs: abs,
+		min: F2(min),
+		max: F2(max),
+		clamp: F3(clamp),
+		compare: F2(compare),
+
+		xor: F2(xor),
+		not: not,
+
+		truncate: truncate,
+		ceiling: Math.ceil,
+		floor: Math.floor,
+		round: Math.round,
+		toFloat: function(x) { return x; },
+		isNaN: isNaN,
+		isInfinite: isInfinite
+	};
+
+	}();
+	//import //
+
+	var _elm_lang$core$Native_Utils = function() {
+
+	// COMPARISONS
+
+	function eq(x, y)
+	{
+		var stack = [];
+		var isEqual = eqHelp(x, y, 0, stack);
+		var pair;
+		while (isEqual && (pair = stack.pop()))
+		{
+			isEqual = eqHelp(pair.x, pair.y, 0, stack);
+		}
+		return isEqual;
+	}
+
+
+	function eqHelp(x, y, depth, stack)
+	{
+		if (depth > 100)
+		{
+			stack.push({ x: x, y: y });
+			return true;
+		}
+
+		if (x === y)
+		{
+			return true;
+		}
+
+		if (typeof x !== 'object')
+		{
+			if (typeof x === 'function')
+			{
+				throw new Error(
+					'Trying to use `(==)` on functions. There is no way to know if functions are "the same" in the Elm sense.'
+					+ ' Read more about this at http://package.elm-lang.org/packages/elm-lang/core/latest/Basics#=='
+					+ ' which describes why it is this way and what the better version will look like.'
+				);
+			}
+			return false;
+		}
+
+		if (x === null || y === null)
+		{
+			return false
+		}
+
+		if (x instanceof Date)
+		{
+			return x.getTime() === y.getTime();
+		}
+
+		if (!('ctor' in x))
+		{
+			for (var key in x)
+			{
+				if (!eqHelp(x[key], y[key], depth + 1, stack))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		// convert Dicts and Sets to lists
+		if (x.ctor === 'RBNode_elm_builtin' || x.ctor === 'RBEmpty_elm_builtin')
+		{
+			x = _elm_lang$core$Dict$toList(x);
+			y = _elm_lang$core$Dict$toList(y);
+		}
+		if (x.ctor === 'Set_elm_builtin')
+		{
+			x = _elm_lang$core$Set$toList(x);
+			y = _elm_lang$core$Set$toList(y);
+		}
+
+		// check if lists are equal without recursion
+		if (x.ctor === '::')
+		{
+			var a = x;
+			var b = y;
+			while (a.ctor === '::' && b.ctor === '::')
+			{
+				if (!eqHelp(a._0, b._0, depth + 1, stack))
+				{
+					return false;
+				}
+				a = a._1;
+				b = b._1;
+			}
+			return a.ctor === b.ctor;
+		}
+
+		// check if Arrays are equal
+		if (x.ctor === '_Array')
+		{
+			var xs = _elm_lang$core$Native_Array.toJSArray(x);
+			var ys = _elm_lang$core$Native_Array.toJSArray(y);
+			if (xs.length !== ys.length)
+			{
+				return false;
+			}
+			for (var i = 0; i < xs.length; i++)
+			{
+				if (!eqHelp(xs[i], ys[i], depth + 1, stack))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		if (!eqHelp(x.ctor, y.ctor, depth + 1, stack))
+		{
+			return false;
+		}
+
+		for (var key in x)
+		{
+			if (!eqHelp(x[key], y[key], depth + 1, stack))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// Code in Generate/JavaScript.hs, Basics.js, and List.js depends on
+	// the particular integer values assigned to LT, EQ, and GT.
+
+	var LT = -1, EQ = 0, GT = 1;
+
+	function cmp(x, y)
+	{
+		if (typeof x !== 'object')
+		{
+			return x === y ? EQ : x < y ? LT : GT;
+		}
+
+		if (x instanceof String)
+		{
+			var a = x.valueOf();
+			var b = y.valueOf();
+			return a === b ? EQ : a < b ? LT : GT;
+		}
+
+		if (x.ctor === '::' || x.ctor === '[]')
+		{
+			while (x.ctor === '::' && y.ctor === '::')
+			{
+				var ord = cmp(x._0, y._0);
+				if (ord !== EQ)
+				{
+					return ord;
+				}
+				x = x._1;
+				y = y._1;
+			}
+			return x.ctor === y.ctor ? EQ : x.ctor === '[]' ? LT : GT;
+		}
+
+		if (x.ctor.slice(0, 6) === '_Tuple')
+		{
+			var ord;
+			var n = x.ctor.slice(6) - 0;
+			var err = 'cannot compare tuples with more than 6 elements.';
+			if (n === 0) return EQ;
+			if (n >= 1) { ord = cmp(x._0, y._0); if (ord !== EQ) return ord;
+			if (n >= 2) { ord = cmp(x._1, y._1); if (ord !== EQ) return ord;
+			if (n >= 3) { ord = cmp(x._2, y._2); if (ord !== EQ) return ord;
+			if (n >= 4) { ord = cmp(x._3, y._3); if (ord !== EQ) return ord;
+			if (n >= 5) { ord = cmp(x._4, y._4); if (ord !== EQ) return ord;
+			if (n >= 6) { ord = cmp(x._5, y._5); if (ord !== EQ) return ord;
+			if (n >= 7) throw new Error('Comparison error: ' + err); } } } } } }
+			return EQ;
+		}
+
+		throw new Error(
+			'Comparison error: comparison is only defined on ints, '
+			+ 'floats, times, chars, strings, lists of comparable values, '
+			+ 'and tuples of comparable values.'
+		);
+	}
+
+
+	// COMMON VALUES
+
+	var Tuple0 = {
+		ctor: '_Tuple0'
+	};
+
+	function Tuple2(x, y)
+	{
+		return {
+			ctor: '_Tuple2',
+			_0: x,
+			_1: y
+		};
+	}
+
+	function chr(c)
+	{
+		return new String(c);
+	}
+
+
+	// GUID
+
+	var count = 0;
+	function guid(_)
+	{
+		return count++;
+	}
+
+
+	// RECORDS
+
+	function update(oldRecord, updatedFields)
+	{
+		var newRecord = {};
+		for (var key in oldRecord)
+		{
+			var value = (key in updatedFields) ? updatedFields[key] : oldRecord[key];
+			newRecord[key] = value;
+		}
+		return newRecord;
+	}
+
+
+	//// LIST STUFF ////
+
+	var Nil = { ctor: '[]' };
+
+	function Cons(hd, tl)
+	{
+		return {
+			ctor: '::',
+			_0: hd,
+			_1: tl
+		};
+	}
+
+	function append(xs, ys)
+	{
+		// append Strings
+		if (typeof xs === 'string')
+		{
+			return xs + ys;
+		}
+
+		// append Lists
+		if (xs.ctor === '[]')
+		{
+			return ys;
+		}
+		var root = Cons(xs._0, Nil);
+		var curr = root;
+		xs = xs._1;
+		while (xs.ctor !== '[]')
+		{
+			curr._1 = Cons(xs._0, Nil);
+			xs = xs._1;
+			curr = curr._1;
+		}
+		curr._1 = ys;
+		return root;
+	}
+
+
+	// CRASHES
+
+	function crash(moduleName, region)
+	{
+		return function(message) {
+			throw new Error(
+				'Ran into a `Debug.crash` in module `' + moduleName + '` ' + regionToString(region) + '\n'
+				+ 'The message provided by the code author is:\n\n    '
+				+ message
+			);
+		};
+	}
+
+	function crashCase(moduleName, region, value)
+	{
+		return function(message) {
+			throw new Error(
+				'Ran into a `Debug.crash` in module `' + moduleName + '`\n\n'
+				+ 'This was caused by the `case` expression ' + regionToString(region) + '.\n'
+				+ 'One of the branches ended with a crash and the following value got through:\n\n    ' + toString(value) + '\n\n'
+				+ 'The message provided by the code author is:\n\n    '
+				+ message
+			);
+		};
+	}
+
+	function regionToString(region)
+	{
+		if (region.start.line == region.end.line)
+		{
+			return 'on line ' + region.start.line;
+		}
+		return 'between lines ' + region.start.line + ' and ' + region.end.line;
+	}
+
+
+	// TO STRING
+
+	function toString(v)
+	{
+		var type = typeof v;
+		if (type === 'function')
+		{
+			var name = v.func ? v.func.name : v.name;
+			return '<function' + (name === '' ? '' : ':') + name + '>';
+		}
+
+		if (type === 'boolean')
+		{
+			return v ? 'True' : 'False';
+		}
+
+		if (type === 'number')
+		{
+			return v + '';
+		}
+
+		if (v instanceof String)
+		{
+			return '\'' + addSlashes(v, true) + '\'';
+		}
+
+		if (type === 'string')
+		{
+			return '"' + addSlashes(v, false) + '"';
+		}
+
+		if (v === null)
+		{
+			return 'null';
+		}
+
+		if (type === 'object' && 'ctor' in v)
+		{
+			var ctorStarter = v.ctor.substring(0, 5);
+
+			if (ctorStarter === '_Tupl')
+			{
+				var output = [];
+				for (var k in v)
+				{
+					if (k === 'ctor') continue;
+					output.push(toString(v[k]));
+				}
+				return '(' + output.join(',') + ')';
+			}
+
+			if (ctorStarter === '_Task')
+			{
+				return '<task>'
+			}
+
+			if (v.ctor === '_Array')
+			{
+				var list = _elm_lang$core$Array$toList(v);
+				return 'Array.fromList ' + toString(list);
+			}
+
+			if (v.ctor === '<decoder>')
+			{
+				return '<decoder>';
+			}
+
+			if (v.ctor === '_Process')
+			{
+				return '<process:' + v.id + '>';
+			}
+
+			if (v.ctor === '::')
+			{
+				var output = '[' + toString(v._0);
+				v = v._1;
+				while (v.ctor === '::')
+				{
+					output += ',' + toString(v._0);
+					v = v._1;
+				}
+				return output + ']';
+			}
+
+			if (v.ctor === '[]')
+			{
+				return '[]';
+			}
+
+			if (v.ctor === 'Set_elm_builtin')
+			{
+				return 'Set.fromList ' + toString(_elm_lang$core$Set$toList(v));
+			}
+
+			if (v.ctor === 'RBNode_elm_builtin' || v.ctor === 'RBEmpty_elm_builtin')
+			{
+				return 'Dict.fromList ' + toString(_elm_lang$core$Dict$toList(v));
+			}
+
+			var output = '';
+			for (var i in v)
+			{
+				if (i === 'ctor') continue;
+				var str = toString(v[i]);
+				var c0 = str[0];
+				var parenless = c0 === '{' || c0 === '(' || c0 === '<' || c0 === '"' || str.indexOf(' ') < 0;
+				output += ' ' + (parenless ? str : '(' + str + ')');
+			}
+			return v.ctor + output;
+		}
+
+		if (type === 'object')
+		{
+			if (v instanceof Date)
+			{
+				return '<' + v.toString() + '>';
+			}
+
+			if (v.elm_web_socket)
+			{
+				return '<websocket>';
+			}
+
+			var output = [];
+			for (var k in v)
+			{
+				output.push(k + ' = ' + toString(v[k]));
+			}
+			if (output.length === 0)
+			{
+				return '{}';
+			}
+			return '{ ' + output.join(', ') + ' }';
+		}
+
+		return '<internal structure>';
+	}
+
+	function addSlashes(str, isChar)
+	{
+		var s = str.replace(/\\/g, '\\\\')
+				  .replace(/\n/g, '\\n')
+				  .replace(/\t/g, '\\t')
+				  .replace(/\r/g, '\\r')
+				  .replace(/\v/g, '\\v')
+				  .replace(/\0/g, '\\0');
+		if (isChar)
+		{
+			return s.replace(/\'/g, '\\\'');
+		}
+		else
+		{
+			return s.replace(/\"/g, '\\"');
+		}
+	}
+
+
+	return {
+		eq: eq,
+		cmp: cmp,
+		Tuple0: Tuple0,
+		Tuple2: Tuple2,
+		chr: chr,
+		update: update,
+		guid: guid,
+
+		append: F2(append),
+
+		crash: crash,
+		crashCase: crashCase,
+
+		toString: toString
+	};
+
+	}();
+	var _elm_lang$core$Basics$uncurry = F2(
+		function (f, _p0) {
+			var _p1 = _p0;
+			return A2(f, _p1._0, _p1._1);
+		});
+	var _elm_lang$core$Basics$curry = F3(
+		function (f, a, b) {
+			return f(
+				{ctor: '_Tuple2', _0: a, _1: b});
+		});
+	var _elm_lang$core$Basics$flip = F3(
+		function (f, b, a) {
+			return A2(f, a, b);
+		});
+	var _elm_lang$core$Basics$snd = function (_p2) {
+		var _p3 = _p2;
+		return _p3._1;
+	};
+	var _elm_lang$core$Basics$fst = function (_p4) {
+		var _p5 = _p4;
+		return _p5._0;
+	};
+	var _elm_lang$core$Basics$always = F2(
+		function (a, _p6) {
+			return a;
+		});
+	var _elm_lang$core$Basics$identity = function (x) {
+		return x;
+	};
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['<|'] = F2(
+		function (f, x) {
+			return f(x);
+		});
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['|>'] = F2(
+		function (x, f) {
+			return f(x);
+		});
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['>>'] = F3(
+		function (f, g, x) {
+			return g(
+				f(x));
+		});
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['<<'] = F3(
+		function (g, f, x) {
+			return g(
+				f(x));
+		});
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['++'] = _elm_lang$core$Native_Utils.append;
+	var _elm_lang$core$Basics$toString = _elm_lang$core$Native_Utils.toString;
+	var _elm_lang$core$Basics$isInfinite = _elm_lang$core$Native_Basics.isInfinite;
+	var _elm_lang$core$Basics$isNaN = _elm_lang$core$Native_Basics.isNaN;
+	var _elm_lang$core$Basics$toFloat = _elm_lang$core$Native_Basics.toFloat;
+	var _elm_lang$core$Basics$ceiling = _elm_lang$core$Native_Basics.ceiling;
+	var _elm_lang$core$Basics$floor = _elm_lang$core$Native_Basics.floor;
+	var _elm_lang$core$Basics$truncate = _elm_lang$core$Native_Basics.truncate;
+	var _elm_lang$core$Basics$round = _elm_lang$core$Native_Basics.round;
+	var _elm_lang$core$Basics$not = _elm_lang$core$Native_Basics.not;
+	var _elm_lang$core$Basics$xor = _elm_lang$core$Native_Basics.xor;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['||'] = _elm_lang$core$Native_Basics.or;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['&&'] = _elm_lang$core$Native_Basics.and;
+	var _elm_lang$core$Basics$max = _elm_lang$core$Native_Basics.max;
+	var _elm_lang$core$Basics$min = _elm_lang$core$Native_Basics.min;
+	var _elm_lang$core$Basics$compare = _elm_lang$core$Native_Basics.compare;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['>='] = _elm_lang$core$Native_Basics.ge;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['<='] = _elm_lang$core$Native_Basics.le;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['>'] = _elm_lang$core$Native_Basics.gt;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['<'] = _elm_lang$core$Native_Basics.lt;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['/='] = _elm_lang$core$Native_Basics.neq;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['=='] = _elm_lang$core$Native_Basics.eq;
+	var _elm_lang$core$Basics$e = _elm_lang$core$Native_Basics.e;
+	var _elm_lang$core$Basics$pi = _elm_lang$core$Native_Basics.pi;
+	var _elm_lang$core$Basics$clamp = _elm_lang$core$Native_Basics.clamp;
+	var _elm_lang$core$Basics$logBase = _elm_lang$core$Native_Basics.logBase;
+	var _elm_lang$core$Basics$abs = _elm_lang$core$Native_Basics.abs;
+	var _elm_lang$core$Basics$negate = _elm_lang$core$Native_Basics.negate;
+	var _elm_lang$core$Basics$sqrt = _elm_lang$core$Native_Basics.sqrt;
+	var _elm_lang$core$Basics$atan2 = _elm_lang$core$Native_Basics.atan2;
+	var _elm_lang$core$Basics$atan = _elm_lang$core$Native_Basics.atan;
+	var _elm_lang$core$Basics$asin = _elm_lang$core$Native_Basics.asin;
+	var _elm_lang$core$Basics$acos = _elm_lang$core$Native_Basics.acos;
+	var _elm_lang$core$Basics$tan = _elm_lang$core$Native_Basics.tan;
+	var _elm_lang$core$Basics$sin = _elm_lang$core$Native_Basics.sin;
+	var _elm_lang$core$Basics$cos = _elm_lang$core$Native_Basics.cos;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['^'] = _elm_lang$core$Native_Basics.exp;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['%'] = _elm_lang$core$Native_Basics.mod;
+	var _elm_lang$core$Basics$rem = _elm_lang$core$Native_Basics.rem;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['//'] = _elm_lang$core$Native_Basics.div;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['/'] = _elm_lang$core$Native_Basics.floatDiv;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['*'] = _elm_lang$core$Native_Basics.mul;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['-'] = _elm_lang$core$Native_Basics.sub;
+	var _elm_lang$core$Basics_ops = _elm_lang$core$Basics_ops || {};
+	_elm_lang$core$Basics_ops['+'] = _elm_lang$core$Native_Basics.add;
+	var _elm_lang$core$Basics$toPolar = _elm_lang$core$Native_Basics.toPolar;
+	var _elm_lang$core$Basics$fromPolar = _elm_lang$core$Native_Basics.fromPolar;
+	var _elm_lang$core$Basics$turns = _elm_lang$core$Native_Basics.turns;
+	var _elm_lang$core$Basics$degrees = _elm_lang$core$Native_Basics.degrees;
+	var _elm_lang$core$Basics$radians = function (t) {
+		return t;
+	};
+	var _elm_lang$core$Basics$GT = {ctor: 'GT'};
+	var _elm_lang$core$Basics$EQ = {ctor: 'EQ'};
+	var _elm_lang$core$Basics$LT = {ctor: 'LT'};
+	var _elm_lang$core$Basics$Never = function (a) {
+		return {ctor: 'Never', _0: a};
+	};
+
+	var _elm_lang$core$Maybe$withDefault = F2(
+		function ($default, maybe) {
+			var _p0 = maybe;
+			if (_p0.ctor === 'Just') {
+				return _p0._0;
+			} else {
+				return $default;
+			}
+		});
+	var _elm_lang$core$Maybe$Nothing = {ctor: 'Nothing'};
+	var _elm_lang$core$Maybe$oneOf = function (maybes) {
+		oneOf:
+		while (true) {
+			var _p1 = maybes;
+			if (_p1.ctor === '[]') {
+				return _elm_lang$core$Maybe$Nothing;
+			} else {
+				var _p3 = _p1._0;
+				var _p2 = _p3;
+				if (_p2.ctor === 'Nothing') {
+					var _v3 = _p1._1;
+					maybes = _v3;
+					continue oneOf;
+				} else {
+					return _p3;
+				}
+			}
+		}
+	};
+	var _elm_lang$core$Maybe$andThen = F2(
+		function (maybeValue, callback) {
+			var _p4 = maybeValue;
+			if (_p4.ctor === 'Just') {
+				return callback(_p4._0);
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		});
+	var _elm_lang$core$Maybe$Just = function (a) {
+		return {ctor: 'Just', _0: a};
+	};
+	var _elm_lang$core$Maybe$map = F2(
+		function (f, maybe) {
+			var _p5 = maybe;
+			if (_p5.ctor === 'Just') {
+				return _elm_lang$core$Maybe$Just(
+					f(_p5._0));
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		});
+	var _elm_lang$core$Maybe$map2 = F3(
+		function (func, ma, mb) {
+			var _p6 = {ctor: '_Tuple2', _0: ma, _1: mb};
+			if (((_p6.ctor === '_Tuple2') && (_p6._0.ctor === 'Just')) && (_p6._1.ctor === 'Just')) {
+				return _elm_lang$core$Maybe$Just(
+					A2(func, _p6._0._0, _p6._1._0));
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		});
+	var _elm_lang$core$Maybe$map3 = F4(
+		function (func, ma, mb, mc) {
+			var _p7 = {ctor: '_Tuple3', _0: ma, _1: mb, _2: mc};
+			if ((((_p7.ctor === '_Tuple3') && (_p7._0.ctor === 'Just')) && (_p7._1.ctor === 'Just')) && (_p7._2.ctor === 'Just')) {
+				return _elm_lang$core$Maybe$Just(
+					A3(func, _p7._0._0, _p7._1._0, _p7._2._0));
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		});
+	var _elm_lang$core$Maybe$map4 = F5(
+		function (func, ma, mb, mc, md) {
+			var _p8 = {ctor: '_Tuple4', _0: ma, _1: mb, _2: mc, _3: md};
+			if (((((_p8.ctor === '_Tuple4') && (_p8._0.ctor === 'Just')) && (_p8._1.ctor === 'Just')) && (_p8._2.ctor === 'Just')) && (_p8._3.ctor === 'Just')) {
+				return _elm_lang$core$Maybe$Just(
+					A4(func, _p8._0._0, _p8._1._0, _p8._2._0, _p8._3._0));
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		});
+	var _elm_lang$core$Maybe$map5 = F6(
+		function (func, ma, mb, mc, md, me) {
+			var _p9 = {ctor: '_Tuple5', _0: ma, _1: mb, _2: mc, _3: md, _4: me};
+			if ((((((_p9.ctor === '_Tuple5') && (_p9._0.ctor === 'Just')) && (_p9._1.ctor === 'Just')) && (_p9._2.ctor === 'Just')) && (_p9._3.ctor === 'Just')) && (_p9._4.ctor === 'Just')) {
+				return _elm_lang$core$Maybe$Just(
+					A5(func, _p9._0._0, _p9._1._0, _p9._2._0, _p9._3._0, _p9._4._0));
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		});
+
+	//import Native.Utils //
+
+	var _elm_lang$core$Native_List = function() {
+
+	var Nil = { ctor: '[]' };
+
+	function Cons(hd, tl)
+	{
+		return { ctor: '::', _0: hd, _1: tl };
+	}
+
+	function fromArray(arr)
+	{
+		var out = Nil;
+		for (var i = arr.length; i--; )
+		{
+			out = Cons(arr[i], out);
+		}
+		return out;
+	}
+
+	function toArray(xs)
+	{
+		var out = [];
+		while (xs.ctor !== '[]')
+		{
+			out.push(xs._0);
+			xs = xs._1;
+		}
+		return out;
+	}
+
+
+	function range(lo, hi)
+	{
+		var list = Nil;
+		if (lo <= hi)
+		{
+			do
+			{
+				list = Cons(hi, list);
+			}
+			while (hi-- > lo);
+		}
+		return list;
+	}
+
+	function foldr(f, b, xs)
+	{
+		var arr = toArray(xs);
+		var acc = b;
+		for (var i = arr.length; i--; )
+		{
+			acc = A2(f, arr[i], acc);
+		}
+		return acc;
+	}
+
+	function map2(f, xs, ys)
+	{
+		var arr = [];
+		while (xs.ctor !== '[]' && ys.ctor !== '[]')
+		{
+			arr.push(A2(f, xs._0, ys._0));
+			xs = xs._1;
+			ys = ys._1;
+		}
+		return fromArray(arr);
+	}
+
+	function map3(f, xs, ys, zs)
+	{
+		var arr = [];
+		while (xs.ctor !== '[]' && ys.ctor !== '[]' && zs.ctor !== '[]')
+		{
+			arr.push(A3(f, xs._0, ys._0, zs._0));
+			xs = xs._1;
+			ys = ys._1;
+			zs = zs._1;
+		}
+		return fromArray(arr);
+	}
+
+	function map4(f, ws, xs, ys, zs)
+	{
+		var arr = [];
+		while (   ws.ctor !== '[]'
+			   && xs.ctor !== '[]'
+			   && ys.ctor !== '[]'
+			   && zs.ctor !== '[]')
+		{
+			arr.push(A4(f, ws._0, xs._0, ys._0, zs._0));
+			ws = ws._1;
+			xs = xs._1;
+			ys = ys._1;
+			zs = zs._1;
+		}
+		return fromArray(arr);
+	}
+
+	function map5(f, vs, ws, xs, ys, zs)
+	{
+		var arr = [];
+		while (   vs.ctor !== '[]'
+			   && ws.ctor !== '[]'
+			   && xs.ctor !== '[]'
+			   && ys.ctor !== '[]'
+			   && zs.ctor !== '[]')
+		{
+			arr.push(A5(f, vs._0, ws._0, xs._0, ys._0, zs._0));
+			vs = vs._1;
+			ws = ws._1;
+			xs = xs._1;
+			ys = ys._1;
+			zs = zs._1;
+		}
+		return fromArray(arr);
+	}
+
+	function sortBy(f, xs)
+	{
+		return fromArray(toArray(xs).sort(function(a, b) {
+			return _elm_lang$core$Native_Utils.cmp(f(a), f(b));
+		}));
+	}
+
+	function sortWith(f, xs)
+	{
+		return fromArray(toArray(xs).sort(function(a, b) {
+			var ord = f(a)(b).ctor;
+			return ord === 'EQ' ? 0 : ord === 'LT' ? -1 : 1;
+		}));
+	}
+
+	return {
+		Nil: Nil,
+		Cons: Cons,
+		cons: F2(Cons),
+		toArray: toArray,
+		fromArray: fromArray,
+		range: range,
+
+		foldr: F3(foldr),
+
+		map2: F3(map2),
+		map3: F4(map3),
+		map4: F5(map4),
+		map5: F6(map5),
+		sortBy: F2(sortBy),
+		sortWith: F2(sortWith)
+	};
+
+	}();
+	var _elm_lang$core$List$sortWith = _elm_lang$core$Native_List.sortWith;
+	var _elm_lang$core$List$sortBy = _elm_lang$core$Native_List.sortBy;
+	var _elm_lang$core$List$sort = function (xs) {
+		return A2(_elm_lang$core$List$sortBy, _elm_lang$core$Basics$identity, xs);
+	};
+	var _elm_lang$core$List$drop = F2(
+		function (n, list) {
+			drop:
+			while (true) {
+				if (_elm_lang$core$Native_Utils.cmp(n, 0) < 1) {
+					return list;
+				} else {
+					var _p0 = list;
+					if (_p0.ctor === '[]') {
+						return list;
+					} else {
+						var _v1 = n - 1,
+							_v2 = _p0._1;
+						n = _v1;
+						list = _v2;
+						continue drop;
+					}
+				}
+			}
+		});
+	var _elm_lang$core$List$map5 = _elm_lang$core$Native_List.map5;
+	var _elm_lang$core$List$map4 = _elm_lang$core$Native_List.map4;
+	var _elm_lang$core$List$map3 = _elm_lang$core$Native_List.map3;
+	var _elm_lang$core$List$map2 = _elm_lang$core$Native_List.map2;
+	var _elm_lang$core$List$any = F2(
+		function (isOkay, list) {
+			any:
+			while (true) {
+				var _p1 = list;
+				if (_p1.ctor === '[]') {
+					return false;
+				} else {
+					if (isOkay(_p1._0)) {
+						return true;
+					} else {
+						var _v4 = isOkay,
+							_v5 = _p1._1;
+						isOkay = _v4;
+						list = _v5;
+						continue any;
+					}
+				}
+			}
+		});
+	var _elm_lang$core$List$all = F2(
+		function (isOkay, list) {
+			return _elm_lang$core$Basics$not(
+				A2(
+					_elm_lang$core$List$any,
+					function (_p2) {
+						return _elm_lang$core$Basics$not(
+							isOkay(_p2));
+					},
+					list));
+		});
+	var _elm_lang$core$List$foldr = _elm_lang$core$Native_List.foldr;
+	var _elm_lang$core$List$foldl = F3(
+		function (func, acc, list) {
+			foldl:
+			while (true) {
+				var _p3 = list;
+				if (_p3.ctor === '[]') {
+					return acc;
+				} else {
+					var _v7 = func,
+						_v8 = A2(func, _p3._0, acc),
+						_v9 = _p3._1;
+					func = _v7;
+					acc = _v8;
+					list = _v9;
+					continue foldl;
+				}
+			}
+		});
+	var _elm_lang$core$List$length = function (xs) {
+		return A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (_p4, i) {
+					return i + 1;
+				}),
+			0,
+			xs);
+	};
+	var _elm_lang$core$List$sum = function (numbers) {
+		return A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (x, y) {
+					return x + y;
+				}),
+			0,
+			numbers);
+	};
+	var _elm_lang$core$List$product = function (numbers) {
+		return A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (x, y) {
+					return x * y;
+				}),
+			1,
+			numbers);
+	};
+	var _elm_lang$core$List$maximum = function (list) {
+		var _p5 = list;
+		if (_p5.ctor === '::') {
+			return _elm_lang$core$Maybe$Just(
+				A3(_elm_lang$core$List$foldl, _elm_lang$core$Basics$max, _p5._0, _p5._1));
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	};
+	var _elm_lang$core$List$minimum = function (list) {
+		var _p6 = list;
+		if (_p6.ctor === '::') {
+			return _elm_lang$core$Maybe$Just(
+				A3(_elm_lang$core$List$foldl, _elm_lang$core$Basics$min, _p6._0, _p6._1));
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	};
+	var _elm_lang$core$List$indexedMap = F2(
+		function (f, xs) {
+			return A3(
+				_elm_lang$core$List$map2,
+				f,
+				_elm_lang$core$Native_List.range(
+					0,
+					_elm_lang$core$List$length(xs) - 1),
+				xs);
+		});
+	var _elm_lang$core$List$member = F2(
+		function (x, xs) {
+			return A2(
+				_elm_lang$core$List$any,
+				function (a) {
+					return _elm_lang$core$Native_Utils.eq(a, x);
+				},
+				xs);
+		});
+	var _elm_lang$core$List$isEmpty = function (xs) {
+		var _p7 = xs;
+		if (_p7.ctor === '[]') {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	var _elm_lang$core$List$tail = function (list) {
+		var _p8 = list;
+		if (_p8.ctor === '::') {
+			return _elm_lang$core$Maybe$Just(_p8._1);
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	};
+	var _elm_lang$core$List$head = function (list) {
+		var _p9 = list;
+		if (_p9.ctor === '::') {
+			return _elm_lang$core$Maybe$Just(_p9._0);
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	};
+	var _elm_lang$core$List_ops = _elm_lang$core$List_ops || {};
+	_elm_lang$core$List_ops['::'] = _elm_lang$core$Native_List.cons;
+	var _elm_lang$core$List$map = F2(
+		function (f, xs) {
+			return A3(
+				_elm_lang$core$List$foldr,
+				F2(
+					function (x, acc) {
+						return A2(
+							_elm_lang$core$List_ops['::'],
+							f(x),
+							acc);
+					}),
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				xs);
+		});
+	var _elm_lang$core$List$filter = F2(
+		function (pred, xs) {
+			var conditionalCons = F2(
+				function (x, xs$) {
+					return pred(x) ? A2(_elm_lang$core$List_ops['::'], x, xs$) : xs$;
+				});
+			return A3(
+				_elm_lang$core$List$foldr,
+				conditionalCons,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				xs);
+		});
+	var _elm_lang$core$List$maybeCons = F3(
+		function (f, mx, xs) {
+			var _p10 = f(mx);
+			if (_p10.ctor === 'Just') {
+				return A2(_elm_lang$core$List_ops['::'], _p10._0, xs);
+			} else {
+				return xs;
+			}
+		});
+	var _elm_lang$core$List$filterMap = F2(
+		function (f, xs) {
+			return A3(
+				_elm_lang$core$List$foldr,
+				_elm_lang$core$List$maybeCons(f),
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				xs);
+		});
+	var _elm_lang$core$List$reverse = function (list) {
+		return A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (x, y) {
+					return A2(_elm_lang$core$List_ops['::'], x, y);
+				}),
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			list);
+	};
+	var _elm_lang$core$List$scanl = F3(
+		function (f, b, xs) {
+			var scan1 = F2(
+				function (x, accAcc) {
+					var _p11 = accAcc;
+					if (_p11.ctor === '::') {
+						return A2(
+							_elm_lang$core$List_ops['::'],
+							A2(f, x, _p11._0),
+							accAcc);
+					} else {
+						return _elm_lang$core$Native_List.fromArray(
+							[]);
+					}
+				});
+			return _elm_lang$core$List$reverse(
+				A3(
+					_elm_lang$core$List$foldl,
+					scan1,
+					_elm_lang$core$Native_List.fromArray(
+						[b]),
+					xs));
+		});
+	var _elm_lang$core$List$append = F2(
+		function (xs, ys) {
+			var _p12 = ys;
+			if (_p12.ctor === '[]') {
+				return xs;
+			} else {
+				return A3(
+					_elm_lang$core$List$foldr,
+					F2(
+						function (x, y) {
+							return A2(_elm_lang$core$List_ops['::'], x, y);
+						}),
+					ys,
+					xs);
+			}
+		});
+	var _elm_lang$core$List$concat = function (lists) {
+		return A3(
+			_elm_lang$core$List$foldr,
+			_elm_lang$core$List$append,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			lists);
+	};
+	var _elm_lang$core$List$concatMap = F2(
+		function (f, list) {
+			return _elm_lang$core$List$concat(
+				A2(_elm_lang$core$List$map, f, list));
+		});
+	var _elm_lang$core$List$partition = F2(
+		function (pred, list) {
+			var step = F2(
+				function (x, _p13) {
+					var _p14 = _p13;
+					var _p16 = _p14._0;
+					var _p15 = _p14._1;
+					return pred(x) ? {
+						ctor: '_Tuple2',
+						_0: A2(_elm_lang$core$List_ops['::'], x, _p16),
+						_1: _p15
+					} : {
+						ctor: '_Tuple2',
+						_0: _p16,
+						_1: A2(_elm_lang$core$List_ops['::'], x, _p15)
+					};
+				});
+			return A3(
+				_elm_lang$core$List$foldr,
+				step,
+				{
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_List.fromArray(
+						[]),
+					_1: _elm_lang$core$Native_List.fromArray(
+						[])
+				},
+				list);
+		});
+	var _elm_lang$core$List$unzip = function (pairs) {
+		var step = F2(
+			function (_p18, _p17) {
+				var _p19 = _p18;
+				var _p20 = _p17;
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_elm_lang$core$List_ops['::'], _p19._0, _p20._0),
+					_1: A2(_elm_lang$core$List_ops['::'], _p19._1, _p20._1)
+				};
+			});
+		return A3(
+			_elm_lang$core$List$foldr,
+			step,
+			{
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Native_List.fromArray(
+					[]),
+				_1: _elm_lang$core$Native_List.fromArray(
+					[])
+			},
+			pairs);
+	};
+	var _elm_lang$core$List$intersperse = F2(
+		function (sep, xs) {
+			var _p21 = xs;
+			if (_p21.ctor === '[]') {
+				return _elm_lang$core$Native_List.fromArray(
+					[]);
+			} else {
+				var step = F2(
+					function (x, rest) {
+						return A2(
+							_elm_lang$core$List_ops['::'],
+							sep,
+							A2(_elm_lang$core$List_ops['::'], x, rest));
+					});
+				var spersed = A3(
+					_elm_lang$core$List$foldr,
+					step,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_p21._1);
+				return A2(_elm_lang$core$List_ops['::'], _p21._0, spersed);
+			}
+		});
+	var _elm_lang$core$List$takeReverse = F3(
+		function (n, list, taken) {
+			takeReverse:
+			while (true) {
+				if (_elm_lang$core$Native_Utils.cmp(n, 0) < 1) {
+					return taken;
+				} else {
+					var _p22 = list;
+					if (_p22.ctor === '[]') {
+						return taken;
+					} else {
+						var _v23 = n - 1,
+							_v24 = _p22._1,
+							_v25 = A2(_elm_lang$core$List_ops['::'], _p22._0, taken);
+						n = _v23;
+						list = _v24;
+						taken = _v25;
+						continue takeReverse;
+					}
+				}
+			}
+		});
+	var _elm_lang$core$List$takeTailRec = F2(
+		function (n, list) {
+			return _elm_lang$core$List$reverse(
+				A3(
+					_elm_lang$core$List$takeReverse,
+					n,
+					list,
+					_elm_lang$core$Native_List.fromArray(
+						[])));
+		});
+	var _elm_lang$core$List$takeFast = F3(
+		function (ctr, n, list) {
+			if (_elm_lang$core$Native_Utils.cmp(n, 0) < 1) {
+				return _elm_lang$core$Native_List.fromArray(
+					[]);
+			} else {
+				var _p23 = {ctor: '_Tuple2', _0: n, _1: list};
+				_v26_5:
+				do {
+					_v26_1:
+					do {
+						if (_p23.ctor === '_Tuple2') {
+							if (_p23._1.ctor === '[]') {
+								return list;
+							} else {
+								if (_p23._1._1.ctor === '::') {
+									switch (_p23._0) {
+										case 1:
+											break _v26_1;
+										case 2:
+											return _elm_lang$core$Native_List.fromArray(
+												[_p23._1._0, _p23._1._1._0]);
+										case 3:
+											if (_p23._1._1._1.ctor === '::') {
+												return _elm_lang$core$Native_List.fromArray(
+													[_p23._1._0, _p23._1._1._0, _p23._1._1._1._0]);
+											} else {
+												break _v26_5;
+											}
+										default:
+											if ((_p23._1._1._1.ctor === '::') && (_p23._1._1._1._1.ctor === '::')) {
+												var _p28 = _p23._1._1._1._0;
+												var _p27 = _p23._1._1._0;
+												var _p26 = _p23._1._0;
+												var _p25 = _p23._1._1._1._1._0;
+												var _p24 = _p23._1._1._1._1._1;
+												return (_elm_lang$core$Native_Utils.cmp(ctr, 1000) > 0) ? A2(
+													_elm_lang$core$List_ops['::'],
+													_p26,
+													A2(
+														_elm_lang$core$List_ops['::'],
+														_p27,
+														A2(
+															_elm_lang$core$List_ops['::'],
+															_p28,
+															A2(
+																_elm_lang$core$List_ops['::'],
+																_p25,
+																A2(_elm_lang$core$List$takeTailRec, n - 4, _p24))))) : A2(
+													_elm_lang$core$List_ops['::'],
+													_p26,
+													A2(
+														_elm_lang$core$List_ops['::'],
+														_p27,
+														A2(
+															_elm_lang$core$List_ops['::'],
+															_p28,
+															A2(
+																_elm_lang$core$List_ops['::'],
+																_p25,
+																A3(_elm_lang$core$List$takeFast, ctr + 1, n - 4, _p24)))));
+											} else {
+												break _v26_5;
+											}
+									}
+								} else {
+									if (_p23._0 === 1) {
+										break _v26_1;
+									} else {
+										break _v26_5;
+									}
+								}
+							}
+						} else {
+							break _v26_5;
+						}
+					} while(false);
+					return _elm_lang$core$Native_List.fromArray(
+						[_p23._1._0]);
+				} while(false);
+				return list;
+			}
+		});
+	var _elm_lang$core$List$take = F2(
+		function (n, list) {
+			return A3(_elm_lang$core$List$takeFast, 0, n, list);
+		});
+	var _elm_lang$core$List$repeatHelp = F3(
+		function (result, n, value) {
+			repeatHelp:
+			while (true) {
+				if (_elm_lang$core$Native_Utils.cmp(n, 0) < 1) {
+					return result;
+				} else {
+					var _v27 = A2(_elm_lang$core$List_ops['::'], value, result),
+						_v28 = n - 1,
+						_v29 = value;
+					result = _v27;
+					n = _v28;
+					value = _v29;
+					continue repeatHelp;
+				}
+			}
+		});
+	var _elm_lang$core$List$repeat = F2(
+		function (n, value) {
+			return A3(
+				_elm_lang$core$List$repeatHelp,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				n,
+				value);
+		});
+
+	var _elm_lang$core$Array$append = _elm_lang$core$Native_Array.append;
+	var _elm_lang$core$Array$length = _elm_lang$core$Native_Array.length;
+	var _elm_lang$core$Array$isEmpty = function (array) {
+		return _elm_lang$core$Native_Utils.eq(
+			_elm_lang$core$Array$length(array),
+			0);
+	};
+	var _elm_lang$core$Array$slice = _elm_lang$core$Native_Array.slice;
+	var _elm_lang$core$Array$set = _elm_lang$core$Native_Array.set;
+	var _elm_lang$core$Array$get = F2(
+		function (i, array) {
+			return ((_elm_lang$core$Native_Utils.cmp(0, i) < 1) && (_elm_lang$core$Native_Utils.cmp(
+				i,
+				_elm_lang$core$Native_Array.length(array)) < 0)) ? _elm_lang$core$Maybe$Just(
+				A2(_elm_lang$core$Native_Array.get, i, array)) : _elm_lang$core$Maybe$Nothing;
+		});
+	var _elm_lang$core$Array$push = _elm_lang$core$Native_Array.push;
+	var _elm_lang$core$Array$empty = _elm_lang$core$Native_Array.empty;
+	var _elm_lang$core$Array$filter = F2(
+		function (isOkay, arr) {
+			var update = F2(
+				function (x, xs) {
+					return isOkay(x) ? A2(_elm_lang$core$Native_Array.push, x, xs) : xs;
+				});
+			return A3(_elm_lang$core$Native_Array.foldl, update, _elm_lang$core$Native_Array.empty, arr);
+		});
+	var _elm_lang$core$Array$foldr = _elm_lang$core$Native_Array.foldr;
+	var _elm_lang$core$Array$foldl = _elm_lang$core$Native_Array.foldl;
+	var _elm_lang$core$Array$indexedMap = _elm_lang$core$Native_Array.indexedMap;
+	var _elm_lang$core$Array$map = _elm_lang$core$Native_Array.map;
+	var _elm_lang$core$Array$toIndexedList = function (array) {
+		return A3(
+			_elm_lang$core$List$map2,
+			F2(
+				function (v0, v1) {
+					return {ctor: '_Tuple2', _0: v0, _1: v1};
+				}),
+			_elm_lang$core$Native_List.range(
+				0,
+				_elm_lang$core$Native_Array.length(array) - 1),
+			_elm_lang$core$Native_Array.toList(array));
+	};
+	var _elm_lang$core$Array$toList = _elm_lang$core$Native_Array.toList;
+	var _elm_lang$core$Array$fromList = _elm_lang$core$Native_Array.fromList;
+	var _elm_lang$core$Array$initialize = _elm_lang$core$Native_Array.initialize;
+	var _elm_lang$core$Array$repeat = F2(
+		function (n, e) {
+			return A2(
+				_elm_lang$core$Array$initialize,
+				n,
+				_elm_lang$core$Basics$always(e));
+		});
+	var _elm_lang$core$Array$Array = {ctor: 'Array'};
+
+	//import Native.Utils //
+
+	var _elm_lang$core$Native_Char = function() {
+
+	return {
+		fromCode: function(c) { return _elm_lang$core$Native_Utils.chr(String.fromCharCode(c)); },
+		toCode: function(c) { return c.charCodeAt(0); },
+		toUpper: function(c) { return _elm_lang$core$Native_Utils.chr(c.toUpperCase()); },
+		toLower: function(c) { return _elm_lang$core$Native_Utils.chr(c.toLowerCase()); },
+		toLocaleUpper: function(c) { return _elm_lang$core$Native_Utils.chr(c.toLocaleUpperCase()); },
+		toLocaleLower: function(c) { return _elm_lang$core$Native_Utils.chr(c.toLocaleLowerCase()); }
+	};
+
+	}();
+	var _elm_lang$core$Char$fromCode = _elm_lang$core$Native_Char.fromCode;
+	var _elm_lang$core$Char$toCode = _elm_lang$core$Native_Char.toCode;
+	var _elm_lang$core$Char$toLocaleLower = _elm_lang$core$Native_Char.toLocaleLower;
+	var _elm_lang$core$Char$toLocaleUpper = _elm_lang$core$Native_Char.toLocaleUpper;
+	var _elm_lang$core$Char$toLower = _elm_lang$core$Native_Char.toLower;
+	var _elm_lang$core$Char$toUpper = _elm_lang$core$Native_Char.toUpper;
+	var _elm_lang$core$Char$isBetween = F3(
+		function (low, high, $char) {
+			var code = _elm_lang$core$Char$toCode($char);
+			return (_elm_lang$core$Native_Utils.cmp(
+				code,
+				_elm_lang$core$Char$toCode(low)) > -1) && (_elm_lang$core$Native_Utils.cmp(
+				code,
+				_elm_lang$core$Char$toCode(high)) < 1);
+		});
+	var _elm_lang$core$Char$isUpper = A2(
+		_elm_lang$core$Char$isBetween,
+		_elm_lang$core$Native_Utils.chr('A'),
+		_elm_lang$core$Native_Utils.chr('Z'));
+	var _elm_lang$core$Char$isLower = A2(
+		_elm_lang$core$Char$isBetween,
+		_elm_lang$core$Native_Utils.chr('a'),
+		_elm_lang$core$Native_Utils.chr('z'));
+	var _elm_lang$core$Char$isDigit = A2(
+		_elm_lang$core$Char$isBetween,
+		_elm_lang$core$Native_Utils.chr('0'),
+		_elm_lang$core$Native_Utils.chr('9'));
+	var _elm_lang$core$Char$isOctDigit = A2(
+		_elm_lang$core$Char$isBetween,
+		_elm_lang$core$Native_Utils.chr('0'),
+		_elm_lang$core$Native_Utils.chr('7'));
+	var _elm_lang$core$Char$isHexDigit = function ($char) {
+		return _elm_lang$core$Char$isDigit($char) || (A3(
+			_elm_lang$core$Char$isBetween,
+			_elm_lang$core$Native_Utils.chr('a'),
+			_elm_lang$core$Native_Utils.chr('f'),
+			$char) || A3(
+			_elm_lang$core$Char$isBetween,
+			_elm_lang$core$Native_Utils.chr('A'),
+			_elm_lang$core$Native_Utils.chr('F'),
+			$char));
+	};
+
+	//import Native.Utils //
+
+	var _elm_lang$core$Native_Scheduler = function() {
+
+	var MAX_STEPS = 10000;
+
+
+	// TASKS
+
+	function succeed(value)
+	{
+		return {
+			ctor: '_Task_succeed',
+			value: value
+		};
+	}
+
+	function fail(error)
+	{
+		return {
+			ctor: '_Task_fail',
+			value: error
+		};
+	}
+
+	function nativeBinding(callback)
+	{
+		return {
+			ctor: '_Task_nativeBinding',
+			callback: callback,
+			cancel: null
+		};
+	}
+
+	function andThen(task, callback)
+	{
+		return {
+			ctor: '_Task_andThen',
+			task: task,
+			callback: callback
+		};
+	}
+
+	function onError(task, callback)
+	{
+		return {
+			ctor: '_Task_onError',
+			task: task,
+			callback: callback
+		};
+	}
+
+	function receive(callback)
+	{
+		return {
+			ctor: '_Task_receive',
+			callback: callback
+		};
+	}
+
+
+	// PROCESSES
+
+	function rawSpawn(task)
+	{
+		var process = {
+			ctor: '_Process',
+			id: _elm_lang$core$Native_Utils.guid(),
+			root: task,
+			stack: null,
+			mailbox: []
+		};
+
+		enqueue(process);
+
+		return process;
+	}
+
+	function spawn(task)
+	{
+		return nativeBinding(function(callback) {
+			var process = rawSpawn(task);
+			callback(succeed(process));
+		});
+	}
+
+	function rawSend(process, msg)
+	{
+		process.mailbox.push(msg);
+		enqueue(process);
+	}
+
+	function send(process, msg)
+	{
+		return nativeBinding(function(callback) {
+			rawSend(process, msg);
+			callback(succeed(_elm_lang$core$Native_Utils.Tuple0));
+		});
+	}
+
+	function kill(process)
+	{
+		return nativeBinding(function(callback) {
+			var root = process.root;
+			if (root.ctor === '_Task_nativeBinding' && root.cancel)
+			{
+				root.cancel();
+			}
+
+			process.root = null;
+
+			callback(succeed(_elm_lang$core$Native_Utils.Tuple0));
+		});
+	}
+
+	function sleep(time)
+	{
+		return nativeBinding(function(callback) {
+			var id = setTimeout(function() {
+				callback(succeed(_elm_lang$core$Native_Utils.Tuple0));
+			}, time);
+
+			return function() { clearTimeout(id); };
+		});
+	}
+
+
+	// STEP PROCESSES
+
+	function step(numSteps, process)
+	{
+		while (numSteps < MAX_STEPS)
+		{
+			var ctor = process.root.ctor;
+
+			if (ctor === '_Task_succeed')
+			{
+				while (process.stack && process.stack.ctor === '_Task_onError')
+				{
+					process.stack = process.stack.rest;
+				}
+				if (process.stack === null)
+				{
+					break;
+				}
+				process.root = process.stack.callback(process.root.value);
+				process.stack = process.stack.rest;
+				++numSteps;
+				continue;
+			}
+
+			if (ctor === '_Task_fail')
+			{
+				while (process.stack && process.stack.ctor === '_Task_andThen')
+				{
+					process.stack = process.stack.rest;
+				}
+				if (process.stack === null)
+				{
+					break;
+				}
+				process.root = process.stack.callback(process.root.value);
+				process.stack = process.stack.rest;
+				++numSteps;
+				continue;
+			}
+
+			if (ctor === '_Task_andThen')
+			{
+				process.stack = {
+					ctor: '_Task_andThen',
+					callback: process.root.callback,
+					rest: process.stack
+				};
+				process.root = process.root.task;
+				++numSteps;
+				continue;
+			}
+
+			if (ctor === '_Task_onError')
+			{
+				process.stack = {
+					ctor: '_Task_onError',
+					callback: process.root.callback,
+					rest: process.stack
+				};
+				process.root = process.root.task;
+				++numSteps;
+				continue;
+			}
+
+			if (ctor === '_Task_nativeBinding')
+			{
+				process.root.cancel = process.root.callback(function(newRoot) {
+					process.root = newRoot;
+					enqueue(process);
+				});
+
+				break;
+			}
+
+			if (ctor === '_Task_receive')
+			{
+				var mailbox = process.mailbox;
+				if (mailbox.length === 0)
+				{
+					break;
+				}
+
+				process.root = process.root.callback(mailbox.shift());
+				++numSteps;
+				continue;
+			}
+
+			throw new Error(ctor);
+		}
+
+		if (numSteps < MAX_STEPS)
+		{
+			return numSteps + 1;
+		}
+		enqueue(process);
+
+		return numSteps;
+	}
+
+
+	// WORK QUEUE
+
+	var working = false;
+	var workQueue = [];
+
+	function enqueue(process)
+	{
+		workQueue.push(process);
+
+		if (!working)
+		{
+			setTimeout(work, 0);
+			working = true;
+		}
+	}
+
+	function work()
+	{
+		var numSteps = 0;
+		var process;
+		while (numSteps < MAX_STEPS && (process = workQueue.shift()))
+		{
+			if (process.root)
+			{
+				numSteps = step(numSteps, process);
+			}
+		}
+		if (!process)
+		{
+			working = false;
+			return;
+		}
+		setTimeout(work, 0);
+	}
+
+
+	return {
+		succeed: succeed,
+		fail: fail,
+		nativeBinding: nativeBinding,
+		andThen: F2(andThen),
+		onError: F2(onError),
+		receive: receive,
+
+		spawn: spawn,
+		kill: kill,
+		sleep: sleep,
+		send: F2(send),
+
+		rawSpawn: rawSpawn,
+		rawSend: rawSend
+	};
+
+	}();
+	//import //
+
+	var _elm_lang$core$Native_Platform = function() {
+
+
+	// PROGRAMS
+
+	function addPublicModule(object, name, main)
+	{
+		var init = main ? makeEmbed(name, main) : mainIsUndefined(name);
+
+		object['worker'] = function worker(flags)
+		{
+			return init(undefined, flags, false);
+		}
+
+		object['embed'] = function embed(domNode, flags)
+		{
+			return init(domNode, flags, true);
+		}
+
+		object['fullscreen'] = function fullscreen(flags)
+		{
+			return init(document.body, flags, true);
+		};
+	}
+
+
+	// PROGRAM FAIL
+
+	function mainIsUndefined(name)
+	{
+		return function(domNode)
+		{
+			var message = 'Cannot initialize module `' + name +
+				'` because it has no `main` value!\nWhat should I show on screen?';
+			domNode.innerHTML = errorHtml(message);
+			throw new Error(message);
+		};
+	}
+
+	function errorHtml(message)
+	{
+		return '<div style="padding-left:1em;">'
+			+ '<h2 style="font-weight:normal;"><b>Oops!</b> Something went wrong when starting your Elm program.</h2>'
+			+ '<pre style="padding-left:1em;">' + message + '</pre>'
+			+ '</div>';
+	}
+
+
+	// PROGRAM SUCCESS
+
+	function makeEmbed(moduleName, main)
+	{
+		return function embed(rootDomNode, flags, withRenderer)
+		{
+			try
+			{
+				var program = mainToProgram(moduleName, main);
+				if (!withRenderer)
+				{
+					program.renderer = dummyRenderer;
+				}
+				return makeEmbedHelp(moduleName, program, rootDomNode, flags);
+			}
+			catch (e)
+			{
+				rootDomNode.innerHTML = errorHtml(e.message);
+				throw e;
+			}
+		};
+	}
+
+	function dummyRenderer()
+	{
+		return { update: function() {} };
+	}
+
+
+	// MAIN TO PROGRAM
+
+	function mainToProgram(moduleName, wrappedMain)
+	{
+		var main = wrappedMain.main;
+
+		if (typeof main.init === 'undefined')
+		{
+			var emptyBag = batch(_elm_lang$core$Native_List.Nil);
+			var noChange = _elm_lang$core$Native_Utils.Tuple2(
+				_elm_lang$core$Native_Utils.Tuple0,
+				emptyBag
+			);
+
+			return _elm_lang$virtual_dom$VirtualDom$programWithFlags({
+				init: function() { return noChange; },
+				view: function() { return main; },
+				update: F2(function() { return noChange; }),
+				subscriptions: function () { return emptyBag; }
+			});
+		}
+
+		var flags = wrappedMain.flags;
+		var init = flags
+			? initWithFlags(moduleName, main.init, flags)
+			: initWithoutFlags(moduleName, main.init);
+
+		return _elm_lang$virtual_dom$VirtualDom$programWithFlags({
+			init: init,
+			view: main.view,
+			update: main.update,
+			subscriptions: main.subscriptions,
+		});
+	}
+
+	function initWithoutFlags(moduleName, realInit)
+	{
+		return function init(flags)
+		{
+			if (typeof flags !== 'undefined')
+			{
+				throw new Error(
+					'You are giving module `' + moduleName + '` an argument in JavaScript.\n'
+					+ 'This module does not take arguments though! You probably need to change the\n'
+					+ 'initialization code to something like `Elm.' + moduleName + '.fullscreen()`'
+				);
+			}
+			return realInit();
+		};
+	}
+
+	function initWithFlags(moduleName, realInit, flagDecoder)
+	{
+		return function init(flags)
+		{
+			var result = A2(_elm_lang$core$Native_Json.run, flagDecoder, flags);
+			if (result.ctor === 'Err')
+			{
+				throw new Error(
+					'You are trying to initialize module `' + moduleName + '` with an unexpected argument.\n'
+					+ 'When trying to convert it to a usable Elm value, I run into this problem:\n\n'
+					+ result._0
+				);
+			}
+			return realInit(result._0);
+		};
+	}
+
+
+	// SETUP RUNTIME SYSTEM
+
+	function makeEmbedHelp(moduleName, program, rootDomNode, flags)
+	{
+		var init = program.init;
+		var update = program.update;
+		var subscriptions = program.subscriptions;
+		var view = program.view;
+		var makeRenderer = program.renderer;
+
+		// ambient state
+		var managers = {};
+		var renderer;
+
+		// init and update state in main process
+		var initApp = _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+			var results = init(flags);
+			var model = results._0;
+			renderer = makeRenderer(rootDomNode, enqueue, view(model));
+			var cmds = results._1;
+			var subs = subscriptions(model);
+			dispatchEffects(managers, cmds, subs);
+			callback(_elm_lang$core$Native_Scheduler.succeed(model));
+		});
+
+		function onMessage(msg, model)
+		{
+			return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+				var results = A2(update, msg, model);
+				model = results._0;
+				renderer.update(view(model));
+				var cmds = results._1;
+				var subs = subscriptions(model);
+				dispatchEffects(managers, cmds, subs);
+				callback(_elm_lang$core$Native_Scheduler.succeed(model));
+			});
+		}
+
+		var mainProcess = spawnLoop(initApp, onMessage);
+
+		function enqueue(msg)
+		{
+			_elm_lang$core$Native_Scheduler.rawSend(mainProcess, msg);
+		}
+
+		var ports = setupEffects(managers, enqueue);
+
+		return ports ? { ports: ports } : {};
+	}
+
+
+	// EFFECT MANAGERS
+
+	var effectManagers = {};
+
+	function setupEffects(managers, callback)
+	{
+		var ports;
+
+		// setup all necessary effect managers
+		for (var key in effectManagers)
+		{
+			var manager = effectManagers[key];
+
+			if (manager.isForeign)
+			{
+				ports = ports || {};
+				ports[key] = manager.tag === 'cmd'
+					? setupOutgoingPort(key)
+					: setupIncomingPort(key, callback);
+			}
+
+			managers[key] = makeManager(manager, callback);
+		}
+
+		return ports;
+	}
+
+	function makeManager(info, callback)
+	{
+		var router = {
+			main: callback,
+			self: undefined
+		};
+
+		var tag = info.tag;
+		var onEffects = info.onEffects;
+		var onSelfMsg = info.onSelfMsg;
+
+		function onMessage(msg, state)
+		{
+			if (msg.ctor === 'self')
+			{
+				return A3(onSelfMsg, router, msg._0, state);
+			}
+
+			var fx = msg._0;
+			switch (tag)
+			{
+				case 'cmd':
+					return A3(onEffects, router, fx.cmds, state);
+
+				case 'sub':
+					return A3(onEffects, router, fx.subs, state);
+
+				case 'fx':
+					return A4(onEffects, router, fx.cmds, fx.subs, state);
+			}
+		}
+
+		var process = spawnLoop(info.init, onMessage);
+		router.self = process;
+		return process;
+	}
+
+	function sendToApp(router, msg)
+	{
+		return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+		{
+			router.main(msg);
+			callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+		});
+	}
+
+	function sendToSelf(router, msg)
+	{
+		return A2(_elm_lang$core$Native_Scheduler.send, router.self, {
+			ctor: 'self',
+			_0: msg
+		});
+	}
+
+
+	// HELPER for STATEFUL LOOPS
+
+	function spawnLoop(init, onMessage)
+	{
+		var andThen = _elm_lang$core$Native_Scheduler.andThen;
+
+		function loop(state)
+		{
+			var handleMsg = _elm_lang$core$Native_Scheduler.receive(function(msg) {
+				return onMessage(msg, state);
+			});
+			return A2(andThen, handleMsg, loop);
+		}
+
+		var task = A2(andThen, init, loop);
+
+		return _elm_lang$core$Native_Scheduler.rawSpawn(task);
+	}
+
+
+	// BAGS
+
+	function leaf(home)
+	{
+		return function(value)
+		{
+			return {
+				type: 'leaf',
+				home: home,
+				value: value
+			};
+		};
+	}
+
+	function batch(list)
+	{
+		return {
+			type: 'node',
+			branches: list
+		};
+	}
+
+	function map(tagger, bag)
+	{
+		return {
+			type: 'map',
+			tagger: tagger,
+			tree: bag
+		}
+	}
+
+
+	// PIPE BAGS INTO EFFECT MANAGERS
+
+	function dispatchEffects(managers, cmdBag, subBag)
+	{
+		var effectsDict = {};
+		gatherEffects(true, cmdBag, effectsDict, null);
+		gatherEffects(false, subBag, effectsDict, null);
+
+		for (var home in managers)
+		{
+			var fx = home in effectsDict
+				? effectsDict[home]
+				: {
+					cmds: _elm_lang$core$Native_List.Nil,
+					subs: _elm_lang$core$Native_List.Nil
+				};
+
+			_elm_lang$core$Native_Scheduler.rawSend(managers[home], { ctor: 'fx', _0: fx });
+		}
+	}
+
+	function gatherEffects(isCmd, bag, effectsDict, taggers)
+	{
+		switch (bag.type)
+		{
+			case 'leaf':
+				var home = bag.home;
+				var effect = toEffect(isCmd, home, taggers, bag.value);
+				effectsDict[home] = insert(isCmd, effect, effectsDict[home]);
+				return;
+
+			case 'node':
+				var list = bag.branches;
+				while (list.ctor !== '[]')
+				{
+					gatherEffects(isCmd, list._0, effectsDict, taggers);
+					list = list._1;
+				}
+				return;
+
+			case 'map':
+				gatherEffects(isCmd, bag.tree, effectsDict, {
+					tagger: bag.tagger,
+					rest: taggers
+				});
+				return;
+		}
+	}
+
+	function toEffect(isCmd, home, taggers, value)
+	{
+		function applyTaggers(x)
+		{
+			var temp = taggers;
+			while (temp)
+			{
+				x = temp.tagger(x);
+				temp = temp.rest;
+			}
+			return x;
+		}
+
+		var map = isCmd
+			? effectManagers[home].cmdMap
+			: effectManagers[home].subMap;
+
+		return A2(map, applyTaggers, value)
+	}
+
+	function insert(isCmd, newEffect, effects)
+	{
+		effects = effects || {
+			cmds: _elm_lang$core$Native_List.Nil,
+			subs: _elm_lang$core$Native_List.Nil
+		};
+		if (isCmd)
+		{
+			effects.cmds = _elm_lang$core$Native_List.Cons(newEffect, effects.cmds);
+			return effects;
+		}
+		effects.subs = _elm_lang$core$Native_List.Cons(newEffect, effects.subs);
+		return effects;
+	}
+
+
+	// PORTS
+
+	function checkPortName(name)
+	{
+		if (name in effectManagers)
+		{
+			throw new Error('There can only be one port named `' + name + '`, but your program has multiple.');
+		}
+	}
+
+
+	// OUTGOING PORTS
+
+	function outgoingPort(name, converter)
+	{
+		checkPortName(name);
+		effectManagers[name] = {
+			tag: 'cmd',
+			cmdMap: outgoingPortMap,
+			converter: converter,
+			isForeign: true
+		};
+		return leaf(name);
+	}
+
+	var outgoingPortMap = F2(function cmdMap(tagger, value) {
+		return value;
+	});
+
+	function setupOutgoingPort(name)
+	{
+		var subs = [];
+		var converter = effectManagers[name].converter;
+
+		// CREATE MANAGER
+
+		var init = _elm_lang$core$Native_Scheduler.succeed(null);
+
+		function onEffects(router, cmdList, state)
+		{
+			while (cmdList.ctor !== '[]')
+			{
+				var value = converter(cmdList._0);
+				for (var i = 0; i < subs.length; i++)
+				{
+					subs[i](value);
+				}
+				cmdList = cmdList._1;
+			}
+			return init;
+		}
+
+		effectManagers[name].init = init;
+		effectManagers[name].onEffects = F3(onEffects);
+
+		// PUBLIC API
+
+		function subscribe(callback)
+		{
+			subs.push(callback);
+		}
+
+		function unsubscribe(callback)
+		{
+			var index = subs.indexOf(callback);
+			if (index >= 0)
+			{
+				subs.splice(index, 1);
+			}
+		}
+
+		return {
+			subscribe: subscribe,
+			unsubscribe: unsubscribe
+		};
+	}
+
+
+	// INCOMING PORTS
+
+	function incomingPort(name, converter)
+	{
+		checkPortName(name);
+		effectManagers[name] = {
+			tag: 'sub',
+			subMap: incomingPortMap,
+			converter: converter,
+			isForeign: true
+		};
+		return leaf(name);
+	}
+
+	var incomingPortMap = F2(function subMap(tagger, finalTagger)
+	{
+		return function(value)
+		{
+			return tagger(finalTagger(value));
+		};
+	});
+
+	function setupIncomingPort(name, callback)
+	{
+		var sentBeforeInit = [];
+		var subs = _elm_lang$core$Native_List.Nil;
+		var converter = effectManagers[name].converter;
+		var currentOnEffects = preInitOnEffects;
+		var currentSend = preInitSend;
+
+		// CREATE MANAGER
+
+		var init = _elm_lang$core$Native_Scheduler.succeed(null);
+
+		function preInitOnEffects(router, subList, state)
+		{
+			var postInitResult = postInitOnEffects(router, subList, state);
+
+			for(var i = 0; i < sentBeforeInit.length; i++)
+			{
+				postInitSend(sentBeforeInit[i]);
+			}
+
+			sentBeforeInit = null; // to release objects held in queue
+			currentSend = postInitSend;
+			currentOnEffects = postInitOnEffects;
+			return postInitResult;
+		}
+
+		function postInitOnEffects(router, subList, state)
+		{
+			subs = subList;
+			return init;
+		}
+
+		function onEffects(router, subList, state)
+		{
+			return currentOnEffects(router, subList, state);
+		}
+
+		effectManagers[name].init = init;
+		effectManagers[name].onEffects = F3(onEffects);
+
+		// PUBLIC API
+
+		function preInitSend(value)
+		{
+			sentBeforeInit.push(value);
+		}
+
+		function postInitSend(incomingValue)
+		{
+			var result = A2(_elm_lang$core$Json_Decode$decodeValue, converter, incomingValue);
+			if (result.ctor === 'Err')
+			{
+				throw new Error('Trying to send an unexpected type of value through port `' + name + '`:\n' + result._0);
+			}
+
+			var value = result._0;
+			var temp = subs;
+			while (temp.ctor !== '[]')
+			{
+				callback(temp._0(value));
+				temp = temp._1;
+			}
+		}
+
+		function send(incomingValue)
+		{
+			currentSend(incomingValue);
+		}
+
+		return { send: send };
+	}
+
+	return {
+		// routers
+		sendToApp: F2(sendToApp),
+		sendToSelf: F2(sendToSelf),
+
+		// global setup
+		mainToProgram: mainToProgram,
+		effectManagers: effectManagers,
+		outgoingPort: outgoingPort,
+		incomingPort: incomingPort,
+		addPublicModule: addPublicModule,
+
+		// effect bags
+		leaf: leaf,
+		batch: batch,
+		map: F2(map)
+	};
+
+	}();
+
+	var _elm_lang$core$Platform$hack = _elm_lang$core$Native_Scheduler.succeed;
+	var _elm_lang$core$Platform$sendToSelf = _elm_lang$core$Native_Platform.sendToSelf;
+	var _elm_lang$core$Platform$sendToApp = _elm_lang$core$Native_Platform.sendToApp;
+	var _elm_lang$core$Platform$Program = {ctor: 'Program'};
+	var _elm_lang$core$Platform$Task = {ctor: 'Task'};
+	var _elm_lang$core$Platform$ProcessId = {ctor: 'ProcessId'};
+	var _elm_lang$core$Platform$Router = {ctor: 'Router'};
+
+	var _elm_lang$core$Platform_Cmd$batch = _elm_lang$core$Native_Platform.batch;
+	var _elm_lang$core$Platform_Cmd$none = _elm_lang$core$Platform_Cmd$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[]));
+	var _elm_lang$core$Platform_Cmd_ops = _elm_lang$core$Platform_Cmd_ops || {};
+	_elm_lang$core$Platform_Cmd_ops['!'] = F2(
+		function (model, commands) {
+			return {
+				ctor: '_Tuple2',
+				_0: model,
+				_1: _elm_lang$core$Platform_Cmd$batch(commands)
+			};
+		});
+	var _elm_lang$core$Platform_Cmd$map = _elm_lang$core$Native_Platform.map;
+	var _elm_lang$core$Platform_Cmd$Cmd = {ctor: 'Cmd'};
+
+	var _elm_lang$core$Result$toMaybe = function (result) {
+		var _p0 = result;
+		if (_p0.ctor === 'Ok') {
+			return _elm_lang$core$Maybe$Just(_p0._0);
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	};
+	var _elm_lang$core$Result$withDefault = F2(
+		function (def, result) {
+			var _p1 = result;
+			if (_p1.ctor === 'Ok') {
+				return _p1._0;
+			} else {
+				return def;
+			}
+		});
+	var _elm_lang$core$Result$Err = function (a) {
+		return {ctor: 'Err', _0: a};
+	};
+	var _elm_lang$core$Result$andThen = F2(
+		function (result, callback) {
+			var _p2 = result;
+			if (_p2.ctor === 'Ok') {
+				return callback(_p2._0);
+			} else {
+				return _elm_lang$core$Result$Err(_p2._0);
+			}
+		});
+	var _elm_lang$core$Result$Ok = function (a) {
+		return {ctor: 'Ok', _0: a};
+	};
+	var _elm_lang$core$Result$map = F2(
+		function (func, ra) {
+			var _p3 = ra;
+			if (_p3.ctor === 'Ok') {
+				return _elm_lang$core$Result$Ok(
+					func(_p3._0));
+			} else {
+				return _elm_lang$core$Result$Err(_p3._0);
+			}
+		});
+	var _elm_lang$core$Result$map2 = F3(
+		function (func, ra, rb) {
+			var _p4 = {ctor: '_Tuple2', _0: ra, _1: rb};
+			if (_p4._0.ctor === 'Ok') {
+				if (_p4._1.ctor === 'Ok') {
+					return _elm_lang$core$Result$Ok(
+						A2(func, _p4._0._0, _p4._1._0));
+				} else {
+					return _elm_lang$core$Result$Err(_p4._1._0);
+				}
+			} else {
+				return _elm_lang$core$Result$Err(_p4._0._0);
+			}
+		});
+	var _elm_lang$core$Result$map3 = F4(
+		function (func, ra, rb, rc) {
+			var _p5 = {ctor: '_Tuple3', _0: ra, _1: rb, _2: rc};
+			if (_p5._0.ctor === 'Ok') {
+				if (_p5._1.ctor === 'Ok') {
+					if (_p5._2.ctor === 'Ok') {
+						return _elm_lang$core$Result$Ok(
+							A3(func, _p5._0._0, _p5._1._0, _p5._2._0));
+					} else {
+						return _elm_lang$core$Result$Err(_p5._2._0);
+					}
+				} else {
+					return _elm_lang$core$Result$Err(_p5._1._0);
+				}
+			} else {
+				return _elm_lang$core$Result$Err(_p5._0._0);
+			}
+		});
+	var _elm_lang$core$Result$map4 = F5(
+		function (func, ra, rb, rc, rd) {
+			var _p6 = {ctor: '_Tuple4', _0: ra, _1: rb, _2: rc, _3: rd};
+			if (_p6._0.ctor === 'Ok') {
+				if (_p6._1.ctor === 'Ok') {
+					if (_p6._2.ctor === 'Ok') {
+						if (_p6._3.ctor === 'Ok') {
+							return _elm_lang$core$Result$Ok(
+								A4(func, _p6._0._0, _p6._1._0, _p6._2._0, _p6._3._0));
+						} else {
+							return _elm_lang$core$Result$Err(_p6._3._0);
+						}
+					} else {
+						return _elm_lang$core$Result$Err(_p6._2._0);
+					}
+				} else {
+					return _elm_lang$core$Result$Err(_p6._1._0);
+				}
+			} else {
+				return _elm_lang$core$Result$Err(_p6._0._0);
+			}
+		});
+	var _elm_lang$core$Result$map5 = F6(
+		function (func, ra, rb, rc, rd, re) {
+			var _p7 = {ctor: '_Tuple5', _0: ra, _1: rb, _2: rc, _3: rd, _4: re};
+			if (_p7._0.ctor === 'Ok') {
+				if (_p7._1.ctor === 'Ok') {
+					if (_p7._2.ctor === 'Ok') {
+						if (_p7._3.ctor === 'Ok') {
+							if (_p7._4.ctor === 'Ok') {
+								return _elm_lang$core$Result$Ok(
+									A5(func, _p7._0._0, _p7._1._0, _p7._2._0, _p7._3._0, _p7._4._0));
+							} else {
+								return _elm_lang$core$Result$Err(_p7._4._0);
+							}
+						} else {
+							return _elm_lang$core$Result$Err(_p7._3._0);
+						}
+					} else {
+						return _elm_lang$core$Result$Err(_p7._2._0);
+					}
+				} else {
+					return _elm_lang$core$Result$Err(_p7._1._0);
+				}
+			} else {
+				return _elm_lang$core$Result$Err(_p7._0._0);
+			}
+		});
+	var _elm_lang$core$Result$formatError = F2(
+		function (f, result) {
+			var _p8 = result;
+			if (_p8.ctor === 'Ok') {
+				return _elm_lang$core$Result$Ok(_p8._0);
+			} else {
+				return _elm_lang$core$Result$Err(
+					f(_p8._0));
+			}
+		});
+	var _elm_lang$core$Result$fromMaybe = F2(
+		function (err, maybe) {
+			var _p9 = maybe;
+			if (_p9.ctor === 'Just') {
+				return _elm_lang$core$Result$Ok(_p9._0);
+			} else {
+				return _elm_lang$core$Result$Err(err);
+			}
+		});
+
+	//import Native.Utils //
+
+	var _elm_lang$core$Native_Debug = function() {
+
+	function log(tag, value)
+	{
+		var msg = tag + ': ' + _elm_lang$core$Native_Utils.toString(value);
+		var process = process || {};
+		if (process.stdout)
+		{
+			process.stdout.write(msg);
+		}
+		else
+		{
+			console.log(msg);
+		}
+		return value;
+	}
+
+	function crash(message)
+	{
+		throw new Error(message);
+	}
+
+	return {
+		crash: crash,
+		log: F2(log)
+	};
+
+	}();
+	//import Maybe, Native.List, Native.Utils, Result //
+
+	var _elm_lang$core$Native_String = function() {
+
+	function isEmpty(str)
+	{
+		return str.length === 0;
+	}
+	function cons(chr, str)
+	{
+		return chr + str;
+	}
+	function uncons(str)
+	{
+		var hd = str[0];
+		if (hd)
+		{
+			return _elm_lang$core$Maybe$Just(_elm_lang$core$Native_Utils.Tuple2(_elm_lang$core$Native_Utils.chr(hd), str.slice(1)));
+		}
+		return _elm_lang$core$Maybe$Nothing;
+	}
+	function append(a, b)
+	{
+		return a + b;
+	}
+	function concat(strs)
+	{
+		return _elm_lang$core$Native_List.toArray(strs).join('');
+	}
+	function length(str)
+	{
+		return str.length;
+	}
+	function map(f, str)
+	{
+		var out = str.split('');
+		for (var i = out.length; i--; )
+		{
+			out[i] = f(_elm_lang$core$Native_Utils.chr(out[i]));
+		}
+		return out.join('');
+	}
+	function filter(pred, str)
+	{
+		return str.split('').map(_elm_lang$core$Native_Utils.chr).filter(pred).join('');
+	}
+	function reverse(str)
+	{
+		return str.split('').reverse().join('');
+	}
+	function foldl(f, b, str)
+	{
+		var len = str.length;
+		for (var i = 0; i < len; ++i)
+		{
+			b = A2(f, _elm_lang$core$Native_Utils.chr(str[i]), b);
+		}
+		return b;
+	}
+	function foldr(f, b, str)
+	{
+		for (var i = str.length; i--; )
+		{
+			b = A2(f, _elm_lang$core$Native_Utils.chr(str[i]), b);
+		}
+		return b;
+	}
+	function split(sep, str)
+	{
+		return _elm_lang$core$Native_List.fromArray(str.split(sep));
+	}
+	function join(sep, strs)
+	{
+		return _elm_lang$core$Native_List.toArray(strs).join(sep);
+	}
+	function repeat(n, str)
+	{
+		var result = '';
+		while (n > 0)
+		{
+			if (n & 1)
+			{
+				result += str;
+			}
+			n >>= 1, str += str;
+		}
+		return result;
+	}
+	function slice(start, end, str)
+	{
+		return str.slice(start, end);
+	}
+	function left(n, str)
+	{
+		return n < 1 ? '' : str.slice(0, n);
+	}
+	function right(n, str)
+	{
+		return n < 1 ? '' : str.slice(-n);
+	}
+	function dropLeft(n, str)
+	{
+		return n < 1 ? str : str.slice(n);
+	}
+	function dropRight(n, str)
+	{
+		return n < 1 ? str : str.slice(0, -n);
+	}
+	function pad(n, chr, str)
+	{
+		var half = (n - str.length) / 2;
+		return repeat(Math.ceil(half), chr) + str + repeat(half | 0, chr);
+	}
+	function padRight(n, chr, str)
+	{
+		return str + repeat(n - str.length, chr);
+	}
+	function padLeft(n, chr, str)
+	{
+		return repeat(n - str.length, chr) + str;
+	}
+
+	function trim(str)
+	{
+		return str.trim();
+	}
+	function trimLeft(str)
+	{
+		return str.replace(/^\s+/, '');
+	}
+	function trimRight(str)
+	{
+		return str.replace(/\s+$/, '');
+	}
+
+	function words(str)
+	{
+		return _elm_lang$core$Native_List.fromArray(str.trim().split(/\s+/g));
+	}
+	function lines(str)
+	{
+		return _elm_lang$core$Native_List.fromArray(str.split(/\r\n|\r|\n/g));
+	}
+
+	function toUpper(str)
+	{
+		return str.toUpperCase();
+	}
+	function toLower(str)
+	{
+		return str.toLowerCase();
+	}
+
+	function any(pred, str)
+	{
+		for (var i = str.length; i--; )
+		{
+			if (pred(_elm_lang$core$Native_Utils.chr(str[i])))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	function all(pred, str)
+	{
+		for (var i = str.length; i--; )
+		{
+			if (!pred(_elm_lang$core$Native_Utils.chr(str[i])))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function contains(sub, str)
+	{
+		return str.indexOf(sub) > -1;
+	}
+	function startsWith(sub, str)
+	{
+		return str.indexOf(sub) === 0;
+	}
+	function endsWith(sub, str)
+	{
+		return str.length >= sub.length &&
+			str.lastIndexOf(sub) === str.length - sub.length;
+	}
+	function indexes(sub, str)
+	{
+		var subLen = sub.length;
+		
+		if (subLen < 1)
+		{
+			return _elm_lang$core$Native_List.Nil;
+		}
+
+		var i = 0;
+		var is = [];
+
+		while ((i = str.indexOf(sub, i)) > -1)
+		{
+			is.push(i);
+			i = i + subLen;
+		}	
+		
+		return _elm_lang$core$Native_List.fromArray(is);
+	}
+
+	function toInt(s)
+	{
+		var len = s.length;
+		if (len === 0)
+		{
+			return _elm_lang$core$Result$Err("could not convert string '" + s + "' to an Int" );
+		}
+		var start = 0;
+		if (s[0] === '-')
+		{
+			if (len === 1)
+			{
+				return _elm_lang$core$Result$Err("could not convert string '" + s + "' to an Int" );
+			}
+			start = 1;
+		}
+		for (var i = start; i < len; ++i)
+		{
+			var c = s[i];
+			if (c < '0' || '9' < c)
+			{
+				return _elm_lang$core$Result$Err("could not convert string '" + s + "' to an Int" );
+			}
+		}
+		return _elm_lang$core$Result$Ok(parseInt(s, 10));
+	}
+
+	function toFloat(s)
+	{
+		var len = s.length;
+		if (len === 0)
+		{
+			return _elm_lang$core$Result$Err("could not convert string '" + s + "' to a Float" );
+		}
+		var start = 0;
+		if (s[0] === '-')
+		{
+			if (len === 1)
+			{
+				return _elm_lang$core$Result$Err("could not convert string '" + s + "' to a Float" );
+			}
+			start = 1;
+		}
+		var dotCount = 0;
+		for (var i = start; i < len; ++i)
+		{
+			var c = s[i];
+			if ('0' <= c && c <= '9')
+			{
+				continue;
+			}
+			if (c === '.')
+			{
+				dotCount += 1;
+				if (dotCount <= 1)
+				{
+					continue;
+				}
+			}
+			return _elm_lang$core$Result$Err("could not convert string '" + s + "' to a Float" );
+		}
+		return _elm_lang$core$Result$Ok(parseFloat(s));
+	}
+
+	function toList(str)
+	{
+		return _elm_lang$core$Native_List.fromArray(str.split('').map(_elm_lang$core$Native_Utils.chr));
+	}
+	function fromList(chars)
+	{
+		return _elm_lang$core$Native_List.toArray(chars).join('');
+	}
+
+	return {
+		isEmpty: isEmpty,
+		cons: F2(cons),
+		uncons: uncons,
+		append: F2(append),
+		concat: concat,
+		length: length,
+		map: F2(map),
+		filter: F2(filter),
+		reverse: reverse,
+		foldl: F3(foldl),
+		foldr: F3(foldr),
+
+		split: F2(split),
+		join: F2(join),
+		repeat: F2(repeat),
+
+		slice: F3(slice),
+		left: F2(left),
+		right: F2(right),
+		dropLeft: F2(dropLeft),
+		dropRight: F2(dropRight),
+
+		pad: F3(pad),
+		padLeft: F3(padLeft),
+		padRight: F3(padRight),
+
+		trim: trim,
+		trimLeft: trimLeft,
+		trimRight: trimRight,
+
+		words: words,
+		lines: lines,
+
+		toUpper: toUpper,
+		toLower: toLower,
+
+		any: F2(any),
+		all: F2(all),
+
+		contains: F2(contains),
+		startsWith: F2(startsWith),
+		endsWith: F2(endsWith),
+		indexes: F2(indexes),
+
+		toInt: toInt,
+		toFloat: toFloat,
+		toList: toList,
+		fromList: fromList
+	};
+
+	}();
+
+	var _elm_lang$core$String$fromList = _elm_lang$core$Native_String.fromList;
+	var _elm_lang$core$String$toList = _elm_lang$core$Native_String.toList;
+	var _elm_lang$core$String$toFloat = _elm_lang$core$Native_String.toFloat;
+	var _elm_lang$core$String$toInt = _elm_lang$core$Native_String.toInt;
+	var _elm_lang$core$String$indices = _elm_lang$core$Native_String.indexes;
+	var _elm_lang$core$String$indexes = _elm_lang$core$Native_String.indexes;
+	var _elm_lang$core$String$endsWith = _elm_lang$core$Native_String.endsWith;
+	var _elm_lang$core$String$startsWith = _elm_lang$core$Native_String.startsWith;
+	var _elm_lang$core$String$contains = _elm_lang$core$Native_String.contains;
+	var _elm_lang$core$String$all = _elm_lang$core$Native_String.all;
+	var _elm_lang$core$String$any = _elm_lang$core$Native_String.any;
+	var _elm_lang$core$String$toLower = _elm_lang$core$Native_String.toLower;
+	var _elm_lang$core$String$toUpper = _elm_lang$core$Native_String.toUpper;
+	var _elm_lang$core$String$lines = _elm_lang$core$Native_String.lines;
+	var _elm_lang$core$String$words = _elm_lang$core$Native_String.words;
+	var _elm_lang$core$String$trimRight = _elm_lang$core$Native_String.trimRight;
+	var _elm_lang$core$String$trimLeft = _elm_lang$core$Native_String.trimLeft;
+	var _elm_lang$core$String$trim = _elm_lang$core$Native_String.trim;
+	var _elm_lang$core$String$padRight = _elm_lang$core$Native_String.padRight;
+	var _elm_lang$core$String$padLeft = _elm_lang$core$Native_String.padLeft;
+	var _elm_lang$core$String$pad = _elm_lang$core$Native_String.pad;
+	var _elm_lang$core$String$dropRight = _elm_lang$core$Native_String.dropRight;
+	var _elm_lang$core$String$dropLeft = _elm_lang$core$Native_String.dropLeft;
+	var _elm_lang$core$String$right = _elm_lang$core$Native_String.right;
+	var _elm_lang$core$String$left = _elm_lang$core$Native_String.left;
+	var _elm_lang$core$String$slice = _elm_lang$core$Native_String.slice;
+	var _elm_lang$core$String$repeat = _elm_lang$core$Native_String.repeat;
+	var _elm_lang$core$String$join = _elm_lang$core$Native_String.join;
+	var _elm_lang$core$String$split = _elm_lang$core$Native_String.split;
+	var _elm_lang$core$String$foldr = _elm_lang$core$Native_String.foldr;
+	var _elm_lang$core$String$foldl = _elm_lang$core$Native_String.foldl;
+	var _elm_lang$core$String$reverse = _elm_lang$core$Native_String.reverse;
+	var _elm_lang$core$String$filter = _elm_lang$core$Native_String.filter;
+	var _elm_lang$core$String$map = _elm_lang$core$Native_String.map;
+	var _elm_lang$core$String$length = _elm_lang$core$Native_String.length;
+	var _elm_lang$core$String$concat = _elm_lang$core$Native_String.concat;
+	var _elm_lang$core$String$append = _elm_lang$core$Native_String.append;
+	var _elm_lang$core$String$uncons = _elm_lang$core$Native_String.uncons;
+	var _elm_lang$core$String$cons = _elm_lang$core$Native_String.cons;
+	var _elm_lang$core$String$fromChar = function ($char) {
+		return A2(_elm_lang$core$String$cons, $char, '');
+	};
+	var _elm_lang$core$String$isEmpty = _elm_lang$core$Native_String.isEmpty;
+
+	var _elm_lang$core$Dict$foldr = F3(
+		function (f, acc, t) {
+			foldr:
+			while (true) {
+				var _p0 = t;
+				if (_p0.ctor === 'RBEmpty_elm_builtin') {
+					return acc;
+				} else {
+					var _v1 = f,
+						_v2 = A3(
+						f,
+						_p0._1,
+						_p0._2,
+						A3(_elm_lang$core$Dict$foldr, f, acc, _p0._4)),
+						_v3 = _p0._3;
+					f = _v1;
+					acc = _v2;
+					t = _v3;
+					continue foldr;
+				}
+			}
+		});
+	var _elm_lang$core$Dict$keys = function (dict) {
+		return A3(
+			_elm_lang$core$Dict$foldr,
+			F3(
+				function (key, value, keyList) {
+					return A2(_elm_lang$core$List_ops['::'], key, keyList);
+				}),
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			dict);
+	};
+	var _elm_lang$core$Dict$values = function (dict) {
+		return A3(
+			_elm_lang$core$Dict$foldr,
+			F3(
+				function (key, value, valueList) {
+					return A2(_elm_lang$core$List_ops['::'], value, valueList);
+				}),
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			dict);
+	};
+	var _elm_lang$core$Dict$toList = function (dict) {
+		return A3(
+			_elm_lang$core$Dict$foldr,
+			F3(
+				function (key, value, list) {
+					return A2(
+						_elm_lang$core$List_ops['::'],
+						{ctor: '_Tuple2', _0: key, _1: value},
+						list);
+				}),
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			dict);
+	};
+	var _elm_lang$core$Dict$foldl = F3(
+		function (f, acc, dict) {
+			foldl:
+			while (true) {
+				var _p1 = dict;
+				if (_p1.ctor === 'RBEmpty_elm_builtin') {
+					return acc;
+				} else {
+					var _v5 = f,
+						_v6 = A3(
+						f,
+						_p1._1,
+						_p1._2,
+						A3(_elm_lang$core$Dict$foldl, f, acc, _p1._3)),
+						_v7 = _p1._4;
+					f = _v5;
+					acc = _v6;
+					dict = _v7;
+					continue foldl;
+				}
+			}
+		});
+	var _elm_lang$core$Dict$merge = F6(
+		function (leftStep, bothStep, rightStep, leftDict, rightDict, initialResult) {
+			var stepState = F3(
+				function (rKey, rValue, _p2) {
+					stepState:
+					while (true) {
+						var _p3 = _p2;
+						var _p9 = _p3._1;
+						var _p8 = _p3._0;
+						var _p4 = _p8;
+						if (_p4.ctor === '[]') {
+							return {
+								ctor: '_Tuple2',
+								_0: _p8,
+								_1: A3(rightStep, rKey, rValue, _p9)
+							};
+						} else {
+							var _p7 = _p4._1;
+							var _p6 = _p4._0._1;
+							var _p5 = _p4._0._0;
+							if (_elm_lang$core$Native_Utils.cmp(_p5, rKey) < 0) {
+								var _v10 = rKey,
+									_v11 = rValue,
+									_v12 = {
+									ctor: '_Tuple2',
+									_0: _p7,
+									_1: A3(leftStep, _p5, _p6, _p9)
+								};
+								rKey = _v10;
+								rValue = _v11;
+								_p2 = _v12;
+								continue stepState;
+							} else {
+								if (_elm_lang$core$Native_Utils.cmp(_p5, rKey) > 0) {
+									return {
+										ctor: '_Tuple2',
+										_0: _p8,
+										_1: A3(rightStep, rKey, rValue, _p9)
+									};
+								} else {
+									return {
+										ctor: '_Tuple2',
+										_0: _p7,
+										_1: A4(bothStep, _p5, _p6, rValue, _p9)
+									};
+								}
+							}
+						}
+					}
+				});
+			var _p10 = A3(
+				_elm_lang$core$Dict$foldl,
+				stepState,
+				{
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Dict$toList(leftDict),
+					_1: initialResult
+				},
+				rightDict);
+			var leftovers = _p10._0;
+			var intermediateResult = _p10._1;
+			return A3(
+				_elm_lang$core$List$foldl,
+				F2(
+					function (_p11, result) {
+						var _p12 = _p11;
+						return A3(leftStep, _p12._0, _p12._1, result);
+					}),
+				intermediateResult,
+				leftovers);
+		});
+	var _elm_lang$core$Dict$reportRemBug = F4(
+		function (msg, c, lgot, rgot) {
+			return _elm_lang$core$Native_Debug.crash(
+				_elm_lang$core$String$concat(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							'Internal red-black tree invariant violated, expected ',
+							msg,
+							' and got ',
+							_elm_lang$core$Basics$toString(c),
+							'/',
+							lgot,
+							'/',
+							rgot,
+							'\nPlease report this bug to <https://github.com/elm-lang/core/issues>'
+						])));
+		});
+	var _elm_lang$core$Dict$isBBlack = function (dict) {
+		var _p13 = dict;
+		_v14_2:
+		do {
+			if (_p13.ctor === 'RBNode_elm_builtin') {
+				if (_p13._0.ctor === 'BBlack') {
+					return true;
+				} else {
+					break _v14_2;
+				}
+			} else {
+				if (_p13._0.ctor === 'LBBlack') {
+					return true;
+				} else {
+					break _v14_2;
+				}
+			}
+		} while(false);
+		return false;
+	};
+	var _elm_lang$core$Dict$sizeHelp = F2(
+		function (n, dict) {
+			sizeHelp:
+			while (true) {
+				var _p14 = dict;
+				if (_p14.ctor === 'RBEmpty_elm_builtin') {
+					return n;
+				} else {
+					var _v16 = A2(_elm_lang$core$Dict$sizeHelp, n + 1, _p14._4),
+						_v17 = _p14._3;
+					n = _v16;
+					dict = _v17;
+					continue sizeHelp;
+				}
+			}
+		});
+	var _elm_lang$core$Dict$size = function (dict) {
+		return A2(_elm_lang$core$Dict$sizeHelp, 0, dict);
+	};
+	var _elm_lang$core$Dict$get = F2(
+		function (targetKey, dict) {
+			get:
+			while (true) {
+				var _p15 = dict;
+				if (_p15.ctor === 'RBEmpty_elm_builtin') {
+					return _elm_lang$core$Maybe$Nothing;
+				} else {
+					var _p16 = A2(_elm_lang$core$Basics$compare, targetKey, _p15._1);
+					switch (_p16.ctor) {
+						case 'LT':
+							var _v20 = targetKey,
+								_v21 = _p15._3;
+							targetKey = _v20;
+							dict = _v21;
+							continue get;
+						case 'EQ':
+							return _elm_lang$core$Maybe$Just(_p15._2);
+						default:
+							var _v22 = targetKey,
+								_v23 = _p15._4;
+							targetKey = _v22;
+							dict = _v23;
+							continue get;
+					}
+				}
+			}
+		});
+	var _elm_lang$core$Dict$member = F2(
+		function (key, dict) {
+			var _p17 = A2(_elm_lang$core$Dict$get, key, dict);
+			if (_p17.ctor === 'Just') {
+				return true;
+			} else {
+				return false;
+			}
+		});
+	var _elm_lang$core$Dict$maxWithDefault = F3(
+		function (k, v, r) {
+			maxWithDefault:
+			while (true) {
+				var _p18 = r;
+				if (_p18.ctor === 'RBEmpty_elm_builtin') {
+					return {ctor: '_Tuple2', _0: k, _1: v};
+				} else {
+					var _v26 = _p18._1,
+						_v27 = _p18._2,
+						_v28 = _p18._4;
+					k = _v26;
+					v = _v27;
+					r = _v28;
+					continue maxWithDefault;
+				}
+			}
+		});
+	var _elm_lang$core$Dict$NBlack = {ctor: 'NBlack'};
+	var _elm_lang$core$Dict$BBlack = {ctor: 'BBlack'};
+	var _elm_lang$core$Dict$Black = {ctor: 'Black'};
+	var _elm_lang$core$Dict$blackish = function (t) {
+		var _p19 = t;
+		if (_p19.ctor === 'RBNode_elm_builtin') {
+			var _p20 = _p19._0;
+			return _elm_lang$core$Native_Utils.eq(_p20, _elm_lang$core$Dict$Black) || _elm_lang$core$Native_Utils.eq(_p20, _elm_lang$core$Dict$BBlack);
+		} else {
+			return true;
+		}
+	};
+	var _elm_lang$core$Dict$Red = {ctor: 'Red'};
+	var _elm_lang$core$Dict$moreBlack = function (color) {
+		var _p21 = color;
+		switch (_p21.ctor) {
+			case 'Black':
+				return _elm_lang$core$Dict$BBlack;
+			case 'Red':
+				return _elm_lang$core$Dict$Black;
+			case 'NBlack':
+				return _elm_lang$core$Dict$Red;
+			default:
+				return _elm_lang$core$Native_Debug.crash('Can\'t make a double black node more black!');
+		}
+	};
+	var _elm_lang$core$Dict$lessBlack = function (color) {
+		var _p22 = color;
+		switch (_p22.ctor) {
+			case 'BBlack':
+				return _elm_lang$core$Dict$Black;
+			case 'Black':
+				return _elm_lang$core$Dict$Red;
+			case 'Red':
+				return _elm_lang$core$Dict$NBlack;
+			default:
+				return _elm_lang$core$Native_Debug.crash('Can\'t make a negative black node less black!');
+		}
+	};
+	var _elm_lang$core$Dict$LBBlack = {ctor: 'LBBlack'};
+	var _elm_lang$core$Dict$LBlack = {ctor: 'LBlack'};
+	var _elm_lang$core$Dict$RBEmpty_elm_builtin = function (a) {
+		return {ctor: 'RBEmpty_elm_builtin', _0: a};
+	};
+	var _elm_lang$core$Dict$empty = _elm_lang$core$Dict$RBEmpty_elm_builtin(_elm_lang$core$Dict$LBlack);
+	var _elm_lang$core$Dict$isEmpty = function (dict) {
+		return _elm_lang$core$Native_Utils.eq(dict, _elm_lang$core$Dict$empty);
+	};
+	var _elm_lang$core$Dict$RBNode_elm_builtin = F5(
+		function (a, b, c, d, e) {
+			return {ctor: 'RBNode_elm_builtin', _0: a, _1: b, _2: c, _3: d, _4: e};
+		});
+	var _elm_lang$core$Dict$ensureBlackRoot = function (dict) {
+		var _p23 = dict;
+		if ((_p23.ctor === 'RBNode_elm_builtin') && (_p23._0.ctor === 'Red')) {
+			return A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, _p23._1, _p23._2, _p23._3, _p23._4);
+		} else {
+			return dict;
+		}
+	};
+	var _elm_lang$core$Dict$lessBlackTree = function (dict) {
+		var _p24 = dict;
+		if (_p24.ctor === 'RBNode_elm_builtin') {
+			return A5(
+				_elm_lang$core$Dict$RBNode_elm_builtin,
+				_elm_lang$core$Dict$lessBlack(_p24._0),
+				_p24._1,
+				_p24._2,
+				_p24._3,
+				_p24._4);
+		} else {
+			return _elm_lang$core$Dict$RBEmpty_elm_builtin(_elm_lang$core$Dict$LBlack);
+		}
+	};
+	var _elm_lang$core$Dict$balancedTree = function (col) {
+		return function (xk) {
+			return function (xv) {
+				return function (yk) {
+					return function (yv) {
+						return function (zk) {
+							return function (zv) {
+								return function (a) {
+									return function (b) {
+										return function (c) {
+											return function (d) {
+												return A5(
+													_elm_lang$core$Dict$RBNode_elm_builtin,
+													_elm_lang$core$Dict$lessBlack(col),
+													yk,
+													yv,
+													A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, xk, xv, a, b),
+													A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, zk, zv, c, d));
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+	var _elm_lang$core$Dict$blacken = function (t) {
+		var _p25 = t;
+		if (_p25.ctor === 'RBEmpty_elm_builtin') {
+			return _elm_lang$core$Dict$RBEmpty_elm_builtin(_elm_lang$core$Dict$LBlack);
+		} else {
+			return A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, _p25._1, _p25._2, _p25._3, _p25._4);
+		}
+	};
+	var _elm_lang$core$Dict$redden = function (t) {
+		var _p26 = t;
+		if (_p26.ctor === 'RBEmpty_elm_builtin') {
+			return _elm_lang$core$Native_Debug.crash('can\'t make a Leaf red');
+		} else {
+			return A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Red, _p26._1, _p26._2, _p26._3, _p26._4);
+		}
+	};
+	var _elm_lang$core$Dict$balanceHelp = function (tree) {
+		var _p27 = tree;
+		_v36_6:
+		do {
+			_v36_5:
+			do {
+				_v36_4:
+				do {
+					_v36_3:
+					do {
+						_v36_2:
+						do {
+							_v36_1:
+							do {
+								_v36_0:
+								do {
+									if (_p27.ctor === 'RBNode_elm_builtin') {
+										if (_p27._3.ctor === 'RBNode_elm_builtin') {
+											if (_p27._4.ctor === 'RBNode_elm_builtin') {
+												switch (_p27._3._0.ctor) {
+													case 'Red':
+														switch (_p27._4._0.ctor) {
+															case 'Red':
+																if ((_p27._3._3.ctor === 'RBNode_elm_builtin') && (_p27._3._3._0.ctor === 'Red')) {
+																	break _v36_0;
+																} else {
+																	if ((_p27._3._4.ctor === 'RBNode_elm_builtin') && (_p27._3._4._0.ctor === 'Red')) {
+																		break _v36_1;
+																	} else {
+																		if ((_p27._4._3.ctor === 'RBNode_elm_builtin') && (_p27._4._3._0.ctor === 'Red')) {
+																			break _v36_2;
+																		} else {
+																			if ((_p27._4._4.ctor === 'RBNode_elm_builtin') && (_p27._4._4._0.ctor === 'Red')) {
+																				break _v36_3;
+																			} else {
+																				break _v36_6;
+																			}
+																		}
+																	}
+																}
+															case 'NBlack':
+																if ((_p27._3._3.ctor === 'RBNode_elm_builtin') && (_p27._3._3._0.ctor === 'Red')) {
+																	break _v36_0;
+																} else {
+																	if ((_p27._3._4.ctor === 'RBNode_elm_builtin') && (_p27._3._4._0.ctor === 'Red')) {
+																		break _v36_1;
+																	} else {
+																		if (((((_p27._0.ctor === 'BBlack') && (_p27._4._3.ctor === 'RBNode_elm_builtin')) && (_p27._4._3._0.ctor === 'Black')) && (_p27._4._4.ctor === 'RBNode_elm_builtin')) && (_p27._4._4._0.ctor === 'Black')) {
+																			break _v36_4;
+																		} else {
+																			break _v36_6;
+																		}
+																	}
+																}
+															default:
+																if ((_p27._3._3.ctor === 'RBNode_elm_builtin') && (_p27._3._3._0.ctor === 'Red')) {
+																	break _v36_0;
+																} else {
+																	if ((_p27._3._4.ctor === 'RBNode_elm_builtin') && (_p27._3._4._0.ctor === 'Red')) {
+																		break _v36_1;
+																	} else {
+																		break _v36_6;
+																	}
+																}
+														}
+													case 'NBlack':
+														switch (_p27._4._0.ctor) {
+															case 'Red':
+																if ((_p27._4._3.ctor === 'RBNode_elm_builtin') && (_p27._4._3._0.ctor === 'Red')) {
+																	break _v36_2;
+																} else {
+																	if ((_p27._4._4.ctor === 'RBNode_elm_builtin') && (_p27._4._4._0.ctor === 'Red')) {
+																		break _v36_3;
+																	} else {
+																		if (((((_p27._0.ctor === 'BBlack') && (_p27._3._3.ctor === 'RBNode_elm_builtin')) && (_p27._3._3._0.ctor === 'Black')) && (_p27._3._4.ctor === 'RBNode_elm_builtin')) && (_p27._3._4._0.ctor === 'Black')) {
+																			break _v36_5;
+																		} else {
+																			break _v36_6;
+																		}
+																	}
+																}
+															case 'NBlack':
+																if (_p27._0.ctor === 'BBlack') {
+																	if ((((_p27._4._3.ctor === 'RBNode_elm_builtin') && (_p27._4._3._0.ctor === 'Black')) && (_p27._4._4.ctor === 'RBNode_elm_builtin')) && (_p27._4._4._0.ctor === 'Black')) {
+																		break _v36_4;
+																	} else {
+																		if ((((_p27._3._3.ctor === 'RBNode_elm_builtin') && (_p27._3._3._0.ctor === 'Black')) && (_p27._3._4.ctor === 'RBNode_elm_builtin')) && (_p27._3._4._0.ctor === 'Black')) {
+																			break _v36_5;
+																		} else {
+																			break _v36_6;
+																		}
+																	}
+																} else {
+																	break _v36_6;
+																}
+															default:
+																if (((((_p27._0.ctor === 'BBlack') && (_p27._3._3.ctor === 'RBNode_elm_builtin')) && (_p27._3._3._0.ctor === 'Black')) && (_p27._3._4.ctor === 'RBNode_elm_builtin')) && (_p27._3._4._0.ctor === 'Black')) {
+																	break _v36_5;
+																} else {
+																	break _v36_6;
+																}
+														}
+													default:
+														switch (_p27._4._0.ctor) {
+															case 'Red':
+																if ((_p27._4._3.ctor === 'RBNode_elm_builtin') && (_p27._4._3._0.ctor === 'Red')) {
+																	break _v36_2;
+																} else {
+																	if ((_p27._4._4.ctor === 'RBNode_elm_builtin') && (_p27._4._4._0.ctor === 'Red')) {
+																		break _v36_3;
+																	} else {
+																		break _v36_6;
+																	}
+																}
+															case 'NBlack':
+																if (((((_p27._0.ctor === 'BBlack') && (_p27._4._3.ctor === 'RBNode_elm_builtin')) && (_p27._4._3._0.ctor === 'Black')) && (_p27._4._4.ctor === 'RBNode_elm_builtin')) && (_p27._4._4._0.ctor === 'Black')) {
+																	break _v36_4;
+																} else {
+																	break _v36_6;
+																}
+															default:
+																break _v36_6;
+														}
+												}
+											} else {
+												switch (_p27._3._0.ctor) {
+													case 'Red':
+														if ((_p27._3._3.ctor === 'RBNode_elm_builtin') && (_p27._3._3._0.ctor === 'Red')) {
+															break _v36_0;
+														} else {
+															if ((_p27._3._4.ctor === 'RBNode_elm_builtin') && (_p27._3._4._0.ctor === 'Red')) {
+																break _v36_1;
+															} else {
+																break _v36_6;
+															}
+														}
+													case 'NBlack':
+														if (((((_p27._0.ctor === 'BBlack') && (_p27._3._3.ctor === 'RBNode_elm_builtin')) && (_p27._3._3._0.ctor === 'Black')) && (_p27._3._4.ctor === 'RBNode_elm_builtin')) && (_p27._3._4._0.ctor === 'Black')) {
+															break _v36_5;
+														} else {
+															break _v36_6;
+														}
+													default:
+														break _v36_6;
+												}
+											}
+										} else {
+											if (_p27._4.ctor === 'RBNode_elm_builtin') {
+												switch (_p27._4._0.ctor) {
+													case 'Red':
+														if ((_p27._4._3.ctor === 'RBNode_elm_builtin') && (_p27._4._3._0.ctor === 'Red')) {
+															break _v36_2;
+														} else {
+															if ((_p27._4._4.ctor === 'RBNode_elm_builtin') && (_p27._4._4._0.ctor === 'Red')) {
+																break _v36_3;
+															} else {
+																break _v36_6;
+															}
+														}
+													case 'NBlack':
+														if (((((_p27._0.ctor === 'BBlack') && (_p27._4._3.ctor === 'RBNode_elm_builtin')) && (_p27._4._3._0.ctor === 'Black')) && (_p27._4._4.ctor === 'RBNode_elm_builtin')) && (_p27._4._4._0.ctor === 'Black')) {
+															break _v36_4;
+														} else {
+															break _v36_6;
+														}
+													default:
+														break _v36_6;
+												}
+											} else {
+												break _v36_6;
+											}
+										}
+									} else {
+										break _v36_6;
+									}
+								} while(false);
+								return _elm_lang$core$Dict$balancedTree(_p27._0)(_p27._3._3._1)(_p27._3._3._2)(_p27._3._1)(_p27._3._2)(_p27._1)(_p27._2)(_p27._3._3._3)(_p27._3._3._4)(_p27._3._4)(_p27._4);
+							} while(false);
+							return _elm_lang$core$Dict$balancedTree(_p27._0)(_p27._3._1)(_p27._3._2)(_p27._3._4._1)(_p27._3._4._2)(_p27._1)(_p27._2)(_p27._3._3)(_p27._3._4._3)(_p27._3._4._4)(_p27._4);
+						} while(false);
+						return _elm_lang$core$Dict$balancedTree(_p27._0)(_p27._1)(_p27._2)(_p27._4._3._1)(_p27._4._3._2)(_p27._4._1)(_p27._4._2)(_p27._3)(_p27._4._3._3)(_p27._4._3._4)(_p27._4._4);
+					} while(false);
+					return _elm_lang$core$Dict$balancedTree(_p27._0)(_p27._1)(_p27._2)(_p27._4._1)(_p27._4._2)(_p27._4._4._1)(_p27._4._4._2)(_p27._3)(_p27._4._3)(_p27._4._4._3)(_p27._4._4._4);
+				} while(false);
+				return A5(
+					_elm_lang$core$Dict$RBNode_elm_builtin,
+					_elm_lang$core$Dict$Black,
+					_p27._4._3._1,
+					_p27._4._3._2,
+					A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, _p27._1, _p27._2, _p27._3, _p27._4._3._3),
+					A5(
+						_elm_lang$core$Dict$balance,
+						_elm_lang$core$Dict$Black,
+						_p27._4._1,
+						_p27._4._2,
+						_p27._4._3._4,
+						_elm_lang$core$Dict$redden(_p27._4._4)));
+			} while(false);
+			return A5(
+				_elm_lang$core$Dict$RBNode_elm_builtin,
+				_elm_lang$core$Dict$Black,
+				_p27._3._4._1,
+				_p27._3._4._2,
+				A5(
+					_elm_lang$core$Dict$balance,
+					_elm_lang$core$Dict$Black,
+					_p27._3._1,
+					_p27._3._2,
+					_elm_lang$core$Dict$redden(_p27._3._3),
+					_p27._3._4._3),
+				A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, _p27._1, _p27._2, _p27._3._4._4, _p27._4));
+		} while(false);
+		return tree;
+	};
+	var _elm_lang$core$Dict$balance = F5(
+		function (c, k, v, l, r) {
+			var tree = A5(_elm_lang$core$Dict$RBNode_elm_builtin, c, k, v, l, r);
+			return _elm_lang$core$Dict$blackish(tree) ? _elm_lang$core$Dict$balanceHelp(tree) : tree;
+		});
+	var _elm_lang$core$Dict$bubble = F5(
+		function (c, k, v, l, r) {
+			return (_elm_lang$core$Dict$isBBlack(l) || _elm_lang$core$Dict$isBBlack(r)) ? A5(
+				_elm_lang$core$Dict$balance,
+				_elm_lang$core$Dict$moreBlack(c),
+				k,
+				v,
+				_elm_lang$core$Dict$lessBlackTree(l),
+				_elm_lang$core$Dict$lessBlackTree(r)) : A5(_elm_lang$core$Dict$RBNode_elm_builtin, c, k, v, l, r);
+		});
+	var _elm_lang$core$Dict$removeMax = F5(
+		function (c, k, v, l, r) {
+			var _p28 = r;
+			if (_p28.ctor === 'RBEmpty_elm_builtin') {
+				return A3(_elm_lang$core$Dict$rem, c, l, r);
+			} else {
+				return A5(
+					_elm_lang$core$Dict$bubble,
+					c,
+					k,
+					v,
+					l,
+					A5(_elm_lang$core$Dict$removeMax, _p28._0, _p28._1, _p28._2, _p28._3, _p28._4));
+			}
+		});
+	var _elm_lang$core$Dict$rem = F3(
+		function (c, l, r) {
+			var _p29 = {ctor: '_Tuple2', _0: l, _1: r};
+			if (_p29._0.ctor === 'RBEmpty_elm_builtin') {
+				if (_p29._1.ctor === 'RBEmpty_elm_builtin') {
+					var _p30 = c;
+					switch (_p30.ctor) {
+						case 'Red':
+							return _elm_lang$core$Dict$RBEmpty_elm_builtin(_elm_lang$core$Dict$LBlack);
+						case 'Black':
+							return _elm_lang$core$Dict$RBEmpty_elm_builtin(_elm_lang$core$Dict$LBBlack);
+						default:
+							return _elm_lang$core$Native_Debug.crash('cannot have bblack or nblack nodes at this point');
+					}
+				} else {
+					var _p33 = _p29._1._0;
+					var _p32 = _p29._0._0;
+					var _p31 = {ctor: '_Tuple3', _0: c, _1: _p32, _2: _p33};
+					if ((((_p31.ctor === '_Tuple3') && (_p31._0.ctor === 'Black')) && (_p31._1.ctor === 'LBlack')) && (_p31._2.ctor === 'Red')) {
+						return A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, _p29._1._1, _p29._1._2, _p29._1._3, _p29._1._4);
+					} else {
+						return A4(
+							_elm_lang$core$Dict$reportRemBug,
+							'Black/LBlack/Red',
+							c,
+							_elm_lang$core$Basics$toString(_p32),
+							_elm_lang$core$Basics$toString(_p33));
+					}
+				}
+			} else {
+				if (_p29._1.ctor === 'RBEmpty_elm_builtin') {
+					var _p36 = _p29._1._0;
+					var _p35 = _p29._0._0;
+					var _p34 = {ctor: '_Tuple3', _0: c, _1: _p35, _2: _p36};
+					if ((((_p34.ctor === '_Tuple3') && (_p34._0.ctor === 'Black')) && (_p34._1.ctor === 'Red')) && (_p34._2.ctor === 'LBlack')) {
+						return A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Black, _p29._0._1, _p29._0._2, _p29._0._3, _p29._0._4);
+					} else {
+						return A4(
+							_elm_lang$core$Dict$reportRemBug,
+							'Black/Red/LBlack',
+							c,
+							_elm_lang$core$Basics$toString(_p35),
+							_elm_lang$core$Basics$toString(_p36));
+					}
+				} else {
+					var _p40 = _p29._0._2;
+					var _p39 = _p29._0._4;
+					var _p38 = _p29._0._1;
+					var l$ = A5(_elm_lang$core$Dict$removeMax, _p29._0._0, _p38, _p40, _p29._0._3, _p39);
+					var _p37 = A3(_elm_lang$core$Dict$maxWithDefault, _p38, _p40, _p39);
+					var k = _p37._0;
+					var v = _p37._1;
+					return A5(_elm_lang$core$Dict$bubble, c, k, v, l$, r);
+				}
+			}
+		});
+	var _elm_lang$core$Dict$map = F2(
+		function (f, dict) {
+			var _p41 = dict;
+			if (_p41.ctor === 'RBEmpty_elm_builtin') {
+				return _elm_lang$core$Dict$RBEmpty_elm_builtin(_elm_lang$core$Dict$LBlack);
+			} else {
+				var _p42 = _p41._1;
+				return A5(
+					_elm_lang$core$Dict$RBNode_elm_builtin,
+					_p41._0,
+					_p42,
+					A2(f, _p42, _p41._2),
+					A2(_elm_lang$core$Dict$map, f, _p41._3),
+					A2(_elm_lang$core$Dict$map, f, _p41._4));
+			}
+		});
+	var _elm_lang$core$Dict$Same = {ctor: 'Same'};
+	var _elm_lang$core$Dict$Remove = {ctor: 'Remove'};
+	var _elm_lang$core$Dict$Insert = {ctor: 'Insert'};
+	var _elm_lang$core$Dict$update = F3(
+		function (k, alter, dict) {
+			var up = function (dict) {
+				var _p43 = dict;
+				if (_p43.ctor === 'RBEmpty_elm_builtin') {
+					var _p44 = alter(_elm_lang$core$Maybe$Nothing);
+					if (_p44.ctor === 'Nothing') {
+						return {ctor: '_Tuple2', _0: _elm_lang$core$Dict$Same, _1: _elm_lang$core$Dict$empty};
+					} else {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Dict$Insert,
+							_1: A5(_elm_lang$core$Dict$RBNode_elm_builtin, _elm_lang$core$Dict$Red, k, _p44._0, _elm_lang$core$Dict$empty, _elm_lang$core$Dict$empty)
+						};
+					}
+				} else {
+					var _p55 = _p43._2;
+					var _p54 = _p43._4;
+					var _p53 = _p43._3;
+					var _p52 = _p43._1;
+					var _p51 = _p43._0;
+					var _p45 = A2(_elm_lang$core$Basics$compare, k, _p52);
+					switch (_p45.ctor) {
+						case 'EQ':
+							var _p46 = alter(
+								_elm_lang$core$Maybe$Just(_p55));
+							if (_p46.ctor === 'Nothing') {
+								return {
+									ctor: '_Tuple2',
+									_0: _elm_lang$core$Dict$Remove,
+									_1: A3(_elm_lang$core$Dict$rem, _p51, _p53, _p54)
+								};
+							} else {
+								return {
+									ctor: '_Tuple2',
+									_0: _elm_lang$core$Dict$Same,
+									_1: A5(_elm_lang$core$Dict$RBNode_elm_builtin, _p51, _p52, _p46._0, _p53, _p54)
+								};
+							}
+						case 'LT':
+							var _p47 = up(_p53);
+							var flag = _p47._0;
+							var newLeft = _p47._1;
+							var _p48 = flag;
+							switch (_p48.ctor) {
+								case 'Same':
+									return {
+										ctor: '_Tuple2',
+										_0: _elm_lang$core$Dict$Same,
+										_1: A5(_elm_lang$core$Dict$RBNode_elm_builtin, _p51, _p52, _p55, newLeft, _p54)
+									};
+								case 'Insert':
+									return {
+										ctor: '_Tuple2',
+										_0: _elm_lang$core$Dict$Insert,
+										_1: A5(_elm_lang$core$Dict$balance, _p51, _p52, _p55, newLeft, _p54)
+									};
+								default:
+									return {
+										ctor: '_Tuple2',
+										_0: _elm_lang$core$Dict$Remove,
+										_1: A5(_elm_lang$core$Dict$bubble, _p51, _p52, _p55, newLeft, _p54)
+									};
+							}
+						default:
+							var _p49 = up(_p54);
+							var flag = _p49._0;
+							var newRight = _p49._1;
+							var _p50 = flag;
+							switch (_p50.ctor) {
+								case 'Same':
+									return {
+										ctor: '_Tuple2',
+										_0: _elm_lang$core$Dict$Same,
+										_1: A5(_elm_lang$core$Dict$RBNode_elm_builtin, _p51, _p52, _p55, _p53, newRight)
+									};
+								case 'Insert':
+									return {
+										ctor: '_Tuple2',
+										_0: _elm_lang$core$Dict$Insert,
+										_1: A5(_elm_lang$core$Dict$balance, _p51, _p52, _p55, _p53, newRight)
+									};
+								default:
+									return {
+										ctor: '_Tuple2',
+										_0: _elm_lang$core$Dict$Remove,
+										_1: A5(_elm_lang$core$Dict$bubble, _p51, _p52, _p55, _p53, newRight)
+									};
+							}
+					}
+				}
+			};
+			var _p56 = up(dict);
+			var flag = _p56._0;
+			var updatedDict = _p56._1;
+			var _p57 = flag;
+			switch (_p57.ctor) {
+				case 'Same':
+					return updatedDict;
+				case 'Insert':
+					return _elm_lang$core$Dict$ensureBlackRoot(updatedDict);
+				default:
+					return _elm_lang$core$Dict$blacken(updatedDict);
+			}
+		});
+	var _elm_lang$core$Dict$insert = F3(
+		function (key, value, dict) {
+			return A3(
+				_elm_lang$core$Dict$update,
+				key,
+				_elm_lang$core$Basics$always(
+					_elm_lang$core$Maybe$Just(value)),
+				dict);
+		});
+	var _elm_lang$core$Dict$singleton = F2(
+		function (key, value) {
+			return A3(_elm_lang$core$Dict$insert, key, value, _elm_lang$core$Dict$empty);
+		});
+	var _elm_lang$core$Dict$union = F2(
+		function (t1, t2) {
+			return A3(_elm_lang$core$Dict$foldl, _elm_lang$core$Dict$insert, t2, t1);
+		});
+	var _elm_lang$core$Dict$filter = F2(
+		function (predicate, dictionary) {
+			var add = F3(
+				function (key, value, dict) {
+					return A2(predicate, key, value) ? A3(_elm_lang$core$Dict$insert, key, value, dict) : dict;
+				});
+			return A3(_elm_lang$core$Dict$foldl, add, _elm_lang$core$Dict$empty, dictionary);
+		});
+	var _elm_lang$core$Dict$intersect = F2(
+		function (t1, t2) {
+			return A2(
+				_elm_lang$core$Dict$filter,
+				F2(
+					function (k, _p58) {
+						return A2(_elm_lang$core$Dict$member, k, t2);
+					}),
+				t1);
+		});
+	var _elm_lang$core$Dict$partition = F2(
+		function (predicate, dict) {
+			var add = F3(
+				function (key, value, _p59) {
+					var _p60 = _p59;
+					var _p62 = _p60._1;
+					var _p61 = _p60._0;
+					return A2(predicate, key, value) ? {
+						ctor: '_Tuple2',
+						_0: A3(_elm_lang$core$Dict$insert, key, value, _p61),
+						_1: _p62
+					} : {
+						ctor: '_Tuple2',
+						_0: _p61,
+						_1: A3(_elm_lang$core$Dict$insert, key, value, _p62)
+					};
+				});
+			return A3(
+				_elm_lang$core$Dict$foldl,
+				add,
+				{ctor: '_Tuple2', _0: _elm_lang$core$Dict$empty, _1: _elm_lang$core$Dict$empty},
+				dict);
+		});
+	var _elm_lang$core$Dict$fromList = function (assocs) {
+		return A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (_p63, dict) {
+					var _p64 = _p63;
+					return A3(_elm_lang$core$Dict$insert, _p64._0, _p64._1, dict);
+				}),
+			_elm_lang$core$Dict$empty,
+			assocs);
+	};
+	var _elm_lang$core$Dict$remove = F2(
+		function (key, dict) {
+			return A3(
+				_elm_lang$core$Dict$update,
+				key,
+				_elm_lang$core$Basics$always(_elm_lang$core$Maybe$Nothing),
+				dict);
+		});
+	var _elm_lang$core$Dict$diff = F2(
+		function (t1, t2) {
+			return A3(
+				_elm_lang$core$Dict$foldl,
+				F3(
+					function (k, v, t) {
+						return A2(_elm_lang$core$Dict$remove, k, t);
+					}),
+				t1,
+				t2);
+		});
+
+	var _elm_lang$core$Platform_Sub$batch = _elm_lang$core$Native_Platform.batch;
+	var _elm_lang$core$Platform_Sub$none = _elm_lang$core$Platform_Sub$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[]));
+	var _elm_lang$core$Platform_Sub$map = _elm_lang$core$Native_Platform.map;
+	var _elm_lang$core$Platform_Sub$Sub = {ctor: 'Sub'};
+
+	var _elm_lang$core$Debug$crash = _elm_lang$core$Native_Debug.crash;
+	var _elm_lang$core$Debug$log = _elm_lang$core$Native_Debug.log;
+
+	//import Maybe, Native.Array, Native.List, Native.Utils, Result //
+
+	var _elm_lang$core$Native_Json = function() {
+
+
+	// CORE DECODERS
+
+	function succeed(msg)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'succeed',
+			msg: msg
+		};
+	}
+
+	function fail(msg)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'fail',
+			msg: msg
+		};
+	}
+
+	function decodePrimitive(tag)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: tag
+		};
+	}
+
+	function decodeContainer(tag, decoder)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: tag,
+			decoder: decoder
+		};
+	}
+
+	function decodeNull(value)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'null',
+			value: value
+		};
+	}
+
+	function decodeField(field, decoder)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'field',
+			field: field,
+			decoder: decoder
+		};
+	}
+
+	function decodeKeyValuePairs(decoder)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'key-value',
+			decoder: decoder
+		};
+	}
+
+	function decodeObject(f, decoders)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'map-many',
+			func: f,
+			decoders: decoders
+		};
+	}
+
+	function decodeTuple(f, decoders)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'tuple',
+			func: f,
+			decoders: decoders
+		};
+	}
+
+	function andThen(decoder, callback)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'andThen',
+			decoder: decoder,
+			callback: callback
+		};
+	}
+
+	function customAndThen(decoder, callback)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'customAndThen',
+			decoder: decoder,
+			callback: callback
+		};
+	}
+
+	function oneOf(decoders)
+	{
+		return {
+			ctor: '<decoder>',
+			tag: 'oneOf',
+			decoders: decoders
+		};
+	}
+
+
+	// DECODING OBJECTS
+
+	function decodeObject1(f, d1)
+	{
+		return decodeObject(f, [d1]);
+	}
+
+	function decodeObject2(f, d1, d2)
+	{
+		return decodeObject(f, [d1, d2]);
+	}
+
+	function decodeObject3(f, d1, d2, d3)
+	{
+		return decodeObject(f, [d1, d2, d3]);
+	}
+
+	function decodeObject4(f, d1, d2, d3, d4)
+	{
+		return decodeObject(f, [d1, d2, d3, d4]);
+	}
+
+	function decodeObject5(f, d1, d2, d3, d4, d5)
+	{
+		return decodeObject(f, [d1, d2, d3, d4, d5]);
+	}
+
+	function decodeObject6(f, d1, d2, d3, d4, d5, d6)
+	{
+		return decodeObject(f, [d1, d2, d3, d4, d5, d6]);
+	}
+
+	function decodeObject7(f, d1, d2, d3, d4, d5, d6, d7)
+	{
+		return decodeObject(f, [d1, d2, d3, d4, d5, d6, d7]);
+	}
+
+	function decodeObject8(f, d1, d2, d3, d4, d5, d6, d7, d8)
+	{
+		return decodeObject(f, [d1, d2, d3, d4, d5, d6, d7, d8]);
+	}
+
+
+	// DECODING TUPLES
+
+	function decodeTuple1(f, d1)
+	{
+		return decodeTuple(f, [d1]);
+	}
+
+	function decodeTuple2(f, d1, d2)
+	{
+		return decodeTuple(f, [d1, d2]);
+	}
+
+	function decodeTuple3(f, d1, d2, d3)
+	{
+		return decodeTuple(f, [d1, d2, d3]);
+	}
+
+	function decodeTuple4(f, d1, d2, d3, d4)
+	{
+		return decodeTuple(f, [d1, d2, d3, d4]);
+	}
+
+	function decodeTuple5(f, d1, d2, d3, d4, d5)
+	{
+		return decodeTuple(f, [d1, d2, d3, d4, d5]);
+	}
+
+	function decodeTuple6(f, d1, d2, d3, d4, d5, d6)
+	{
+		return decodeTuple(f, [d1, d2, d3, d4, d5, d6]);
+	}
+
+	function decodeTuple7(f, d1, d2, d3, d4, d5, d6, d7)
+	{
+		return decodeTuple(f, [d1, d2, d3, d4, d5, d6, d7]);
+	}
+
+	function decodeTuple8(f, d1, d2, d3, d4, d5, d6, d7, d8)
+	{
+		return decodeTuple(f, [d1, d2, d3, d4, d5, d6, d7, d8]);
+	}
+
+
+	// DECODE HELPERS
+
+	function ok(value)
+	{
+		return { tag: 'ok', value: value };
+	}
+
+	function badPrimitive(type, value)
+	{
+		return { tag: 'primitive', type: type, value: value };
+	}
+
+	function badIndex(index, nestedProblems)
+	{
+		return { tag: 'index', index: index, rest: nestedProblems };
+	}
+
+	function badField(field, nestedProblems)
+	{
+		return { tag: 'field', field: field, rest: nestedProblems };
+	}
+
+	function badOneOf(problems)
+	{
+		return { tag: 'oneOf', problems: problems };
+	}
+
+	function badCustom(msg)
+	{
+		return { tag: 'custom', msg: msg };
+	}
+
+	function bad(msg)
+	{
+		return { tag: 'fail', msg: msg };
+	}
+
+	function badToString(problem)
+	{
+		var context = '_';
+		while (problem)
+		{
+			switch (problem.tag)
+			{
+				case 'primitive':
+					return 'Expecting ' + problem.type
+						+ (context === '_' ? '' : ' at ' + context)
+						+ ' but instead got: ' + jsToString(problem.value);
+
+				case 'index':
+					context += '[' + problem.index + ']';
+					problem = problem.rest;
+					break;
+
+				case 'field':
+					context += '.' + problem.field;
+					problem = problem.rest;
+					break;
+
+				case 'oneOf':
+					var problems = problem.problems;
+					for (var i = 0; i < problems.length; i++)
+					{
+						problems[i] = badToString(problems[i]);
+					}
+					return 'I ran into the following problems'
+						+ (context === '_' ? '' : ' at ' + context)
+						+ ':\n\n' + problems.join('\n');
+
+				case 'custom':
+					return 'A `customDecoder` failed'
+						+ (context === '_' ? '' : ' at ' + context)
+						+ ' with the message: ' + problem.msg;
+
+				case 'fail':
+					return 'I ran into a `fail` decoder'
+						+ (context === '_' ? '' : ' at ' + context)
+						+ ': ' + problem.msg;
+			}
+		}
+	}
+
+	function jsToString(value)
+	{
+		return value === undefined
+			? 'undefined'
+			: JSON.stringify(value);
+	}
+
+
+	// DECODE
+
+	function runOnString(decoder, string)
+	{
+		var json;
+		try
+		{
+			json = JSON.parse(string);
+		}
+		catch (e)
+		{
+			return _elm_lang$core$Result$Err('Given an invalid JSON: ' + e.message);
+		}
+		return run(decoder, json);
+	}
+
+	function run(decoder, value)
+	{
+		var result = runHelp(decoder, value);
+		return (result.tag === 'ok')
+			? _elm_lang$core$Result$Ok(result.value)
+			: _elm_lang$core$Result$Err(badToString(result));
+	}
+
+	function runHelp(decoder, value)
+	{
+		switch (decoder.tag)
+		{
+			case 'bool':
+				return (typeof value === 'boolean')
+					? ok(value)
+					: badPrimitive('a Bool', value);
+
+			case 'int':
+				if (typeof value !== 'number') {
+					return badPrimitive('an Int', value);
+				}
+
+				if (-2147483647 < value && value < 2147483647 && (value | 0) === value) {
+					return ok(value);
+				}
+
+				if (isFinite(value) && !(value % 1)) {
+					return ok(value);
+				}
+
+				return badPrimitive('an Int', value);
+
+			case 'float':
+				return (typeof value === 'number')
+					? ok(value)
+					: badPrimitive('a Float', value);
+
+			case 'string':
+				return (typeof value === 'string')
+					? ok(value)
+					: (value instanceof String)
+						? ok(value + '')
+						: badPrimitive('a String', value);
+
+			case 'null':
+				return (value === null)
+					? ok(decoder.value)
+					: badPrimitive('null', value);
+
+			case 'value':
+				return ok(value);
+
+			case 'list':
+				if (!(value instanceof Array))
+				{
+					return badPrimitive('a List', value);
+				}
+
+				var list = _elm_lang$core$Native_List.Nil;
+				for (var i = value.length; i--; )
+				{
+					var result = runHelp(decoder.decoder, value[i]);
+					if (result.tag !== 'ok')
+					{
+						return badIndex(i, result)
+					}
+					list = _elm_lang$core$Native_List.Cons(result.value, list);
+				}
+				return ok(list);
+
+			case 'array':
+				if (!(value instanceof Array))
+				{
+					return badPrimitive('an Array', value);
+				}
+
+				var len = value.length;
+				var array = new Array(len);
+				for (var i = len; i--; )
+				{
+					var result = runHelp(decoder.decoder, value[i]);
+					if (result.tag !== 'ok')
+					{
+						return badIndex(i, result);
+					}
+					array[i] = result.value;
+				}
+				return ok(_elm_lang$core$Native_Array.fromJSArray(array));
+
+			case 'maybe':
+				var result = runHelp(decoder.decoder, value);
+				return (result.tag === 'ok')
+					? ok(_elm_lang$core$Maybe$Just(result.value))
+					: ok(_elm_lang$core$Maybe$Nothing);
+
+			case 'field':
+				var field = decoder.field;
+				if (typeof value !== 'object' || value === null || !(field in value))
+				{
+					return badPrimitive('an object with a field named `' + field + '`', value);
+				}
+
+				var result = runHelp(decoder.decoder, value[field]);
+				return (result.tag === 'ok')
+					? result
+					: badField(field, result);
+
+			case 'key-value':
+				if (typeof value !== 'object' || value === null || value instanceof Array)
+				{
+					return badPrimitive('an object', value);
+				}
+
+				var keyValuePairs = _elm_lang$core$Native_List.Nil;
+				for (var key in value)
+				{
+					var result = runHelp(decoder.decoder, value[key]);
+					if (result.tag !== 'ok')
+					{
+						return badField(key, result);
+					}
+					var pair = _elm_lang$core$Native_Utils.Tuple2(key, result.value);
+					keyValuePairs = _elm_lang$core$Native_List.Cons(pair, keyValuePairs);
+				}
+				return ok(keyValuePairs);
+
+			case 'map-many':
+				var answer = decoder.func;
+				var decoders = decoder.decoders;
+				for (var i = 0; i < decoders.length; i++)
+				{
+					var result = runHelp(decoders[i], value);
+					if (result.tag !== 'ok')
+					{
+						return result;
+					}
+					answer = answer(result.value);
+				}
+				return ok(answer);
+
+			case 'tuple':
+				var decoders = decoder.decoders;
+				var len = decoders.length;
+
+				if ( !(value instanceof Array) || value.length !== len )
+				{
+					return badPrimitive('a Tuple with ' + len + ' entries', value);
+				}
+
+				var answer = decoder.func;
+				for (var i = 0; i < len; i++)
+				{
+					var result = runHelp(decoders[i], value[i]);
+					if (result.tag !== 'ok')
+					{
+						return badIndex(i, result);
+					}
+					answer = answer(result.value);
+				}
+				return ok(answer);
+
+			case 'customAndThen':
+				var result = runHelp(decoder.decoder, value);
+				if (result.tag !== 'ok')
+				{
+					return result;
+				}
+				var realResult = decoder.callback(result.value);
+				if (realResult.ctor === 'Err')
+				{
+					return badCustom(realResult._0);
+				}
+				return ok(realResult._0);
+
+			case 'andThen':
+				var result = runHelp(decoder.decoder, value);
+				return (result.tag !== 'ok')
+					? result
+					: runHelp(decoder.callback(result.value), value);
+
+			case 'oneOf':
+				var errors = [];
+				var temp = decoder.decoders;
+				while (temp.ctor !== '[]')
+				{
+					var result = runHelp(temp._0, value);
+
+					if (result.tag === 'ok')
+					{
+						return result;
+					}
+
+					errors.push(result);
+
+					temp = temp._1;
+				}
+				return badOneOf(errors);
+
+			case 'fail':
+				return bad(decoder.msg);
+
+			case 'succeed':
+				return ok(decoder.msg);
+		}
+	}
+
+
+	// EQUALITY
+
+	function equality(a, b)
+	{
+		if (a === b)
+		{
+			return true;
+		}
+
+		if (a.tag !== b.tag)
+		{
+			return false;
+		}
+
+		switch (a.tag)
+		{
+			case 'succeed':
+			case 'fail':
+				return a.msg === b.msg;
+
+			case 'bool':
+			case 'int':
+			case 'float':
+			case 'string':
+			case 'value':
+				return true;
+
+			case 'null':
+				return a.value === b.value;
+
+			case 'list':
+			case 'array':
+			case 'maybe':
+			case 'key-value':
+				return equality(a.decoder, b.decoder);
+
+			case 'field':
+				return a.field === b.field && equality(a.decoder, b.decoder);
+
+			case 'map-many':
+			case 'tuple':
+				if (a.func !== b.func)
+				{
+					return false;
+				}
+				return listEquality(a.decoders, b.decoders);
+
+			case 'andThen':
+			case 'customAndThen':
+				return a.callback === b.callback && equality(a.decoder, b.decoder);
+
+			case 'oneOf':
+				return listEquality(a.decoders, b.decoders);
+		}
+	}
+
+	function listEquality(aDecoders, bDecoders)
+	{
+		var len = aDecoders.length;
+		if (len !== bDecoders.length)
+		{
+			return false;
+		}
+		for (var i = 0; i < len; i++)
+		{
+			if (!equality(aDecoders[i], bDecoders[i]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+	// ENCODE
+
+	function encode(indentLevel, value)
+	{
+		return JSON.stringify(value, null, indentLevel);
+	}
+
+	function identity(value)
+	{
+		return value;
+	}
+
+	function encodeObject(keyValuePairs)
+	{
+		var obj = {};
+		while (keyValuePairs.ctor !== '[]')
+		{
+			var pair = keyValuePairs._0;
+			obj[pair._0] = pair._1;
+			keyValuePairs = keyValuePairs._1;
+		}
+		return obj;
+	}
+
+	return {
+		encode: F2(encode),
+		runOnString: F2(runOnString),
+		run: F2(run),
+
+		decodeNull: decodeNull,
+		decodePrimitive: decodePrimitive,
+		decodeContainer: F2(decodeContainer),
+
+		decodeField: F2(decodeField),
+
+		decodeObject1: F2(decodeObject1),
+		decodeObject2: F3(decodeObject2),
+		decodeObject3: F4(decodeObject3),
+		decodeObject4: F5(decodeObject4),
+		decodeObject5: F6(decodeObject5),
+		decodeObject6: F7(decodeObject6),
+		decodeObject7: F8(decodeObject7),
+		decodeObject8: F9(decodeObject8),
+		decodeKeyValuePairs: decodeKeyValuePairs,
+
+		decodeTuple1: F2(decodeTuple1),
+		decodeTuple2: F3(decodeTuple2),
+		decodeTuple3: F4(decodeTuple3),
+		decodeTuple4: F5(decodeTuple4),
+		decodeTuple5: F6(decodeTuple5),
+		decodeTuple6: F7(decodeTuple6),
+		decodeTuple7: F8(decodeTuple7),
+		decodeTuple8: F9(decodeTuple8),
+
+		andThen: F2(andThen),
+		customAndThen: F2(customAndThen),
+		fail: fail,
+		succeed: succeed,
+		oneOf: oneOf,
+
+		identity: identity,
+		encodeNull: null,
+		encodeArray: _elm_lang$core$Native_Array.toJSArray,
+		encodeList: _elm_lang$core$Native_List.toArray,
+		encodeObject: encodeObject,
+
+		equality: equality
+	};
+
+	}();
+
+	var _elm_lang$core$Json_Encode$list = _elm_lang$core$Native_Json.encodeList;
+	var _elm_lang$core$Json_Encode$array = _elm_lang$core$Native_Json.encodeArray;
+	var _elm_lang$core$Json_Encode$object = _elm_lang$core$Native_Json.encodeObject;
+	var _elm_lang$core$Json_Encode$null = _elm_lang$core$Native_Json.encodeNull;
+	var _elm_lang$core$Json_Encode$bool = _elm_lang$core$Native_Json.identity;
+	var _elm_lang$core$Json_Encode$float = _elm_lang$core$Native_Json.identity;
+	var _elm_lang$core$Json_Encode$int = _elm_lang$core$Native_Json.identity;
+	var _elm_lang$core$Json_Encode$string = _elm_lang$core$Native_Json.identity;
+	var _elm_lang$core$Json_Encode$encode = _elm_lang$core$Native_Json.encode;
+	var _elm_lang$core$Json_Encode$Value = {ctor: 'Value'};
+
+	var _elm_lang$core$Json_Decode$tuple8 = _elm_lang$core$Native_Json.decodeTuple8;
+	var _elm_lang$core$Json_Decode$tuple7 = _elm_lang$core$Native_Json.decodeTuple7;
+	var _elm_lang$core$Json_Decode$tuple6 = _elm_lang$core$Native_Json.decodeTuple6;
+	var _elm_lang$core$Json_Decode$tuple5 = _elm_lang$core$Native_Json.decodeTuple5;
+	var _elm_lang$core$Json_Decode$tuple4 = _elm_lang$core$Native_Json.decodeTuple4;
+	var _elm_lang$core$Json_Decode$tuple3 = _elm_lang$core$Native_Json.decodeTuple3;
+	var _elm_lang$core$Json_Decode$tuple2 = _elm_lang$core$Native_Json.decodeTuple2;
+	var _elm_lang$core$Json_Decode$tuple1 = _elm_lang$core$Native_Json.decodeTuple1;
+	var _elm_lang$core$Json_Decode$succeed = _elm_lang$core$Native_Json.succeed;
+	var _elm_lang$core$Json_Decode$fail = _elm_lang$core$Native_Json.fail;
+	var _elm_lang$core$Json_Decode$andThen = _elm_lang$core$Native_Json.andThen;
+	var _elm_lang$core$Json_Decode$customDecoder = _elm_lang$core$Native_Json.customAndThen;
+	var _elm_lang$core$Json_Decode$decodeValue = _elm_lang$core$Native_Json.run;
+	var _elm_lang$core$Json_Decode$value = _elm_lang$core$Native_Json.decodePrimitive('value');
+	var _elm_lang$core$Json_Decode$maybe = function (decoder) {
+		return A2(_elm_lang$core$Native_Json.decodeContainer, 'maybe', decoder);
+	};
+	var _elm_lang$core$Json_Decode$null = _elm_lang$core$Native_Json.decodeNull;
+	var _elm_lang$core$Json_Decode$array = function (decoder) {
+		return A2(_elm_lang$core$Native_Json.decodeContainer, 'array', decoder);
+	};
+	var _elm_lang$core$Json_Decode$list = function (decoder) {
+		return A2(_elm_lang$core$Native_Json.decodeContainer, 'list', decoder);
+	};
+	var _elm_lang$core$Json_Decode$bool = _elm_lang$core$Native_Json.decodePrimitive('bool');
+	var _elm_lang$core$Json_Decode$int = _elm_lang$core$Native_Json.decodePrimitive('int');
+	var _elm_lang$core$Json_Decode$float = _elm_lang$core$Native_Json.decodePrimitive('float');
+	var _elm_lang$core$Json_Decode$string = _elm_lang$core$Native_Json.decodePrimitive('string');
+	var _elm_lang$core$Json_Decode$oneOf = _elm_lang$core$Native_Json.oneOf;
+	var _elm_lang$core$Json_Decode$keyValuePairs = _elm_lang$core$Native_Json.decodeKeyValuePairs;
+	var _elm_lang$core$Json_Decode$object8 = _elm_lang$core$Native_Json.decodeObject8;
+	var _elm_lang$core$Json_Decode$object7 = _elm_lang$core$Native_Json.decodeObject7;
+	var _elm_lang$core$Json_Decode$object6 = _elm_lang$core$Native_Json.decodeObject6;
+	var _elm_lang$core$Json_Decode$object5 = _elm_lang$core$Native_Json.decodeObject5;
+	var _elm_lang$core$Json_Decode$object4 = _elm_lang$core$Native_Json.decodeObject4;
+	var _elm_lang$core$Json_Decode$object3 = _elm_lang$core$Native_Json.decodeObject3;
+	var _elm_lang$core$Json_Decode$object2 = _elm_lang$core$Native_Json.decodeObject2;
+	var _elm_lang$core$Json_Decode$object1 = _elm_lang$core$Native_Json.decodeObject1;
+	var _elm_lang$core$Json_Decode_ops = _elm_lang$core$Json_Decode_ops || {};
+	_elm_lang$core$Json_Decode_ops[':='] = _elm_lang$core$Native_Json.decodeField;
+	var _elm_lang$core$Json_Decode$at = F2(
+		function (fields, decoder) {
+			return A3(
+				_elm_lang$core$List$foldr,
+				F2(
+					function (x, y) {
+						return A2(_elm_lang$core$Json_Decode_ops[':='], x, y);
+					}),
+				decoder,
+				fields);
+		});
+	var _elm_lang$core$Json_Decode$decodeString = _elm_lang$core$Native_Json.runOnString;
+	var _elm_lang$core$Json_Decode$map = _elm_lang$core$Native_Json.decodeObject1;
+	var _elm_lang$core$Json_Decode$dict = function (decoder) {
+		return A2(
+			_elm_lang$core$Json_Decode$map,
+			_elm_lang$core$Dict$fromList,
+			_elm_lang$core$Json_Decode$keyValuePairs(decoder));
+	};
+	var _elm_lang$core$Json_Decode$Decoder = {ctor: 'Decoder'};
+
+	//import Native.Json //
+
+	var _elm_lang$virtual_dom$Native_VirtualDom = function() {
+
+	var STYLE_KEY = 'STYLE';
+	var EVENT_KEY = 'EVENT';
+	var ATTR_KEY = 'ATTR';
+	var ATTR_NS_KEY = 'ATTR_NS';
+
+
+
+	////////////  VIRTUAL DOM NODES  ////////////
+
+
+	function text(string)
+	{
+		return {
+			type: 'text',
+			text: string
+		};
+	}
+
+
+	function node(tag)
+	{
+		return F2(function(factList, kidList) {
+			return nodeHelp(tag, factList, kidList);
+		});
+	}
+
+
+	function nodeHelp(tag, factList, kidList)
+	{
+		var organized = organizeFacts(factList);
+		var namespace = organized.namespace;
+		var facts = organized.facts;
+
+		var children = [];
+		var descendantsCount = 0;
+		while (kidList.ctor !== '[]')
+		{
+			var kid = kidList._0;
+			descendantsCount += (kid.descendantsCount || 0);
+			children.push(kid);
+			kidList = kidList._1;
+		}
+		descendantsCount += children.length;
+
+		return {
+			type: 'node',
+			tag: tag,
+			facts: facts,
+			children: children,
+			namespace: namespace,
+			descendantsCount: descendantsCount
+		};
+	}
+
+
+	function keyedNode(tag, factList, kidList)
+	{
+		var organized = organizeFacts(factList);
+		var namespace = organized.namespace;
+		var facts = organized.facts;
+
+		var children = [];
+		var descendantsCount = 0;
+		while (kidList.ctor !== '[]')
+		{
+			var kid = kidList._0;
+			descendantsCount += (kid._1.descendantsCount || 0);
+			children.push(kid);
+			kidList = kidList._1;
+		}
+		descendantsCount += children.length;
+
+		return {
+			type: 'keyed-node',
+			tag: tag,
+			facts: facts,
+			children: children,
+			namespace: namespace,
+			descendantsCount: descendantsCount
+		};
+	}
+
+
+	function custom(factList, model, impl)
+	{
+		var facts = organizeFacts(factList).facts;
+
+		return {
+			type: 'custom',
+			facts: facts,
+			model: model,
+			impl: impl
+		};
+	}
+
+
+	function map(tagger, node)
+	{
+		return {
+			type: 'tagger',
+			tagger: tagger,
+			node: node,
+			descendantsCount: 1 + (node.descendantsCount || 0)
+		};
+	}
+
+
+	function thunk(func, args, thunk)
+	{
+		return {
+			type: 'thunk',
+			func: func,
+			args: args,
+			thunk: thunk,
+			node: undefined
+		};
+	}
+
+	function lazy(fn, a)
+	{
+		return thunk(fn, [a], function() {
+			return fn(a);
+		});
+	}
+
+	function lazy2(fn, a, b)
+	{
+		return thunk(fn, [a,b], function() {
+			return A2(fn, a, b);
+		});
+	}
+
+	function lazy3(fn, a, b, c)
+	{
+		return thunk(fn, [a,b,c], function() {
+			return A3(fn, a, b, c);
+		});
+	}
+
+
+
+	// FACTS
+
+
+	function organizeFacts(factList)
+	{
+		var namespace, facts = {};
+
+		while (factList.ctor !== '[]')
+		{
+			var entry = factList._0;
+			var key = entry.key;
+
+			if (key === ATTR_KEY || key === ATTR_NS_KEY || key === EVENT_KEY)
+			{
+				var subFacts = facts[key] || {};
+				subFacts[entry.realKey] = entry.value;
+				facts[key] = subFacts;
+			}
+			else if (key === STYLE_KEY)
+			{
+				var styles = facts[key] || {};
+				var styleList = entry.value;
+				while (styleList.ctor !== '[]')
+				{
+					var style = styleList._0;
+					styles[style._0] = style._1;
+					styleList = styleList._1;
+				}
+				facts[key] = styles;
+			}
+			else if (key === 'namespace')
+			{
+				namespace = entry.value;
+			}
+			else
+			{
+				facts[key] = entry.value;
+			}
+			factList = factList._1;
+		}
+
+		return {
+			facts: facts,
+			namespace: namespace
+		};
+	}
+
+
+
+	////////////  PROPERTIES AND ATTRIBUTES  ////////////
+
+
+	function style(value)
+	{
+		return {
+			key: STYLE_KEY,
+			value: value
+		};
+	}
+
+
+	function property(key, value)
+	{
+		return {
+			key: key,
+			value: value
+		};
+	}
+
+
+	function attribute(key, value)
+	{
+		return {
+			key: ATTR_KEY,
+			realKey: key,
+			value: value
+		};
+	}
+
+
+	function attributeNS(namespace, key, value)
+	{
+		return {
+			key: ATTR_NS_KEY,
+			realKey: key,
+			value: {
+				value: value,
+				namespace: namespace
+			}
+		};
+	}
+
+
+	function on(name, options, decoder)
+	{
+		return {
+			key: EVENT_KEY,
+			realKey: name,
+			value: {
+				options: options,
+				decoder: decoder
+			}
+		};
+	}
+
+
+	function equalEvents(a, b)
+	{
+		if (!a.options === b.options)
+		{
+			if (a.stopPropagation !== b.stopPropagation || a.preventDefault !== b.preventDefault)
+			{
+				return false;
+			}
+		}
+		return _elm_lang$core$Native_Json.equality(a.decoder, b.decoder);
+	}
+
+
+
+	////////////  RENDERER  ////////////
+
+
+	function renderer(parent, tagger, initialVirtualNode)
+	{
+		var eventNode = { tagger: tagger, parent: undefined };
+
+		var domNode = render(initialVirtualNode, eventNode);
+		parent.appendChild(domNode);
+
+		var state = 'NO_REQUEST';
+		var currentVirtualNode = initialVirtualNode;
+		var nextVirtualNode = initialVirtualNode;
+
+		function registerVirtualNode(vNode)
+		{
+			if (state === 'NO_REQUEST')
+			{
+				rAF(updateIfNeeded);
+			}
+			state = 'PENDING_REQUEST';
+			nextVirtualNode = vNode;
+		}
+
+		function updateIfNeeded()
+		{
+			switch (state)
+			{
+				case 'NO_REQUEST':
+					throw new Error(
+						'Unexpected draw callback.\n' +
+						'Please report this to <https://github.com/elm-lang/core/issues>.'
+					);
+
+				case 'PENDING_REQUEST':
+					rAF(updateIfNeeded);
+					state = 'EXTRA_REQUEST';
+
+					var patches = diff(currentVirtualNode, nextVirtualNode);
+					domNode = applyPatches(domNode, currentVirtualNode, patches, eventNode);
+					currentVirtualNode = nextVirtualNode;
+
+					return;
+
+				case 'EXTRA_REQUEST':
+					state = 'NO_REQUEST';
+					return;
+			}
+		}
+
+		return { update: registerVirtualNode };
+	}
+
+
+	var rAF =
+		typeof requestAnimationFrame !== 'undefined'
+			? requestAnimationFrame
+			: function(cb) { setTimeout(cb, 1000 / 60); };
+
+
+
+	////////////  RENDER  ////////////
+
+
+	function render(vNode, eventNode)
+	{
+		switch (vNode.type)
+		{
+			case 'thunk':
+				if (!vNode.node)
+				{
+					vNode.node = vNode.thunk();
+				}
+				return render(vNode.node, eventNode);
+
+			case 'tagger':
+				var subNode = vNode.node;
+				var tagger = vNode.tagger;
+
+				while (subNode.type === 'tagger')
+				{
+					typeof tagger !== 'object'
+						? tagger = [tagger, subNode.tagger]
+						: tagger.push(subNode.tagger);
+
+					subNode = subNode.node;
+				}
+
+				var subEventRoot = {
+					tagger: tagger,
+					parent: eventNode
+				};
+
+				var domNode = render(subNode, subEventRoot);
+				domNode.elm_event_node_ref = subEventRoot;
+				return domNode;
+
+			case 'text':
+				return document.createTextNode(vNode.text);
+
+			case 'node':
+				var domNode = vNode.namespace
+					? document.createElementNS(vNode.namespace, vNode.tag)
+					: document.createElement(vNode.tag);
+
+				applyFacts(domNode, eventNode, vNode.facts);
+
+				var children = vNode.children;
+
+				for (var i = 0; i < children.length; i++)
+				{
+					domNode.appendChild(render(children[i], eventNode));
+				}
+
+				return domNode;
+
+			case 'keyed-node':
+				var domNode = vNode.namespace
+					? document.createElementNS(vNode.namespace, vNode.tag)
+					: document.createElement(vNode.tag);
+
+				applyFacts(domNode, eventNode, vNode.facts);
+
+				var children = vNode.children;
+
+				for (var i = 0; i < children.length; i++)
+				{
+					domNode.appendChild(render(children[i]._1, eventNode));
+				}
+
+				return domNode;
+
+			case 'custom':
+				var domNode = vNode.impl.render(vNode.model);
+				applyFacts(domNode, eventNode, vNode.facts);
+				return domNode;
+		}
+	}
+
+
+
+	////////////  APPLY FACTS  ////////////
+
+
+	function applyFacts(domNode, eventNode, facts)
+	{
+		for (var key in facts)
+		{
+			var value = facts[key];
+
+			switch (key)
+			{
+				case STYLE_KEY:
+					applyStyles(domNode, value);
+					break;
+
+				case EVENT_KEY:
+					applyEvents(domNode, eventNode, value);
+					break;
+
+				case ATTR_KEY:
+					applyAttrs(domNode, value);
+					break;
+
+				case ATTR_NS_KEY:
+					applyAttrsNS(domNode, value);
+					break;
+
+				case 'value':
+					if (domNode[key] !== value)
+					{
+						domNode[key] = value;
+					}
+					break;
+
+				default:
+					domNode[key] = value;
+					break;
+			}
+		}
+	}
+
+	function applyStyles(domNode, styles)
+	{
+		var domNodeStyle = domNode.style;
+
+		for (var key in styles)
+		{
+			domNodeStyle[key] = styles[key];
+		}
+	}
+
+	function applyEvents(domNode, eventNode, events)
+	{
+		var allHandlers = domNode.elm_handlers || {};
+
+		for (var key in events)
+		{
+			var handler = allHandlers[key];
+			var value = events[key];
+
+			if (typeof value === 'undefined')
+			{
+				domNode.removeEventListener(key, handler);
+				allHandlers[key] = undefined;
+			}
+			else if (typeof handler === 'undefined')
+			{
+				var handler = makeEventHandler(eventNode, value);
+				domNode.addEventListener(key, handler);
+				allHandlers[key] = handler;
+			}
+			else
+			{
+				handler.info = value;
+			}
+		}
+
+		domNode.elm_handlers = allHandlers;
+	}
+
+	function makeEventHandler(eventNode, info)
+	{
+		function eventHandler(event)
+		{
+			var info = eventHandler.info;
+
+			var value = A2(_elm_lang$core$Native_Json.run, info.decoder, event);
+
+			if (value.ctor === 'Ok')
+			{
+				var options = info.options;
+				if (options.stopPropagation)
+				{
+					event.stopPropagation();
+				}
+				if (options.preventDefault)
+				{
+					event.preventDefault();
+				}
+
+				var message = value._0;
+
+				var currentEventNode = eventNode;
+				while (currentEventNode)
+				{
+					var tagger = currentEventNode.tagger;
+					if (typeof tagger === 'function')
+					{
+						message = tagger(message);
+					}
+					else
+					{
+						for (var i = tagger.length; i--; )
+						{
+							message = tagger[i](message);
+						}
+					}
+					currentEventNode = currentEventNode.parent;
+				}
+			}
+		};
+
+		eventHandler.info = info;
+
+		return eventHandler;
+	}
+
+	function applyAttrs(domNode, attrs)
+	{
+		for (var key in attrs)
+		{
+			var value = attrs[key];
+			if (typeof value === 'undefined')
+			{
+				domNode.removeAttribute(key);
+			}
+			else
+			{
+				domNode.setAttribute(key, value);
+			}
+		}
+	}
+
+	function applyAttrsNS(domNode, nsAttrs)
+	{
+		for (var key in nsAttrs)
+		{
+			var pair = nsAttrs[key];
+			var namespace = pair.namespace;
+			var value = pair.value;
+
+			if (typeof value === 'undefined')
+			{
+				domNode.removeAttributeNS(namespace, key);
+			}
+			else
+			{
+				domNode.setAttributeNS(namespace, key, value);
+			}
+		}
+	}
+
+
+
+	////////////  DIFF  ////////////
+
+
+	function diff(a, b)
+	{
+		var patches = [];
+		diffHelp(a, b, patches, 0);
+		return patches;
+	}
+
+
+	function makePatch(type, index, data)
+	{
+		return {
+			index: index,
+			type: type,
+			data: data,
+			domNode: undefined,
+			eventNode: undefined
+		};
+	}
+
+
+	function diffHelp(a, b, patches, index)
+	{
+		if (a === b)
+		{
+			return;
+		}
+
+		var aType = a.type;
+		var bType = b.type;
+
+		// Bail if you run into different types of nodes. Implies that the
+		// structure has changed significantly and it's not worth a diff.
+		if (aType !== bType)
+		{
+			patches.push(makePatch('p-redraw', index, b));
+			return;
+		}
+
+		// Now we know that both nodes are the same type.
+		switch (bType)
+		{
+			case 'thunk':
+				var aArgs = a.args;
+				var bArgs = b.args;
+				var i = aArgs.length;
+				var same = a.func === b.func && i === bArgs.length;
+				while (same && i--)
+				{
+					same = aArgs[i] === bArgs[i];
+				}
+				if (same)
+				{
+					b.node = a.node;
+					return;
+				}
+				b.node = b.thunk();
+				var subPatches = [];
+				diffHelp(a.node, b.node, subPatches, 0);
+				if (subPatches.length > 0)
+				{
+					patches.push(makePatch('p-thunk', index, subPatches));
+				}
+				return;
+
+			case 'tagger':
+				// gather nested taggers
+				var aTaggers = a.tagger;
+				var bTaggers = b.tagger;
+				var nesting = false;
+
+				var aSubNode = a.node;
+				while (aSubNode.type === 'tagger')
+				{
+					nesting = true;
+
+					typeof aTaggers !== 'object'
+						? aTaggers = [aTaggers, aSubNode.tagger]
+						: aTaggers.push(aSubNode.tagger);
+
+					aSubNode = aSubNode.node;
+				}
+
+				var bSubNode = b.node;
+				while (bSubNode.type === 'tagger')
+				{
+					nesting = true;
+
+					typeof bTaggers !== 'object'
+						? bTaggers = [bTaggers, bSubNode.tagger]
+						: bTaggers.push(bSubNode.tagger);
+
+					bSubNode = bSubNode.node;
+				}
+
+				// Just bail if different numbers of taggers. This implies the
+				// structure of the virtual DOM has changed.
+				if (nesting && aTaggers.length !== bTaggers.length)
+				{
+					patches.push(makePatch('p-redraw', index, b));
+					return;
+				}
+
+				// check if taggers are "the same"
+				if (nesting ? !pairwiseRefEqual(aTaggers, bTaggers) : aTaggers !== bTaggers)
+				{
+					patches.push(makePatch('p-tagger', index, bTaggers));
+				}
+
+				// diff everything below the taggers
+				diffHelp(aSubNode, bSubNode, patches, index + 1);
+				return;
+
+			case 'text':
+				if (a.text !== b.text)
+				{
+					patches.push(makePatch('p-text', index, b.text));
+					return;
+				}
+
+				return;
+
+			case 'node':
+				// Bail if obvious indicators have changed. Implies more serious
+				// structural changes such that it's not worth it to diff.
+				if (a.tag !== b.tag || a.namespace !== b.namespace)
+				{
+					patches.push(makePatch('p-redraw', index, b));
+					return;
+				}
+
+				var factsDiff = diffFacts(a.facts, b.facts);
+
+				if (typeof factsDiff !== 'undefined')
+				{
+					patches.push(makePatch('p-facts', index, factsDiff));
+				}
+
+				diffChildren(a, b, patches, index);
+				return;
+
+			case 'keyed-node':
+				// Bail if obvious indicators have changed. Implies more serious
+				// structural changes such that it's not worth it to diff.
+				if (a.tag !== b.tag || a.namespace !== b.namespace)
+				{
+					patches.push(makePatch('p-redraw', index, b));
+					return;
+				}
+
+				var factsDiff = diffFacts(a.facts, b.facts);
+
+				if (typeof factsDiff !== 'undefined')
+				{
+					patches.push(makePatch('p-facts', index, factsDiff));
+				}
+
+				diffKeyedChildren(a, b, patches, index);
+				return;
+
+			case 'custom':
+				if (a.impl !== b.impl)
+				{
+					patches.push(makePatch('p-redraw', index, b));
+					return;
+				}
+
+				var factsDiff = diffFacts(a.facts, b.facts);
+				if (typeof factsDiff !== 'undefined')
+				{
+					patches.push(makePatch('p-facts', index, factsDiff));
+				}
+
+				var patch = b.impl.diff(a,b);
+				if (patch)
+				{
+					patches.push(makePatch('p-custom', index, patch));
+					return;
+				}
+
+				return;
+		}
+	}
+
+
+	// assumes the incoming arrays are the same length
+	function pairwiseRefEqual(as, bs)
+	{
+		for (var i = 0; i < as.length; i++)
+		{
+			if (as[i] !== bs[i])
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
+	// TODO Instead of creating a new diff object, it's possible to just test if
+	// there *is* a diff. During the actual patch, do the diff again and make the
+	// modifications directly. This way, there's no new allocations. Worth it?
+	function diffFacts(a, b, category)
+	{
+		var diff;
+
+		// look for changes and removals
+		for (var aKey in a)
+		{
+			if (aKey === STYLE_KEY || aKey === EVENT_KEY || aKey === ATTR_KEY || aKey === ATTR_NS_KEY)
+			{
+				var subDiff = diffFacts(a[aKey], b[aKey] || {}, aKey);
+				if (subDiff)
+				{
+					diff = diff || {};
+					diff[aKey] = subDiff;
+				}
+				continue;
+			}
+
+			// remove if not in the new facts
+			if (!(aKey in b))
+			{
+				diff = diff || {};
+				diff[aKey] =
+					(typeof category === 'undefined')
+						? (typeof a[aKey] === 'string' ? '' : null)
+						:
+					(category === STYLE_KEY)
+						? ''
+						:
+					(category === EVENT_KEY || category === ATTR_KEY)
+						? undefined
+						:
+					{ namespace: a[aKey].namespace, value: undefined };
+
+				continue;
+			}
+
+			var aValue = a[aKey];
+			var bValue = b[aKey];
+
+			// reference equal, so don't worry about it
+			if (aValue === bValue && aKey !== 'value'
+				|| category === EVENT_KEY && equalEvents(aValue, bValue))
+			{
+				continue;
+			}
+
+			diff = diff || {};
+			diff[aKey] = bValue;
+		}
+
+		// add new stuff
+		for (var bKey in b)
+		{
+			if (!(bKey in a))
+			{
+				diff = diff || {};
+				diff[bKey] = b[bKey];
+			}
+		}
+
+		return diff;
+	}
+
+
+	function diffChildren(aParent, bParent, patches, rootIndex)
+	{
+		var aChildren = aParent.children;
+		var bChildren = bParent.children;
+
+		var aLen = aChildren.length;
+		var bLen = bChildren.length;
+
+		// FIGURE OUT IF THERE ARE INSERTS OR REMOVALS
+
+		if (aLen > bLen)
+		{
+			patches.push(makePatch('p-remove-last', rootIndex, aLen - bLen));
+		}
+		else if (aLen < bLen)
+		{
+			patches.push(makePatch('p-append', rootIndex, bChildren.slice(aLen)));
+		}
+
+		// PAIRWISE DIFF EVERYTHING ELSE
+
+		var index = rootIndex;
+		var minLen = aLen < bLen ? aLen : bLen;
+		for (var i = 0; i < minLen; i++)
+		{
+			index++;
+			var aChild = aChildren[i];
+			diffHelp(aChild, bChildren[i], patches, index);
+			index += aChild.descendantsCount || 0;
+		}
+	}
+
+
+
+	////////////  KEYED DIFF  ////////////
+
+
+	function diffKeyedChildren(aParent, bParent, patches, rootIndex)
+	{
+		var localPatches = [];
+
+		var changes = {}; // Dict String Entry
+		var inserts = []; // Array { index : Int, entry : Entry }
+		// type Entry = { tag : String, vnode : VNode, index : Int, data : _ }
+
+		var aChildren = aParent.children;
+		var bChildren = bParent.children;
+		var aLen = aChildren.length;
+		var bLen = bChildren.length;
+		var aIndex = 0;
+		var bIndex = 0;
+
+		var index = rootIndex;
+
+		while (aIndex < aLen && bIndex < bLen)
+		{
+			var a = aChildren[aIndex];
+			var b = bChildren[bIndex];
+
+			var aKey = a._0;
+			var bKey = b._0;
+			var aNode = a._1;
+			var bNode = b._1;
+
+			// check if keys match
+
+			if (aKey === bKey)
+			{
+				index++;
+				diffHelp(aNode, bNode, localPatches, index);
+				index += aNode.descendantsCount || 0;
+
+				aIndex++;
+				bIndex++;
+				continue;
+			}
+
+			// look ahead 1 to detect insertions and removals.
+
+			var aLookAhead = aIndex + 1 < aLen;
+			var bLookAhead = bIndex + 1 < bLen;
+
+			if (aLookAhead)
+			{
+				var aNext = aChildren[aIndex + 1];
+				var aNextKey = aNext._0;
+				var aNextNode = aNext._1;
+				var oldMatch = bKey === aNextKey;
+			}
+
+			if (bLookAhead)
+			{
+				var bNext = bChildren[bIndex + 1];
+				var bNextKey = bNext._0;
+				var bNextNode = bNext._1;
+				var newMatch = aKey === bNextKey;
+			}
+
+
+			// swap a and b
+			if (aLookAhead && bLookAhead && newMatch && oldMatch)
+			{
+				index++;
+				diffHelp(aNode, bNextNode, localPatches, index);
+				insertNode(changes, localPatches, aKey, bNode, bIndex, inserts);
+				index += aNode.descendantsCount || 0;
+
+				index++;
+				removeNode(changes, localPatches, aKey, aNextNode, index);
+				index += aNextNode.descendantsCount || 0;
+
+				aIndex += 2;
+				bIndex += 2;
+				continue;
+			}
+
+			// insert b
+			if (bLookAhead && newMatch)
+			{
+				index++;
+				insertNode(changes, localPatches, bKey, bNode, bIndex, inserts);
+				diffHelp(aNode, bNextNode, localPatches, index);
+				index += aNode.descendantsCount || 0;
+
+				aIndex += 1;
+				bIndex += 2;
+				continue;
+			}
+
+			// remove a
+			if (aLookAhead && oldMatch)
+			{
+				index++;
+				removeNode(changes, localPatches, aKey, aNode, index);
+				index += aNode.descendantsCount || 0;
+
+				index++;
+				diffHelp(aNextNode, bNode, localPatches, index);
+				index += aNextNode.descendantsCount || 0;
+
+				aIndex += 2;
+				bIndex += 1;
+				continue;
+			}
+
+			// remove a, insert b
+			if (aLookAhead && bLookAhead && aNextKey === bNextKey)
+			{
+				index++;
+				removeNode(changes, localPatches, aKey, aNode, index);
+				insertNode(changes, localPatches, bKey, bNode, bIndex, inserts);
+				index += aNode.descendantsCount || 0;
+
+				index++;
+				diffHelp(aNextNode, bNextNode, localPatches, index);
+				index += aNextNode.descendantsCount || 0;
+
+				aIndex += 2;
+				bIndex += 2;
+				continue;
+			}
+
+			break;
+		}
+
+		// eat up any remaining nodes with removeNode and insertNode
+
+		while (aIndex < aLen)
+		{
+			index++;
+			var a = aChildren[aIndex];
+			var aNode = a._1;
+			removeNode(changes, localPatches, a._0, aNode, index);
+			index += aNode.descendantsCount || 0;
+			aIndex++;
+		}
+
+		var endInserts;
+		while (bIndex < bLen)
+		{
+			endInserts = endInserts || [];
+			var b = bChildren[bIndex];
+			insertNode(changes, localPatches, b._0, b._1, undefined, endInserts);
+			bIndex++;
+		}
+
+		if (localPatches.length > 0 || inserts.length > 0 || typeof endInserts !== 'undefined')
+		{
+			patches.push(makePatch('p-reorder', rootIndex, {
+				patches: localPatches,
+				inserts: inserts,
+				endInserts: endInserts
+			}));
+		}
+	}
+
+
+
+	////////////  CHANGES FROM KEYED DIFF  ////////////
+
+
+	var POSTFIX = '_elmW6BL';
+
+
+	function insertNode(changes, localPatches, key, vnode, bIndex, inserts)
+	{
+		var entry = changes[key];
+
+		// never seen this key before
+		if (typeof entry === 'undefined')
+		{
+			entry = {
+				tag: 'insert',
+				vnode: vnode,
+				index: bIndex,
+				data: undefined
+			};
+
+			inserts.push({ index: bIndex, entry: entry });
+			changes[key] = entry;
+
+			return;
+		}
+
+		// this key was removed earlier, a match!
+		if (entry.tag === 'remove')
+		{
+			inserts.push({ index: bIndex, entry: entry });
+
+			entry.tag = 'move';
+			var subPatches = [];
+			diffHelp(entry.vnode, vnode, subPatches, entry.index);
+			entry.index = bIndex;
+			entry.data.data = {
+				patches: subPatches,
+				entry: entry
+			};
+
+			return;
+		}
+
+		// this key has already been inserted or moved, a duplicate!
+		insertNode(changes, localPatches, key + POSTFIX, vnode, bIndex, inserts);
+	}
+
+
+	function removeNode(changes, localPatches, key, vnode, index)
+	{
+		var entry = changes[key];
+
+		// never seen this key before
+		if (typeof entry === 'undefined')
+		{
+			var patch = makePatch('p-remove', index, undefined);
+			localPatches.push(patch);
+
+			changes[key] = {
+				tag: 'remove',
+				vnode: vnode,
+				index: index,
+				data: patch
+			};
+
+			return;
+		}
+
+		// this key was inserted earlier, a match!
+		if (entry.tag === 'insert')
+		{
+			entry.tag = 'move';
+			var subPatches = [];
+			diffHelp(vnode, entry.vnode, subPatches, index);
+
+			var patch = makePatch('p-remove', index, {
+				patches: subPatches,
+				entry: entry
+			});
+			localPatches.push(patch);
+
+			return;
+		}
+
+		// this key has already been removed or moved, a duplicate!
+		removeNode(changes, localPatches, key + POSTFIX, vnode, index);
+	}
+
+
+
+	////////////  ADD DOM NODES  ////////////
+	//
+	// Each DOM node has an "index" assigned in order of traversal. It is important
+	// to minimize our crawl over the actual DOM, so these indexes (along with the
+	// descendantsCount of virtual nodes) let us skip touching entire subtrees of
+	// the DOM if we know there are no patches there.
+
+
+	function addDomNodes(domNode, vNode, patches, eventNode)
+	{
+		addDomNodesHelp(domNode, vNode, patches, 0, 0, vNode.descendantsCount, eventNode);
+	}
+
+
+	// assumes `patches` is non-empty and indexes increase monotonically.
+	function addDomNodesHelp(domNode, vNode, patches, i, low, high, eventNode)
+	{
+		var patch = patches[i];
+		var index = patch.index;
+
+		while (index === low)
+		{
+			var patchType = patch.type;
+
+			if (patchType === 'p-thunk')
+			{
+				addDomNodes(domNode, vNode.node, patch.data, eventNode);
+			}
+			else if (patchType === 'p-reorder')
+			{
+				patch.domNode = domNode;
+				patch.eventNode = eventNode;
+
+				var subPatches = patch.data.patches;
+				if (subPatches.length > 0)
+				{
+					addDomNodesHelp(domNode, vNode, subPatches, 0, low, high, eventNode);
+				}
+			}
+			else if (patchType === 'p-remove')
+			{
+				patch.domNode = domNode;
+				patch.eventNode = eventNode;
+
+				var data = patch.data;
+				if (typeof data !== 'undefined')
+				{
+					data.entry.data = domNode;
+					var subPatches = data.patches;
+					if (subPatches.length > 0)
+					{
+						addDomNodesHelp(domNode, vNode, subPatches, 0, low, high, eventNode);
+					}
+				}
+			}
+			else
+			{
+				patch.domNode = domNode;
+				patch.eventNode = eventNode;
+			}
+
+			i++;
+
+			if (!(patch = patches[i]) || (index = patch.index) > high)
+			{
+				return i;
+			}
+		}
+
+		switch (vNode.type)
+		{
+			case 'tagger':
+				var subNode = vNode.node;
+
+				while (subNode.type === "tagger")
+				{
+					subNode = subNode.node;
+				}
+
+				return addDomNodesHelp(domNode, subNode, patches, i, low + 1, high, domNode.elm_event_node_ref);
+
+			case 'node':
+				var vChildren = vNode.children;
+				var childNodes = domNode.childNodes;
+				for (var j = 0; j < vChildren.length; j++)
+				{
+					low++;
+					var vChild = vChildren[j];
+					var nextLow = low + (vChild.descendantsCount || 0);
+					if (low <= index && index <= nextLow)
+					{
+						i = addDomNodesHelp(childNodes[j], vChild, patches, i, low, nextLow, eventNode);
+						if (!(patch = patches[i]) || (index = patch.index) > high)
+						{
+							return i;
+						}
+					}
+					low = nextLow;
+				}
+				return i;
+
+			case 'keyed-node':
+				var vChildren = vNode.children;
+				var childNodes = domNode.childNodes;
+				for (var j = 0; j < vChildren.length; j++)
+				{
+					low++;
+					var vChild = vChildren[j]._1;
+					var nextLow = low + (vChild.descendantsCount || 0);
+					if (low <= index && index <= nextLow)
+					{
+						i = addDomNodesHelp(childNodes[j], vChild, patches, i, low, nextLow, eventNode);
+						if (!(patch = patches[i]) || (index = patch.index) > high)
+						{
+							return i;
+						}
+					}
+					low = nextLow;
+				}
+				return i;
+
+			case 'text':
+			case 'thunk':
+				throw new Error('should never traverse `text` or `thunk` nodes like this');
+		}
+	}
+
+
+
+	////////////  APPLY PATCHES  ////////////
+
+
+	function applyPatches(rootDomNode, oldVirtualNode, patches, eventNode)
+	{
+		if (patches.length === 0)
+		{
+			return rootDomNode;
+		}
+
+		addDomNodes(rootDomNode, oldVirtualNode, patches, eventNode);
+		return applyPatchesHelp(rootDomNode, patches);
+	}
+
+	function applyPatchesHelp(rootDomNode, patches)
+	{
+		for (var i = 0; i < patches.length; i++)
+		{
+			var patch = patches[i];
+			var localDomNode = patch.domNode
+			var newNode = applyPatch(localDomNode, patch);
+			if (localDomNode === rootDomNode)
+			{
+				rootDomNode = newNode;
+			}
+		}
+		return rootDomNode;
+	}
+
+	function applyPatch(domNode, patch)
+	{
+		switch (patch.type)
+		{
+			case 'p-redraw':
+				return applyPatchRedraw(domNode, patch.data, patch.eventNode);
+
+			case 'p-facts':
+				applyFacts(domNode, patch.eventNode, patch.data);
+				return domNode;
+
+			case 'p-text':
+				domNode.replaceData(0, domNode.length, patch.data);
+				return domNode;
+
+			case 'p-thunk':
+				return applyPatchesHelp(domNode, patch.data);
+
+			case 'p-tagger':
+				domNode.elm_event_node_ref.tagger = patch.data;
+				return domNode;
+
+			case 'p-remove-last':
+				var i = patch.data;
+				while (i--)
+				{
+					domNode.removeChild(domNode.lastChild);
+				}
+				return domNode;
+
+			case 'p-append':
+				var newNodes = patch.data;
+				for (var i = 0; i < newNodes.length; i++)
+				{
+					domNode.appendChild(render(newNodes[i], patch.eventNode));
+				}
+				return domNode;
+
+			case 'p-remove':
+				var data = patch.data;
+				if (typeof data === 'undefined')
+				{
+					domNode.parentNode.removeChild(domNode);
+					return domNode;
+				}
+				var entry = data.entry;
+				if (typeof entry.index !== 'undefined')
+				{
+					domNode.parentNode.removeChild(domNode);
+				}
+				entry.data = applyPatchesHelp(domNode, data.patches);
+				return domNode;
+
+			case 'p-reorder':
+				return applyPatchReorder(domNode, patch);
+
+			case 'p-custom':
+				var impl = patch.data;
+				return impl.applyPatch(domNode, impl.data);
+
+			default:
+				throw new Error('Ran into an unknown patch!');
+		}
+	}
+
+
+	function applyPatchRedraw(domNode, vNode, eventNode)
+	{
+		var parentNode = domNode.parentNode;
+		var newNode = render(vNode, eventNode);
+
+		if (typeof newNode.elm_event_node_ref === 'undefined')
+		{
+			newNode.elm_event_node_ref = domNode.elm_event_node_ref;
+		}
+
+		if (parentNode && newNode !== domNode)
+		{
+			parentNode.replaceChild(newNode, domNode);
+		}
+		return newNode;
+	}
+
+
+	function applyPatchReorder(domNode, patch)
+	{
+		var data = patch.data;
+
+		// remove end inserts
+		var frag = applyPatchReorderEndInsertsHelp(data.endInserts, patch);
+
+		// removals
+		domNode = applyPatchesHelp(domNode, data.patches);
+
+		// inserts
+		var inserts = data.inserts;
+		for (var i = 0; i < inserts.length; i++)
+		{
+			var insert = inserts[i];
+			var entry = insert.entry;
+			var node = entry.tag === 'move'
+				? entry.data
+				: render(entry.vnode, patch.eventNode);
+			domNode.insertBefore(node, domNode.childNodes[insert.index]);
+		}
+
+		// add end inserts
+		if (typeof frag !== 'undefined')
+		{
+			domNode.appendChild(frag);
+		}
+
+		return domNode;
+	}
+
+
+	function applyPatchReorderEndInsertsHelp(endInserts, patch)
+	{
+		if (typeof endInserts === 'undefined')
+		{
+			return;
+		}
+
+		var frag = document.createDocumentFragment();
+		for (var i = 0; i < endInserts.length; i++)
+		{
+			var insert = endInserts[i];
+			var entry = insert.entry;
+			frag.appendChild(entry.tag === 'move'
+				? entry.data
+				: render(entry.vnode, patch.eventNode)
+			);
+		}
+		return frag;
+	}
+
+
+
+	////////////  PROGRAMS  ////////////
+
+
+	function programWithFlags(details)
+	{
+		return {
+			init: details.init,
+			update: details.update,
+			subscriptions: details.subscriptions,
+			view: details.view,
+			renderer: renderer
+		};
+	}
+
+
+	return {
+		node: node,
+		text: text,
+
+		custom: custom,
+
+		map: F2(map),
+
+		on: F3(on),
+		style: style,
+		property: F2(property),
+		attribute: F2(attribute),
+		attributeNS: F3(attributeNS),
+
+		lazy: F2(lazy),
+		lazy2: F3(lazy2),
+		lazy3: F4(lazy3),
+		keyedNode: F3(keyedNode),
+
+		programWithFlags: programWithFlags
+	};
+
+	}();
+	var _elm_lang$virtual_dom$VirtualDom$programWithFlags = _elm_lang$virtual_dom$Native_VirtualDom.programWithFlags;
+	var _elm_lang$virtual_dom$VirtualDom$keyedNode = _elm_lang$virtual_dom$Native_VirtualDom.keyedNode;
+	var _elm_lang$virtual_dom$VirtualDom$lazy3 = _elm_lang$virtual_dom$Native_VirtualDom.lazy3;
+	var _elm_lang$virtual_dom$VirtualDom$lazy2 = _elm_lang$virtual_dom$Native_VirtualDom.lazy2;
+	var _elm_lang$virtual_dom$VirtualDom$lazy = _elm_lang$virtual_dom$Native_VirtualDom.lazy;
+	var _elm_lang$virtual_dom$VirtualDom$defaultOptions = {stopPropagation: false, preventDefault: false};
+	var _elm_lang$virtual_dom$VirtualDom$onWithOptions = _elm_lang$virtual_dom$Native_VirtualDom.on;
+	var _elm_lang$virtual_dom$VirtualDom$on = F2(
+		function (eventName, decoder) {
+			return A3(_elm_lang$virtual_dom$VirtualDom$onWithOptions, eventName, _elm_lang$virtual_dom$VirtualDom$defaultOptions, decoder);
+		});
+	var _elm_lang$virtual_dom$VirtualDom$style = _elm_lang$virtual_dom$Native_VirtualDom.style;
+	var _elm_lang$virtual_dom$VirtualDom$attributeNS = _elm_lang$virtual_dom$Native_VirtualDom.attributeNS;
+	var _elm_lang$virtual_dom$VirtualDom$attribute = _elm_lang$virtual_dom$Native_VirtualDom.attribute;
+	var _elm_lang$virtual_dom$VirtualDom$property = _elm_lang$virtual_dom$Native_VirtualDom.property;
+	var _elm_lang$virtual_dom$VirtualDom$map = _elm_lang$virtual_dom$Native_VirtualDom.map;
+	var _elm_lang$virtual_dom$VirtualDom$text = _elm_lang$virtual_dom$Native_VirtualDom.text;
+	var _elm_lang$virtual_dom$VirtualDom$node = _elm_lang$virtual_dom$Native_VirtualDom.node;
+	var _elm_lang$virtual_dom$VirtualDom$Options = F2(
+		function (a, b) {
+			return {stopPropagation: a, preventDefault: b};
+		});
+	var _elm_lang$virtual_dom$VirtualDom$Node = {ctor: 'Node'};
+	var _elm_lang$virtual_dom$VirtualDom$Property = {ctor: 'Property'};
+
+	var _elm_lang$html$Html$text = _elm_lang$virtual_dom$VirtualDom$text;
+	var _elm_lang$html$Html$node = _elm_lang$virtual_dom$VirtualDom$node;
+	var _elm_lang$html$Html$body = _elm_lang$html$Html$node('body');
+	var _elm_lang$html$Html$section = _elm_lang$html$Html$node('section');
+	var _elm_lang$html$Html$nav = _elm_lang$html$Html$node('nav');
+	var _elm_lang$html$Html$article = _elm_lang$html$Html$node('article');
+	var _elm_lang$html$Html$aside = _elm_lang$html$Html$node('aside');
+	var _elm_lang$html$Html$h1 = _elm_lang$html$Html$node('h1');
+	var _elm_lang$html$Html$h2 = _elm_lang$html$Html$node('h2');
+	var _elm_lang$html$Html$h3 = _elm_lang$html$Html$node('h3');
+	var _elm_lang$html$Html$h4 = _elm_lang$html$Html$node('h4');
+	var _elm_lang$html$Html$h5 = _elm_lang$html$Html$node('h5');
+	var _elm_lang$html$Html$h6 = _elm_lang$html$Html$node('h6');
+	var _elm_lang$html$Html$header = _elm_lang$html$Html$node('header');
+	var _elm_lang$html$Html$footer = _elm_lang$html$Html$node('footer');
+	var _elm_lang$html$Html$address = _elm_lang$html$Html$node('address');
+	var _elm_lang$html$Html$main$ = _elm_lang$html$Html$node('main');
+	var _elm_lang$html$Html$p = _elm_lang$html$Html$node('p');
+	var _elm_lang$html$Html$hr = _elm_lang$html$Html$node('hr');
+	var _elm_lang$html$Html$pre = _elm_lang$html$Html$node('pre');
+	var _elm_lang$html$Html$blockquote = _elm_lang$html$Html$node('blockquote');
+	var _elm_lang$html$Html$ol = _elm_lang$html$Html$node('ol');
+	var _elm_lang$html$Html$ul = _elm_lang$html$Html$node('ul');
+	var _elm_lang$html$Html$li = _elm_lang$html$Html$node('li');
+	var _elm_lang$html$Html$dl = _elm_lang$html$Html$node('dl');
+	var _elm_lang$html$Html$dt = _elm_lang$html$Html$node('dt');
+	var _elm_lang$html$Html$dd = _elm_lang$html$Html$node('dd');
+	var _elm_lang$html$Html$figure = _elm_lang$html$Html$node('figure');
+	var _elm_lang$html$Html$figcaption = _elm_lang$html$Html$node('figcaption');
+	var _elm_lang$html$Html$div = _elm_lang$html$Html$node('div');
+	var _elm_lang$html$Html$a = _elm_lang$html$Html$node('a');
+	var _elm_lang$html$Html$em = _elm_lang$html$Html$node('em');
+	var _elm_lang$html$Html$strong = _elm_lang$html$Html$node('strong');
+	var _elm_lang$html$Html$small = _elm_lang$html$Html$node('small');
+	var _elm_lang$html$Html$s = _elm_lang$html$Html$node('s');
+	var _elm_lang$html$Html$cite = _elm_lang$html$Html$node('cite');
+	var _elm_lang$html$Html$q = _elm_lang$html$Html$node('q');
+	var _elm_lang$html$Html$dfn = _elm_lang$html$Html$node('dfn');
+	var _elm_lang$html$Html$abbr = _elm_lang$html$Html$node('abbr');
+	var _elm_lang$html$Html$time = _elm_lang$html$Html$node('time');
+	var _elm_lang$html$Html$code = _elm_lang$html$Html$node('code');
+	var _elm_lang$html$Html$var = _elm_lang$html$Html$node('var');
+	var _elm_lang$html$Html$samp = _elm_lang$html$Html$node('samp');
+	var _elm_lang$html$Html$kbd = _elm_lang$html$Html$node('kbd');
+	var _elm_lang$html$Html$sub = _elm_lang$html$Html$node('sub');
+	var _elm_lang$html$Html$sup = _elm_lang$html$Html$node('sup');
+	var _elm_lang$html$Html$i = _elm_lang$html$Html$node('i');
+	var _elm_lang$html$Html$b = _elm_lang$html$Html$node('b');
+	var _elm_lang$html$Html$u = _elm_lang$html$Html$node('u');
+	var _elm_lang$html$Html$mark = _elm_lang$html$Html$node('mark');
+	var _elm_lang$html$Html$ruby = _elm_lang$html$Html$node('ruby');
+	var _elm_lang$html$Html$rt = _elm_lang$html$Html$node('rt');
+	var _elm_lang$html$Html$rp = _elm_lang$html$Html$node('rp');
+	var _elm_lang$html$Html$bdi = _elm_lang$html$Html$node('bdi');
+	var _elm_lang$html$Html$bdo = _elm_lang$html$Html$node('bdo');
+	var _elm_lang$html$Html$span = _elm_lang$html$Html$node('span');
+	var _elm_lang$html$Html$br = _elm_lang$html$Html$node('br');
+	var _elm_lang$html$Html$wbr = _elm_lang$html$Html$node('wbr');
+	var _elm_lang$html$Html$ins = _elm_lang$html$Html$node('ins');
+	var _elm_lang$html$Html$del = _elm_lang$html$Html$node('del');
+	var _elm_lang$html$Html$img = _elm_lang$html$Html$node('img');
+	var _elm_lang$html$Html$iframe = _elm_lang$html$Html$node('iframe');
+	var _elm_lang$html$Html$embed = _elm_lang$html$Html$node('embed');
+	var _elm_lang$html$Html$object = _elm_lang$html$Html$node('object');
+	var _elm_lang$html$Html$param = _elm_lang$html$Html$node('param');
+	var _elm_lang$html$Html$video = _elm_lang$html$Html$node('video');
+	var _elm_lang$html$Html$audio = _elm_lang$html$Html$node('audio');
+	var _elm_lang$html$Html$source = _elm_lang$html$Html$node('source');
+	var _elm_lang$html$Html$track = _elm_lang$html$Html$node('track');
+	var _elm_lang$html$Html$canvas = _elm_lang$html$Html$node('canvas');
+	var _elm_lang$html$Html$svg = _elm_lang$html$Html$node('svg');
+	var _elm_lang$html$Html$math = _elm_lang$html$Html$node('math');
+	var _elm_lang$html$Html$table = _elm_lang$html$Html$node('table');
+	var _elm_lang$html$Html$caption = _elm_lang$html$Html$node('caption');
+	var _elm_lang$html$Html$colgroup = _elm_lang$html$Html$node('colgroup');
+	var _elm_lang$html$Html$col = _elm_lang$html$Html$node('col');
+	var _elm_lang$html$Html$tbody = _elm_lang$html$Html$node('tbody');
+	var _elm_lang$html$Html$thead = _elm_lang$html$Html$node('thead');
+	var _elm_lang$html$Html$tfoot = _elm_lang$html$Html$node('tfoot');
+	var _elm_lang$html$Html$tr = _elm_lang$html$Html$node('tr');
+	var _elm_lang$html$Html$td = _elm_lang$html$Html$node('td');
+	var _elm_lang$html$Html$th = _elm_lang$html$Html$node('th');
+	var _elm_lang$html$Html$form = _elm_lang$html$Html$node('form');
+	var _elm_lang$html$Html$fieldset = _elm_lang$html$Html$node('fieldset');
+	var _elm_lang$html$Html$legend = _elm_lang$html$Html$node('legend');
+	var _elm_lang$html$Html$label = _elm_lang$html$Html$node('label');
+	var _elm_lang$html$Html$input = _elm_lang$html$Html$node('input');
+	var _elm_lang$html$Html$button = _elm_lang$html$Html$node('button');
+	var _elm_lang$html$Html$select = _elm_lang$html$Html$node('select');
+	var _elm_lang$html$Html$datalist = _elm_lang$html$Html$node('datalist');
+	var _elm_lang$html$Html$optgroup = _elm_lang$html$Html$node('optgroup');
+	var _elm_lang$html$Html$option = _elm_lang$html$Html$node('option');
+	var _elm_lang$html$Html$textarea = _elm_lang$html$Html$node('textarea');
+	var _elm_lang$html$Html$keygen = _elm_lang$html$Html$node('keygen');
+	var _elm_lang$html$Html$output = _elm_lang$html$Html$node('output');
+	var _elm_lang$html$Html$progress = _elm_lang$html$Html$node('progress');
+	var _elm_lang$html$Html$meter = _elm_lang$html$Html$node('meter');
+	var _elm_lang$html$Html$details = _elm_lang$html$Html$node('details');
+	var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
+	var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
+	var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
+
+	var _elm_lang$html$Html_App$programWithFlags = _elm_lang$virtual_dom$VirtualDom$programWithFlags;
+	var _elm_lang$html$Html_App$program = function (app) {
+		return _elm_lang$html$Html_App$programWithFlags(
+			_elm_lang$core$Native_Utils.update(
+				app,
+				{
+					init: function (_p0) {
+						return app.init;
+					}
+				}));
+	};
+	var _elm_lang$html$Html_App$beginnerProgram = function (_p1) {
+		var _p2 = _p1;
+		return _elm_lang$html$Html_App$programWithFlags(
+			{
+				init: function (_p3) {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_p2.model,
+						_elm_lang$core$Native_List.fromArray(
+							[]));
+				},
+				update: F2(
+					function (msg, model) {
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							A2(_p2.update, msg, model),
+							_elm_lang$core$Native_List.fromArray(
+								[]));
+					}),
+				view: _p2.view,
+				subscriptions: function (_p4) {
+					return _elm_lang$core$Platform_Sub$none;
+				}
+			});
+	};
+	var _elm_lang$html$Html_App$map = _elm_lang$virtual_dom$VirtualDom$map;
+
+	var _elm_lang$html$Html_Attributes$attribute = _elm_lang$virtual_dom$VirtualDom$attribute;
+	var _elm_lang$html$Html_Attributes$contextmenu = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'contextmenu', value);
+	};
+	var _elm_lang$html$Html_Attributes$draggable = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'draggable', value);
+	};
+	var _elm_lang$html$Html_Attributes$list = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'list', value);
+	};
+	var _elm_lang$html$Html_Attributes$maxlength = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'maxlength',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$datetime = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'datetime', value);
+	};
+	var _elm_lang$html$Html_Attributes$pubdate = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'pubdate', value);
+	};
+	var _elm_lang$html$Html_Attributes$colspan = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'colspan',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$rowspan = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'rowspan',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$property = _elm_lang$virtual_dom$VirtualDom$property;
+	var _elm_lang$html$Html_Attributes$stringProperty = F2(
+		function (name, string) {
+			return A2(
+				_elm_lang$html$Html_Attributes$property,
+				name,
+				_elm_lang$core$Json_Encode$string(string));
+		});
+	var _elm_lang$html$Html_Attributes$class = function (name) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'className', name);
+	};
+	var _elm_lang$html$Html_Attributes$id = function (name) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'id', name);
+	};
+	var _elm_lang$html$Html_Attributes$title = function (name) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'title', name);
+	};
+	var _elm_lang$html$Html_Attributes$accesskey = function ($char) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'accessKey',
+			_elm_lang$core$String$fromChar($char));
+	};
+	var _elm_lang$html$Html_Attributes$dir = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'dir', value);
+	};
+	var _elm_lang$html$Html_Attributes$dropzone = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'dropzone', value);
+	};
+	var _elm_lang$html$Html_Attributes$itemprop = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'itemprop', value);
+	};
+	var _elm_lang$html$Html_Attributes$lang = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'lang', value);
+	};
+	var _elm_lang$html$Html_Attributes$tabindex = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'tabIndex',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$charset = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'charset', value);
+	};
+	var _elm_lang$html$Html_Attributes$content = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'content', value);
+	};
+	var _elm_lang$html$Html_Attributes$httpEquiv = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'httpEquiv', value);
+	};
+	var _elm_lang$html$Html_Attributes$language = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'language', value);
+	};
+	var _elm_lang$html$Html_Attributes$src = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'src', value);
+	};
+	var _elm_lang$html$Html_Attributes$height = function (value) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'height',
+			_elm_lang$core$Basics$toString(value));
+	};
+	var _elm_lang$html$Html_Attributes$width = function (value) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'width',
+			_elm_lang$core$Basics$toString(value));
+	};
+	var _elm_lang$html$Html_Attributes$alt = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'alt', value);
+	};
+	var _elm_lang$html$Html_Attributes$preload = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'preload', value);
+	};
+	var _elm_lang$html$Html_Attributes$poster = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'poster', value);
+	};
+	var _elm_lang$html$Html_Attributes$kind = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'kind', value);
+	};
+	var _elm_lang$html$Html_Attributes$srclang = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'srclang', value);
+	};
+	var _elm_lang$html$Html_Attributes$sandbox = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'sandbox', value);
+	};
+	var _elm_lang$html$Html_Attributes$srcdoc = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'srcdoc', value);
+	};
+	var _elm_lang$html$Html_Attributes$type$ = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'type', value);
+	};
+	var _elm_lang$html$Html_Attributes$value = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'value', value);
+	};
+	var _elm_lang$html$Html_Attributes$defaultValue = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'defaultValue', value);
+	};
+	var _elm_lang$html$Html_Attributes$placeholder = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'placeholder', value);
+	};
+	var _elm_lang$html$Html_Attributes$accept = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'accept', value);
+	};
+	var _elm_lang$html$Html_Attributes$acceptCharset = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'acceptCharset', value);
+	};
+	var _elm_lang$html$Html_Attributes$action = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'action', value);
+	};
+	var _elm_lang$html$Html_Attributes$autocomplete = function (bool) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'autocomplete',
+			bool ? 'on' : 'off');
+	};
+	var _elm_lang$html$Html_Attributes$autosave = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'autosave', value);
+	};
+	var _elm_lang$html$Html_Attributes$enctype = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'enctype', value);
+	};
+	var _elm_lang$html$Html_Attributes$formaction = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'formAction', value);
+	};
+	var _elm_lang$html$Html_Attributes$minlength = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'minLength',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$method = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'method', value);
+	};
+	var _elm_lang$html$Html_Attributes$name = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'name', value);
+	};
+	var _elm_lang$html$Html_Attributes$pattern = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'pattern', value);
+	};
+	var _elm_lang$html$Html_Attributes$size = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'size',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$for = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'htmlFor', value);
+	};
+	var _elm_lang$html$Html_Attributes$form = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'form', value);
+	};
+	var _elm_lang$html$Html_Attributes$max = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'max', value);
+	};
+	var _elm_lang$html$Html_Attributes$min = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'min', value);
+	};
+	var _elm_lang$html$Html_Attributes$step = function (n) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'step', n);
+	};
+	var _elm_lang$html$Html_Attributes$cols = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'cols',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$rows = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'rows',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$wrap = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'wrap', value);
+	};
+	var _elm_lang$html$Html_Attributes$usemap = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'useMap', value);
+	};
+	var _elm_lang$html$Html_Attributes$shape = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'shape', value);
+	};
+	var _elm_lang$html$Html_Attributes$coords = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'coords', value);
+	};
+	var _elm_lang$html$Html_Attributes$challenge = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'challenge', value);
+	};
+	var _elm_lang$html$Html_Attributes$keytype = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'keytype', value);
+	};
+	var _elm_lang$html$Html_Attributes$align = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'align', value);
+	};
+	var _elm_lang$html$Html_Attributes$cite = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'cite', value);
+	};
+	var _elm_lang$html$Html_Attributes$href = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'href', value);
+	};
+	var _elm_lang$html$Html_Attributes$target = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'target', value);
+	};
+	var _elm_lang$html$Html_Attributes$downloadAs = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'download', value);
+	};
+	var _elm_lang$html$Html_Attributes$hreflang = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'hreflang', value);
+	};
+	var _elm_lang$html$Html_Attributes$media = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'media', value);
+	};
+	var _elm_lang$html$Html_Attributes$ping = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'ping', value);
+	};
+	var _elm_lang$html$Html_Attributes$rel = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'rel', value);
+	};
+	var _elm_lang$html$Html_Attributes$start = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'start',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$headers = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'headers', value);
+	};
+	var _elm_lang$html$Html_Attributes$scope = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'scope', value);
+	};
+	var _elm_lang$html$Html_Attributes$manifest = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'manifest', value);
+	};
+	var _elm_lang$html$Html_Attributes$boolProperty = F2(
+		function (name, bool) {
+			return A2(
+				_elm_lang$html$Html_Attributes$property,
+				name,
+				_elm_lang$core$Json_Encode$bool(bool));
+		});
+	var _elm_lang$html$Html_Attributes$hidden = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'hidden', bool);
+	};
+	var _elm_lang$html$Html_Attributes$contenteditable = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'contentEditable', bool);
+	};
+	var _elm_lang$html$Html_Attributes$spellcheck = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'spellcheck', bool);
+	};
+	var _elm_lang$html$Html_Attributes$async = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'async', bool);
+	};
+	var _elm_lang$html$Html_Attributes$defer = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'defer', bool);
+	};
+	var _elm_lang$html$Html_Attributes$scoped = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'scoped', bool);
+	};
+	var _elm_lang$html$Html_Attributes$autoplay = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'autoplay', bool);
+	};
+	var _elm_lang$html$Html_Attributes$controls = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'controls', bool);
+	};
+	var _elm_lang$html$Html_Attributes$loop = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'loop', bool);
+	};
+	var _elm_lang$html$Html_Attributes$default = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'default', bool);
+	};
+	var _elm_lang$html$Html_Attributes$seamless = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'seamless', bool);
+	};
+	var _elm_lang$html$Html_Attributes$checked = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'checked', bool);
+	};
+	var _elm_lang$html$Html_Attributes$selected = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'selected', bool);
+	};
+	var _elm_lang$html$Html_Attributes$autofocus = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'autofocus', bool);
+	};
+	var _elm_lang$html$Html_Attributes$disabled = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'disabled', bool);
+	};
+	var _elm_lang$html$Html_Attributes$multiple = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'multiple', bool);
+	};
+	var _elm_lang$html$Html_Attributes$novalidate = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'noValidate', bool);
+	};
+	var _elm_lang$html$Html_Attributes$readonly = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'readOnly', bool);
+	};
+	var _elm_lang$html$Html_Attributes$required = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'required', bool);
+	};
+	var _elm_lang$html$Html_Attributes$ismap = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'isMap', value);
+	};
+	var _elm_lang$html$Html_Attributes$download = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'download', bool);
+	};
+	var _elm_lang$html$Html_Attributes$reversed = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'reversed', bool);
+	};
+	var _elm_lang$html$Html_Attributes$classList = function (list) {
+		return _elm_lang$html$Html_Attributes$class(
+			A2(
+				_elm_lang$core$String$join,
+				' ',
+				A2(
+					_elm_lang$core$List$map,
+					_elm_lang$core$Basics$fst,
+					A2(_elm_lang$core$List$filter, _elm_lang$core$Basics$snd, list))));
+	};
+	var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
+
+	var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode_ops[':='], 'keyCode', _elm_lang$core$Json_Decode$int);
+	var _elm_lang$html$Html_Events$targetChecked = A2(
+		_elm_lang$core$Json_Decode$at,
+		_elm_lang$core$Native_List.fromArray(
+			['target', 'checked']),
+		_elm_lang$core$Json_Decode$bool);
+	var _elm_lang$html$Html_Events$targetValue = A2(
+		_elm_lang$core$Json_Decode$at,
+		_elm_lang$core$Native_List.fromArray(
+			['target', 'value']),
+		_elm_lang$core$Json_Decode$string);
+	var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+	var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+	var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+	var _elm_lang$html$Html_Events$onFocus = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'focus',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onBlur = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'blur',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+		_elm_lang$html$Html_Events$defaultOptions,
+		{preventDefault: true});
+	var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+		return A3(
+			_elm_lang$html$Html_Events$onWithOptions,
+			'submit',
+			_elm_lang$html$Html_Events$onSubmitOptions,
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'change',
+			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+	};
+	var _elm_lang$html$Html_Events$onInput = function (tagger) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'input',
+			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+	};
+	var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseout',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseover',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseleave',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseenter',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseup',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mousedown',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'dblclick',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onClick = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'click',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$Options = F2(
+		function (a, b) {
+			return {stopPropagation: a, preventDefault: b};
+		});
+
+	var _evancz$elm_markdown$Native_Markdown = function() {
+
+
+	// VIRTUAL-DOM WIDGETS
+
+	function toHtml(options, factList, rawMarkdown)
+	{
+		var model = {
+			options: options,
+			markdown: rawMarkdown
+		};
+		return _elm_lang$virtual_dom$Native_VirtualDom.custom(factList, model, implementation);
+	}
+
+
+	// WIDGET IMPLEMENTATION
+
+	var implementation = {
+		render: render,
+		diff: diff
+	};
+
+	function render(model)
+	{
+		var html = marked(model.markdown, formatOptions(model.options));
+		var div = document.createElement('div');
+		div.innerHTML = html;
+		return div;
+	}
+
+	function diff(a, b)
+	{
+		
+		if (a.model.markdown === b.model.markdown && a.model.options === b.model.options)
+		{
+			return null;
+		}
+
+		return {
+			applyPatch: applyPatch,
+			data: marked(b.model.markdown, formatOptions(b.model.options))
+		};
+	}
+
+	function applyPatch(domNode, data)
+	{
+		domNode.innerHTML = data;
+		return domNode;
+	}
+
+
+	// ACTUAL MARKDOWN PARSER
+
+	var marked = function() {
+		// catch the `marked` object regardless of the outer environment.
+		// (ex. a CommonJS module compatible environment.)
+		// note that this depends on marked's implementation of environment detection.
+		var module = {};
+		var exports = module.exports = {};
+
+		/**
+		 * marked - a markdown parser
+		 * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
+		 * https://github.com/chjj/marked
+		 */
+		(function(){var block={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:noop,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:noop,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment|closed|closing) *(?:\n{2,}|\s*$)/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:noop,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};block.bullet=/(?:[*+-]|\d+\.)/;block.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/;block.item=replace(block.item,"gm")(/bull/g,block.bullet)();block.list=replace(block.list)(/bull/g,block.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+block.def.source+")")();block.blockquote=replace(block.blockquote)("def",block.def)();block._tag="(?!(?:"+"a|em|strong|small|s|cite|q|dfn|abbr|data|time|code"+"|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo"+"|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b";block.html=replace(block.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,block._tag)();block.paragraph=replace(block.paragraph)("hr",block.hr)("heading",block.heading)("lheading",block.lheading)("blockquote",block.blockquote)("tag","<"+block._tag)("def",block.def)();block.normal=merge({},block);block.gfm=merge({},block.normal,{fences:/^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,paragraph:/^/});block.gfm.paragraph=replace(block.paragraph)("(?!","(?!"+block.gfm.fences.source.replace("\\1","\\2")+"|"+block.list.source.replace("\\1","\\3")+"|")();block.tables=merge({},block.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/});function Lexer(options){this.tokens=[];this.tokens.links={};this.options=options||marked.defaults;this.rules=block.normal;if(this.options.gfm){if(this.options.tables){this.rules=block.tables}else{this.rules=block.gfm}}}Lexer.rules=block;Lexer.lex=function(src,options){var lexer=new Lexer(options);return lexer.lex(src)};Lexer.prototype.lex=function(src){src=src.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n");return this.token(src,true)};Lexer.prototype.token=function(src,top,bq){var src=src.replace(/^ +$/gm,""),next,loose,cap,bull,b,item,space,i,l;while(src){if(cap=this.rules.newline.exec(src)){src=src.substring(cap[0].length);if(cap[0].length>1){this.tokens.push({type:"space"})}}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);cap=cap[0].replace(/^ {4}/gm,"");this.tokens.push({type:"code",text:!this.options.pedantic?cap.replace(/\n+$/,""):cap});continue}if(cap=this.rules.fences.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"code",lang:cap[2],text:cap[3]});continue}if(cap=this.rules.heading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[1].length,text:cap[2]});continue}if(top&&(cap=this.rules.nptable.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].split(/ *\| */)}this.tokens.push(item);continue}if(cap=this.rules.lheading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[2]==="="?1:2,text:cap[1]});continue}if(cap=this.rules.hr.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"hr"});continue}if(cap=this.rules.blockquote.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"blockquote_start"});cap=cap[0].replace(/^ *> ?/gm,"");this.token(cap,top,true);this.tokens.push({type:"blockquote_end"});continue}if(cap=this.rules.list.exec(src)){src=src.substring(cap[0].length);bull=cap[2];this.tokens.push({type:"list_start",ordered:bull.length>1});cap=cap[0].match(this.rules.item);next=false;l=cap.length;i=0;for(;i<l;i++){item=cap[i];space=item.length;item=item.replace(/^ *([*+-]|\d+\.) +/,"");if(~item.indexOf("\n ")){space-=item.length;item=!this.options.pedantic?item.replace(new RegExp("^ {1,"+space+"}","gm"),""):item.replace(/^ {1,4}/gm,"")}if(this.options.smartLists&&i!==l-1){b=block.bullet.exec(cap[i+1])[0];if(bull!==b&&!(bull.length>1&&b.length>1)){src=cap.slice(i+1).join("\n")+src;i=l-1}}loose=next||/\n\n(?!\s*$)/.test(item);if(i!==l-1){next=item.charAt(item.length-1)==="\n";if(!loose)loose=next}this.tokens.push({type:loose?"loose_item_start":"list_item_start"});this.token(item,false,bq);this.tokens.push({type:"list_item_end"})}this.tokens.push({type:"list_end"});continue}if(cap=this.rules.html.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:cap[1]==="pre"||cap[1]==="script"||cap[1]==="style",text:cap[0]});continue}if(!bq&&top&&(cap=this.rules.def.exec(src))){src=src.substring(cap[0].length);this.tokens.links[cap[1].toLowerCase()]={href:cap[2],title:cap[3]};continue}if(top&&(cap=this.rules.table.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/(?: *\| *)?\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */)}this.tokens.push(item);continue}if(top&&(cap=this.rules.paragraph.exec(src))){src=src.substring(cap[0].length);this.tokens.push({type:"paragraph",text:cap[1].charAt(cap[1].length-1)==="\n"?cap[1].slice(0,-1):cap[1]});continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"text",text:cap[0]});continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return this.tokens};var inline={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:noop,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:noop,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};inline._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;inline._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;inline.link=replace(inline.link)("inside",inline._inside)("href",inline._href)();inline.reflink=replace(inline.reflink)("inside",inline._inside)();inline.normal=merge({},inline);inline.pedantic=merge({},inline.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/});inline.gfm=merge({},inline.normal,{escape:replace(inline.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:replace(inline.text)("]|","~]|")("|","|https?://|")()});inline.breaks=merge({},inline.gfm,{br:replace(inline.br)("{2,}","*")(),text:replace(inline.gfm.text)("{2,}","*")()});function InlineLexer(links,options){this.options=options||marked.defaults;this.links=links;this.rules=inline.normal;this.renderer=this.options.renderer||new Renderer;this.renderer.options=this.options;if(!this.links){throw new Error("Tokens array requires a `links` property.")}if(this.options.gfm){if(this.options.breaks){this.rules=inline.breaks}else{this.rules=inline.gfm}}else if(this.options.pedantic){this.rules=inline.pedantic}}InlineLexer.rules=inline;InlineLexer.output=function(src,links,options){var inline=new InlineLexer(links,options);return inline.output(src)};InlineLexer.prototype.output=function(src){var out="",link,text,href,cap;while(src){if(cap=this.rules.escape.exec(src)){src=src.substring(cap[0].length);out+=cap[1];continue}if(cap=this.rules.autolink.exec(src)){src=src.substring(cap[0].length);if(cap[2]==="@"){text=cap[1].charAt(6)===":"?this.mangle(cap[1].substring(7)):this.mangle(cap[1]);href=this.mangle("mailto:")+text}else{text=escape(cap[1]);href=text}out+=this.renderer.link(href,null,text);continue}if(!this.inLink&&(cap=this.rules.url.exec(src))){src=src.substring(cap[0].length);text=escape(cap[1]);href=text;out+=this.renderer.link(href,null,text);continue}if(cap=this.rules.tag.exec(src)){if(!this.inLink&&/^<a /i.test(cap[0])){this.inLink=true}else if(this.inLink&&/^<\/a>/i.test(cap[0])){this.inLink=false}src=src.substring(cap[0].length);out+=this.options.sanitize?escape(cap[0]):cap[0];continue}if(cap=this.rules.link.exec(src)){src=src.substring(cap[0].length);this.inLink=true;out+=this.outputLink(cap,{href:cap[2],title:cap[3]});this.inLink=false;continue}if((cap=this.rules.reflink.exec(src))||(cap=this.rules.nolink.exec(src))){src=src.substring(cap[0].length);link=(cap[2]||cap[1]).replace(/\s+/g," ");link=this.links[link.toLowerCase()];if(!link||!link.href){out+=cap[0].charAt(0);src=cap[0].substring(1)+src;continue}this.inLink=true;out+=this.outputLink(cap,link);this.inLink=false;continue}if(cap=this.rules.strong.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.strong(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.em.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.em(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.codespan(escape(cap[2],true));continue}if(cap=this.rules.br.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.br();continue}if(cap=this.rules.del.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.del(this.output(cap[1]));continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);out+=escape(this.smartypants(cap[0]));continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return out};InlineLexer.prototype.outputLink=function(cap,link){var href=escape(link.href),title=link.title?escape(link.title):null;return cap[0].charAt(0)!=="!"?this.renderer.link(href,title,this.output(cap[1])):this.renderer.image(href,title,escape(cap[1]))};InlineLexer.prototype.smartypants=function(text){if(!this.options.smartypants)return text;return text.replace(/--/g,"—").replace(/(^|[-\u2014/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…")};InlineLexer.prototype.mangle=function(text){var out="",l=text.length,i=0,ch;for(;i<l;i++){ch=text.charCodeAt(i);if(Math.random()>.5){ch="x"+ch.toString(16)}out+="&#"+ch+";"}return out};function Renderer(options){this.options=options||{}}Renderer.prototype.code=function(code,lang,escaped){if(this.options.highlight){var out=this.options.highlight(code,lang);if(out!=null&&out!==code){escaped=true;code=out}}if(!lang){return"<pre><code>"+(escaped?code:escape(code,true))+"\n</code></pre>"}return'<pre><code class="'+this.options.langPrefix+escape(lang,true)+'">'+(escaped?code:escape(code,true))+"\n</code></pre>\n"};Renderer.prototype.blockquote=function(quote){return"<blockquote>\n"+quote+"</blockquote>\n"};Renderer.prototype.html=function(html){return html};Renderer.prototype.heading=function(text,level,raw){return"<h"+level+' id="'+this.options.headerPrefix+raw.toLowerCase().replace(/[^\w]+/g,"-")+'">'+text+"</h"+level+">\n"};Renderer.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"};Renderer.prototype.list=function(body,ordered){var type=ordered?"ol":"ul";return"<"+type+">\n"+body+"</"+type+">\n"};Renderer.prototype.listitem=function(text){return"<li>"+text+"</li>\n"};Renderer.prototype.paragraph=function(text){return"<p>"+text+"</p>\n"};Renderer.prototype.table=function(header,body){return"<table>\n"+"<thead>\n"+header+"</thead>\n"+"<tbody>\n"+body+"</tbody>\n"+"</table>\n"};Renderer.prototype.tablerow=function(content){return"<tr>\n"+content+"</tr>\n"};Renderer.prototype.tablecell=function(content,flags){var type=flags.header?"th":"td";var tag=flags.align?"<"+type+' style="text-align:'+flags.align+'">':"<"+type+">";return tag+content+"</"+type+">\n"};Renderer.prototype.strong=function(text){return"<strong>"+text+"</strong>"};Renderer.prototype.em=function(text){return"<em>"+text+"</em>"};Renderer.prototype.codespan=function(text){return"<code>"+text+"</code>"};Renderer.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"};Renderer.prototype.del=function(text){return"<del>"+text+"</del>"};Renderer.prototype.link=function(href,title,text){if(this.options.sanitize){try{var prot=decodeURIComponent(unescape(href)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return""}if(prot.indexOf("javascript:")===0){return""}}var out='<a href="'+href+'"';if(title){out+=' title="'+title+'"'}out+=">"+text+"</a>";return out};Renderer.prototype.image=function(href,title,text){var out='<img src="'+href+'" alt="'+text+'"';if(title){out+=' title="'+title+'"'}out+=this.options.xhtml?"/>":">";return out};function Parser(options){this.tokens=[];this.token=null;this.options=options||marked.defaults;this.options.renderer=this.options.renderer||new Renderer;this.renderer=this.options.renderer;this.renderer.options=this.options}Parser.parse=function(src,options,renderer){var parser=new Parser(options,renderer);return parser.parse(src)};Parser.prototype.parse=function(src){this.inline=new InlineLexer(src.links,this.options,this.renderer);this.tokens=src.reverse();var out="";while(this.next()){out+=this.tok()}return out};Parser.prototype.next=function(){return this.token=this.tokens.pop()};Parser.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0};Parser.prototype.parseText=function(){var body=this.token.text;while(this.peek().type==="text"){body+="\n"+this.next().text}return this.inline.output(body)};Parser.prototype.tok=function(){switch(this.token.type){case"space":{return""}case"hr":{return this.renderer.hr()}case"heading":{return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text)}case"code":{return this.renderer.code(this.token.text,this.token.lang,this.token.escaped)}case"table":{var header="",body="",i,row,cell,flags,j;cell="";for(i=0;i<this.token.header.length;i++){flags={header:true,align:this.token.align[i]};cell+=this.renderer.tablecell(this.inline.output(this.token.header[i]),{header:true,align:this.token.align[i]})}header+=this.renderer.tablerow(cell);for(i=0;i<this.token.cells.length;i++){row=this.token.cells[i];cell="";for(j=0;j<row.length;j++){cell+=this.renderer.tablecell(this.inline.output(row[j]),{header:false,align:this.token.align[j]})}body+=this.renderer.tablerow(cell)}return this.renderer.table(header,body)}case"blockquote_start":{var body="";while(this.next().type!=="blockquote_end"){body+=this.tok()}return this.renderer.blockquote(body)}case"list_start":{var body="",ordered=this.token.ordered;while(this.next().type!=="list_end"){body+=this.tok()}return this.renderer.list(body,ordered)}case"list_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.token.type==="text"?this.parseText():this.tok()}return this.renderer.listitem(body)}case"loose_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.tok()}return this.renderer.listitem(body)}case"html":{var html=!this.token.pre&&!this.options.pedantic?this.inline.output(this.token.text):this.token.text;return this.renderer.html(html)}case"paragraph":{return this.renderer.paragraph(this.inline.output(this.token.text))}case"text":{return this.renderer.paragraph(this.parseText())}}};function escape(html,encode){return html.replace(!encode?/&(?!#?\w+;)/g:/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function unescape(html){return html.replace(/&([#\w]+);/g,function(_,n){n=n.toLowerCase();if(n==="colon")return":";if(n.charAt(0)==="#"){return n.charAt(1)==="x"?String.fromCharCode(parseInt(n.substring(2),16)):String.fromCharCode(+n.substring(1))}return""})}function replace(regex,opt){regex=regex.source;opt=opt||"";return function self(name,val){if(!name)return new RegExp(regex,opt);val=val.source||val;val=val.replace(/(^|[^\[])\^/g,"$1");regex=regex.replace(name,val);return self}}function noop(){}noop.exec=noop;function merge(obj){var i=1,target,key;for(;i<arguments.length;i++){target=arguments[i];for(key in target){if(Object.prototype.hasOwnProperty.call(target,key)){obj[key]=target[key]}}}return obj}function marked(src,opt,callback){if(callback||typeof opt==="function"){if(!callback){callback=opt;opt=null}opt=merge({},marked.defaults,opt||{});var highlight=opt.highlight,tokens,pending,i=0;try{tokens=Lexer.lex(src,opt)}catch(e){return callback(e)}pending=tokens.length;var done=function(err){if(err){opt.highlight=highlight;return callback(err)}var out;try{out=Parser.parse(tokens,opt)}catch(e){err=e}opt.highlight=highlight;return err?callback(err):callback(null,out)};if(!highlight||highlight.length<3){return done()}delete opt.highlight;if(!pending)return done();for(;i<tokens.length;i++){(function(token){if(token.type!=="code"){return--pending||done()}return highlight(token.text,token.lang,function(err,code){if(err)return done(err);if(code==null||code===token.text){return--pending||done()}token.text=code;token.escaped=true;--pending||done()})})(tokens[i])}return}try{if(opt)opt=merge({},marked.defaults,opt);return Parser.parse(Lexer.lex(src,opt),opt)}catch(e){e.message+="\nPlease report this to https://github.com/chjj/marked.";if((opt||marked.defaults).silent){return"<p>An error occured:</p><pre>"+escape(e.message+"",true)+"</pre>"}throw e}}marked.options=marked.setOptions=function(opt){merge(marked.defaults,opt);return marked};marked.defaults={gfm:true,tables:true,breaks:false,pedantic:false,sanitize:false,smartLists:false,silent:false,highlight:null,langPrefix:"lang-",smartypants:false,headerPrefix:"",renderer:new Renderer,xhtml:false};marked.Parser=Parser;marked.parser=Parser.parse;marked.Renderer=Renderer;marked.Lexer=Lexer;marked.lexer=Lexer.lex;marked.InlineLexer=InlineLexer;marked.inlineLexer=InlineLexer.output;marked.parse=marked;if(typeof module!=="undefined"&&typeof exports==="object"){module.exports=marked}else if(typeof define==="function"&&define.amd){define(function(){return marked})}else{this.marked=marked}}).call(function(){return this||(typeof window!=="undefined"?window:global)}());
+
+		return module.exports;
+	}();
+
+
+	// FORMAT OPTIONS FOR MARKED IMPLEMENTATION
+
+	function formatOptions(options)
+	{
+		function toHighlight(code, lang)
+		{
+			if (!lang && options.defaultHighlighting.ctor === 'Just')
+			{
+				lang = options.defaultHighlighting._0;
+			}
+
+			if (typeof hljs !== 'undefined' && lang && hljs.listLanguages().indexOf(lang) >= 0)
+			{
+				return hljs.highlight(lang, code, true).value;
+			}
+
+			return code;
+		}
+
+		var gfm = options.githubFlavored;
+		if (gfm.ctor === 'Just')
+		{
+			return {
+				highlight: toHighlight,
+				gfm: true,
+				tables: gfm._0.tables,
+				breaks: gfm._0.breaks,
+				sanitize: options.sanitize,
+				smartypants: options.smartypants
+			};
+		}
+
+		return {
+			highlight: toHighlight,
+			gfm: false,
+			tables: false,
+			breaks: false,
+			sanitize: options.sanitize,
+			smartypants: options.smartypants
+		};
+	}
+
+
+	// EXPORTS
+
+	return {
+		toHtml: F3(toHtml)
+	};
+
+	}();
+
+	var _evancz$elm_markdown$Markdown$toHtmlWith = _evancz$elm_markdown$Native_Markdown.toHtml;
+	var _evancz$elm_markdown$Markdown$defaultOptions = {
+		githubFlavored: _elm_lang$core$Maybe$Just(
+			{tables: false, breaks: false}),
+		defaultHighlighting: _elm_lang$core$Maybe$Nothing,
+		sanitize: false,
+		smartypants: false
+	};
+	var _evancz$elm_markdown$Markdown$toHtml = F2(
+		function (attrs, string) {
+			return A3(_evancz$elm_markdown$Native_Markdown.toHtml, _evancz$elm_markdown$Markdown$defaultOptions, attrs, string);
+		});
+	var _evancz$elm_markdown$Markdown$Options = F4(
+		function (a, b, c, d) {
+			return {githubFlavored: a, defaultHighlighting: b, sanitize: c, smartypants: d};
+		});
+
+	var _moarwick$elm_webpack_starter$Components_Expand$expand = F3(
+		function (click, showing, content) {
+			return showing ? A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$button,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Events$onClick(click)
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Hide Solution')
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('soln')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_evancz$elm_markdown$Markdown$toHtml,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								content)
+							]))
+					])) : A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(click)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Show Solution')
+					]));
+		});
+
+	var _moarwick$elm_webpack_starter$Util$markdown = function (paragraph) {
+		return A2(
+			_evancz$elm_markdown$Markdown$toHtml,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			paragraph);
+	};
+	var _moarwick$elm_webpack_starter$Util$getOrDefault = F3(
+		function (i, arr, def) {
+			var _p0 = A2(_elm_lang$core$Array$get, i, arr);
+			if (_p0.ctor === 'Just') {
+				return _p0._0;
+			} else {
+				return def;
+			}
+		});
+
+	var _moarwick$elm_webpack_starter$Main$soln4 = '\n```elm\nimport Html exposing (Html, div, button, h1, text)\n\nmain : Html a\nmain =\n  div []\n    [ h1 [] [ text \"Hello world\" ]\n    , button [] [ text \"Click me!\" ]\n    ]\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p4 = '\n## Records\n\nRecords are another important data structure in Elm, and as you\'ll see, are used heavily. They\'re like `struct`s in C. Records are a set of key-value pairs, much like the `Map` data structure in Java. Unlike Java, the values don\'t have to be the same type.\n\n```elm\n> me = { name = \"Sam\", age = 22 }\n{ name = \"Sam\", age = 22 } : { age : number, name : String }\n\n> me.name\n\"Sam\" : String\n\n> me.age\n22 : number\n```\n\nRecords are not modified, you can only create new records. Because it would be cumbersome to copy each key-value pair to a new record when you want to update a single value, Elm offers the pipe operator `|` that can be used to create new records based on old ones.\n\n```elm\n> older = { me | age = 30 }\n{ name = \"Sam\", age = 30 } : { name : String, age : number }\n\n> older.name\n\"Sam\" : String\n\n> older.age\n30 : number\n\n> me.age\n22 : number\n```\n\nNotice how we didn\'t update the record values in `me`, we created an entirely new record `older` with a new value for `age`.\n\n## Type Aliases\n\nRecords are great, but what if we want to create a number of records with the same structure? Type aliases allow us to do that. We just define each key\'s type and assign it to a special identifier called a type alias. It makes our code more condense and easier to read.\n\n```elm\n> type alias Person = { name : String, age : Int }\n\n> me = Person \"Sam\" 22\n{ name = \"Sam\", age = 22 } : Person\n\n> me.name\n\"Sam\" : String\n\n> me.age\n22 : Int\n```\n\nOur type alias also allows us to shorten our type definitions as well. You can think of a type alias as a substitution for the type definition.\n\n```elm\n-- Without type aliases\ngreet : { name : String, age : Int } -> String\ngreet p = \"Hello \" ++ p.name ++ \"! You are \" ++ (toString p.age) ++ \" years old.\"\n\n-- With type aliases\ntype alias Person = { name : String, age : Int }\ngreet : Person -> String\ngreet p = \"Hello \" ++ p.name ++ \"! You are \" ++ (toString p.age) ++ \" years old.\"\n```\n\nFinally, you can also type alias non-record data types in Elm such as `type alias MyBooleanAlias = Bool`\n\n## Types\n\nTypes are a bit more complicated because they introduce the idea of symbols. All you\'ll need to understand about symbols is that they are just like strings except they don\'t require quotations. Symbols allow you to essentially define your own keywords in Elm. Let\'s see an example:\n\n```elm\ntype Language = English | French\n\ngetGreeting : Language -> String\ngetGreeting lang =\n  case lang of\n    English -> \"Hello\"\n    French -> \"Bonjour\"\n```\n\nWe can now use our `getGreeting` function as:\n\n```elm\n> getGreeting English\n\"Hello\" : String\n\n> getGreeting French\n\"Bonjour\" : String\n```\n\nTypes might remind you of `enum`s from languages like Java. They are very similar to an enum.\n\n## Variable Types\n\nImagine we wanted to create a function that counted the number of elements in a `List` with a type definition. How would we do that? This introduces the need for *type variables*. Type variables can be substituted for any type. They are very similar to Java Generics, if you\'re familiar with those. Let\'s see a brief example in Elm, implementing our `count` function to determine the number of elements in a `List`:\n\n```elm\ncount : List a -> Int\ncount list =\n  let\n    rest = case List.tail list of\n      Just value -> value\n      Nothing -> []\n  in\n    case List.head list of\n      Just value -> 1 + count rest\n      Nothing -> 0\n```\n\nHere we define a `count` function that returns the number of elements in a `List`. The type variable `a` means that our `List` can contain any type: it could be a list of `Int`, `String`, or even `List`.\n\n## The `main` Function\n\nLike many other languages, the entry point to your programs are through a function called `main`. Because Elm is a web application language, it works on HTML. This means that your `main` function has to return HTML, not `void`, not `Int`, or anything else.\n\nThe most basic HTML element available in Elm is the `text` element. `text` represents an element on the page that contains, as you might guess, text. A \"hello world\" Elm program would look something like:\n\n```elm\nimport Html exposing (text)\n\nmain = text \"Hello, world!\"\n```\n\n### Imports\n\nImports are a new concept, so let\'s break it down. `import Html exposing (text)` is going to import the `Html` module - which is built into the language. Importing means that the functions defined by that module are available for us to use. The `Html` module is quite large, and we\'re only interested in using the `text` function, so we add `exposing (text)` to our `import` statement. To import all functions from the `Html` module, we would do `import Html exposing (..)`. To import the `Html` module without interferring with the current namespace, we could simply `import Html` and call `Html.text \"Hello, world!\"` instead of `text \"Hello, world!\"`.\n\n**Your turn**: Using the documentation at http://package.elm-lang.org/packages/elm-lang/html/latest/ create a main function (with a type definition) that returns a `div` containing an `h1` title containing the text \"Hello world\" and a `button` containing the text \"Click me!\". *Hint*: You can use `elm-reactor` to view your application in a web browser.\n';
+	var _moarwick$elm_webpack_starter$Main$soln3 = '\n```elm\nfactorial : Int -> Int\nfactorial n =\n  if n == 0 then\n    1\n  else\n    n * factorial (n-1)\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p3 = '\n**Your turn:** To wrap up this section on functions, define a function called `factorial` that calculates the factorial of a given number. Add a type definition to your function to restrict input to `Int`s.\n';
+	var _moarwick$elm_webpack_starter$Main$soln2 = '\n```elm\n(\\a b -> a + b) 1 2\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p2 = '\nThe `repeat` function is known as a named function because it can be referenced by name. Elm has the concept of anonymous functions which cannot be referenced by name. Such functions are useful in one-off use cases.\n\n### Anonymous Functions\n\nAnonymous functions are simply functions without a name. Let\'s take a look:\n\n```elm\n> \\x -> x + 1\n<function> : number -> number\n\n> (\\x -> x + 1) 6\n7 : number\n```\n\nDon\'t get too hung up on the syntax. `\\` identifies that the following expression is an anonymous function. Next comes the list of parameters that our function accepts, in this case `x`. `->` signifies the beginning of the function body. Finally, we return `x + 1`.\n\n**Your turn:** define and call an anonymous function that accepts two parameters and returns their sum.\n';
+	var _moarwick$elm_webpack_starter$Main$soln1 = '\n```elm\nrepeat : String -> Int -> String\nrepeat s n =\n  if n == 1 then\n    s\n  else\n    s ++ repeat s (n-1)\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p1 = '\n# An Introduction to Elm\n\nElm is a relatively new programming language meant for building web applications. It interfaces with Javascript but focuses on bringing functional reactive programming to UI development. Remember, our overall goal is to define our application UI as a function of our application state.\n\nBefore we can dive into building functionally reactive interfaces, we need to understand the tools we\'re working with. This tutorial will introduce the Elm language to the reader.\n\n## Primitive Types\n\nThis section should be pretty familiar. Launch `elm-repl` in your terminal to follow along. Elm, like every language, distinguishes data by types. Primitive types are those that are built into the language. In Java, primitive types are `int`, `char`, `byte`, `boolean`, etc...\n\nElm has many of those same primitives that we can see while using the REPL:\n\n```elm\n> 1\n1 : number\n\n> 1.2\n1.2 : Float\n\n> \"Hello!\"\n\"Hello!\" : String\n\n> \\x -> x + 1\n<function> : number -> number\n\n> \'a\'\n\'a\' : Char\n\n> True\nTrue : Bool\n\n> False\nFalse : Bool\n\n> [1, 2, 3, 4]\n[1,2,3,4] : List number\n```\n\nIn Elm, a `number` represents either an `Int` or `Float`. We\'ll talk more about the function notation `\\x -> x + 1` in the next section.\n\n## Constants\n\nConstants are quite easily defined in Elm and are cannot be changed. (Note: In the REPL, values can be changed) Attempting to modify the value of a constant will cause the compiler to throw an error notifying you that it cannot be done.\n\n```elm\n> x = 1\n1 : number\n\n> x\n1 : number\n```\n\nIn Elm, you can also add types to your variable definitions. If you leave the type out, Elm will infer what type it should be. Even though Elm may not always look it, it is a statically typed language.\n\n```elm\nx : Int\nx = 4\n```\n\n## Lists\n\nAn important data structure in Elm, a `List` is akin to arrays in other langauges. Lists, like arrays in many other languages, can only contain elements of the same type. There are a number of utility functions built into the language used to traverse and manipulate lists. I won\'t go over the whole API, but it is important to be aware of lists.\n\nYou can find more information at http://package.elm-lang.org/packages/elm-lang/core/1.0.0/List\n\n## Named & Anonymous Functions\n\nAs mentioned in the last tutorial, functions are first class values in Elm. Here\'s how we would define a function to repeat a string `n` times.\n\n```elm\nrepeat s n =\n  if n == 1 then\n    s\n  else\n    s ++ repeat s (n-1)\n```\n\nYou can define the `repeat` function in the Elm REPL in the following way:\n\n```elm\n> repeat s n = \\\n|  if n == 1 then \\\n|    s \\\n|  else \\\n|    s ++ repeat s (n-1) \\\n<function> : appendable -> number -> appendable\n\n> repeat \"lol\" 10\n\"lollollollollollollollollollol\" : String\n```\nWhat exactly is going on with the function type `<function> : appendable -> number -> appendable`? This is thanks to Elm\'s type inference. Because we haven\'t specified a type, Elm does it\'s best to infer what types could be used. In this case, the `++` operator is used for concatenation just like `+` is used for concatenation in Java. The difference here is that Elm allows concatenation on any type declared `appendable`.\n\nJust as defining types on constants, we can define the type of a function as well. In this case, I wanted to only repeat strings. Also consider that it is not possible to repeat a string 2.3 times.\n\n**Your turn:** try adding a type definition to the repeat function so that the first parameter is a `String`, the second parameter is an `Int`, and the return value is also a `String`.\n';
+	var _moarwick$elm_webpack_starter$Main$update = F2(
+		function (msg, model) {
+			var nextValue = function (soln) {
+				return _elm_lang$core$Basics$not(
+					A3(_moarwick$elm_webpack_starter$Util$getOrDefault, soln, model, true));
+			};
+			var _p0 = msg;
+			var _p1 = _p0._0;
+			return A3(
+				_elm_lang$core$Array$set,
+				_p1,
+				nextValue(_p1),
+				model);
+		});
+	var _moarwick$elm_webpack_starter$Main$model = _elm_lang$core$Array$fromList(
+		_elm_lang$core$Native_List.fromArray(
+			[false, false, false, false]));
+	var _moarwick$elm_webpack_starter$Main$ToggleSoln = function (a) {
+		return {ctor: 'ToggleSoln', _0: a};
+	};
+	var _moarwick$elm_webpack_starter$Main$solnExpander = F3(
+		function (model, i, soln) {
+			return A3(
+				_moarwick$elm_webpack_starter$Components_Expand$expand,
+				_moarwick$elm_webpack_starter$Main$ToggleSoln(i),
+				A3(_moarwick$elm_webpack_starter$Util$getOrDefault, i, model, false),
+				soln);
+		});
+	var _moarwick$elm_webpack_starter$Main$view = function (model) {
+		return A2(
+			_elm_lang$html$Html$article,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p1),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 0, _moarwick$elm_webpack_starter$Main$soln1),
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p2),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 1, _moarwick$elm_webpack_starter$Main$soln2),
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p3),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 2, _moarwick$elm_webpack_starter$Main$soln3),
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p4),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 3, _moarwick$elm_webpack_starter$Main$soln4)
+				]));
+	};
+	var _moarwick$elm_webpack_starter$Main$main = {
+		main: _elm_lang$html$Html_App$beginnerProgram(
+			{model: _moarwick$elm_webpack_starter$Main$model, view: _moarwick$elm_webpack_starter$Main$view, update: _moarwick$elm_webpack_starter$Main$update})
+	};
+
+	var Elm = {};
+	Elm['Main'] = Elm['Main'] || {};
+	_elm_lang$core$Native_Platform.addPublicModule(Elm['Main'], 'Main', typeof _moarwick$elm_webpack_starter$Main$main === 'undefined' ? null : _moarwick$elm_webpack_starter$Main$main);
+
+	if (typeof define === "function" && define['amd'])
+	{
+	  define([], function() { return Elm; });
+	  return;
+	}
+
+	if (typeof module === "object")
+	{
+	  module['exports'] = Elm;
+	  return;
+	}
+
+	var globalElm = this['Elm'];
+	if (typeof globalElm === "undefined")
+	{
+	  this['Elm'] = Elm;
+	  return;
+	}
+
+	for (var publicModule in Elm)
+	{
+	  if (publicModule in globalElm)
+	  {
+	    throw new Error('There are two Elm modules called `' + publicModule + '` on this page! Rename one of them.');
+	  }
+	  globalElm[publicModule] = Elm[publicModule];
+	}
+
+	}).call(this);
+
+
+
+/***/ }
+/******/ ]);
