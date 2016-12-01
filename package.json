@@ -2,7 +2,7 @@
   "name": "swe4913-elm-tutorials",
   "description": "Tutorials for Elm for SWE4913",
   "version": "1.0.0",
-  "author": "Sam",
+  "author": "Sam Jesso",
   "private": true,
   "scripts": {
     "start": "echo 'Use `webpack --watch --page <your page>` to run in development mode.'",

@@ -313,6 +313,51 @@ count list =
 
 Here we define a `count` function that returns the number of elements in a `List`. The type variable `a` means that our `List` can contain any type: it could be a list of `Int`, `String`, or even `List`.
 
+## The Built-in `Maybe` Type
+
+Elm, unlike many other languages, has no concept of `null` to represent absent values. Instead, a much safer variation called `Maybe` is used. If you're familiar with Java 8's `Optional` class, this is very similar.
+
+Consider the following type:
+
+```elm
+type Maybe a = Just a | Nothing
+```
+
+Remember, `a` in the above type definition is a *variable type*. In Java, for example, a method declaring a return value of `String` (such as `public String getName() { ... }`) can also potentially return `null`. This is cumbersome, as it leads to a lot of null-checking code (that is, `if(x != null) { ... }`) and runtime errors such as uncaught `NullPointerException`s.
+
+Elm attempts to relieve these issues with implicitly nullable types with the concept of `Maybe`. Let's look at an example of `Maybe` in practice: the `Array.get` function.
+
+```elm
+> import Array
+
+> x = Array.fromList [1, 2, 3]
+Array.fromList [1,2,3] : Array number
+
+> Array.get 0 x
+Just 1 : Maybe number
+
+> Array.get 100 x
+Nothing : Maybe number
+```
+
+In this example, `Array.get` returns the value `Just 1` when we ask for the number at the 0th index. To get the value 1 by itself, we need to *unpack* the `Maybe`. When we request the number at the 100th index we get a `Nothing` value, indicating that the value is absent.
+
+To unpack a `Maybe`, you use a `case of` expression:
+
+```elm
+doubleOrNothing : Maybe number -> number
+doubleOrNothing m =
+  case m of
+    Just x -> x * 2
+    Nothing -> 0
+
+doubleOrNothing Nothing  -- returns 0
+doubleOrNothing (Just 4) -- returns 8
+doubleOrNothing 4        -- type mismatch error, expected Maybe
+```
+
+So, **what's so great about `Maybe`?** The fact that the language doesn't allow you to ignore the fact that the value might be `Nothing`, so you're forced to handle it. By doing so, all of those uncaught `NullPointerException`s switch from runtime errors (impacting the user) to compile-time errors (notifying the programmer that she has not handled all cases).
+
 ## The `main` Function
 
 Like many other languages, the entry point to your programs are through a function called `main`. Because Elm is a web application language, it works on HTML. This means that your `main` function has to return HTML, not `void`, not `Int`, or anything else.
