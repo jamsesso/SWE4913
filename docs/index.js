@@ -7884,7 +7884,7 @@
 								]),
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html$text('Tutorial 4')
+									_elm_lang$html$Html$text('Asynchronous Behaviour in Elm')
 								]))
 						]))
 				]))

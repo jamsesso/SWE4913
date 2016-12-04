@@ -53,7 +53,7 @@ printf("y = %d\\n", y());
 
 The best analogy I’ve found that demonstrates the concept of reactive programming is the Microsoft Excel analogy. It explains that the value of a cell `A` in Excel can depend on the value of another cell `B`. When cell `B` is updated, the value in cell `A` will also be updated. Let’s try our calculation in Excel.
 
-Fig 3. A live demonstration of a reactive programming environment.
+![Excel GIF](./static/img/excel.gif)
 
 As we expect, our value of `y` is initially 7. When the value of `b` is incremented, the value of `y` is updated as a result. In other words, `y` reacted to a change in `b`. If you think of each cell as a function of the other cells (Cell `B4` in this case being a function of cells `B1`, `B2`, and `B3` or `B4(B1, B2, B3) = B1() * B2() + B3()` in this case) then you can see how the reactive environment is achieved at a conceptual level in Excel.
 
@@ -66,6 +66,10 @@ It's difficult to define, and a lot to take in, but the big things to remember a
 
 - Keep your functions pure.
 - Don’t change data, create new data.
+
+### Side Effects
+
+*Side effects* are things that happen inside of a function that modify some external state or interact with components outside of the scope of the function. Things like IO and networking are side effects (yes, that means even logging is a side effect!). If your function has a side effect it means that the function is impure because it's output depends on the external world. For example, if we consider logging as a side effect, the `log` function might write your debugging statements to a file, `stdout`, or to some socket (such as over a JTAG connection when debugging remote devices). This external influence on the function makes it impure.
 
 ### First Class Functions
 

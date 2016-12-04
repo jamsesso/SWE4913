@@ -7460,6 +7460,497 @@
 	var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 	var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
+	var _elm_lang$html$Html_App$programWithFlags = _elm_lang$virtual_dom$VirtualDom$programWithFlags;
+	var _elm_lang$html$Html_App$program = function (app) {
+		return _elm_lang$html$Html_App$programWithFlags(
+			_elm_lang$core$Native_Utils.update(
+				app,
+				{
+					init: function (_p0) {
+						return app.init;
+					}
+				}));
+	};
+	var _elm_lang$html$Html_App$beginnerProgram = function (_p1) {
+		var _p2 = _p1;
+		return _elm_lang$html$Html_App$programWithFlags(
+			{
+				init: function (_p3) {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_p2.model,
+						_elm_lang$core$Native_List.fromArray(
+							[]));
+				},
+				update: F2(
+					function (msg, model) {
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							A2(_p2.update, msg, model),
+							_elm_lang$core$Native_List.fromArray(
+								[]));
+					}),
+				view: _p2.view,
+				subscriptions: function (_p4) {
+					return _elm_lang$core$Platform_Sub$none;
+				}
+			});
+	};
+	var _elm_lang$html$Html_App$map = _elm_lang$virtual_dom$VirtualDom$map;
+
+	var _elm_lang$html$Html_Attributes$attribute = _elm_lang$virtual_dom$VirtualDom$attribute;
+	var _elm_lang$html$Html_Attributes$contextmenu = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'contextmenu', value);
+	};
+	var _elm_lang$html$Html_Attributes$draggable = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'draggable', value);
+	};
+	var _elm_lang$html$Html_Attributes$list = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'list', value);
+	};
+	var _elm_lang$html$Html_Attributes$maxlength = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'maxlength',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$datetime = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'datetime', value);
+	};
+	var _elm_lang$html$Html_Attributes$pubdate = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$attribute, 'pubdate', value);
+	};
+	var _elm_lang$html$Html_Attributes$colspan = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'colspan',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$rowspan = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'rowspan',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$property = _elm_lang$virtual_dom$VirtualDom$property;
+	var _elm_lang$html$Html_Attributes$stringProperty = F2(
+		function (name, string) {
+			return A2(
+				_elm_lang$html$Html_Attributes$property,
+				name,
+				_elm_lang$core$Json_Encode$string(string));
+		});
+	var _elm_lang$html$Html_Attributes$class = function (name) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'className', name);
+	};
+	var _elm_lang$html$Html_Attributes$id = function (name) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'id', name);
+	};
+	var _elm_lang$html$Html_Attributes$title = function (name) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'title', name);
+	};
+	var _elm_lang$html$Html_Attributes$accesskey = function ($char) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'accessKey',
+			_elm_lang$core$String$fromChar($char));
+	};
+	var _elm_lang$html$Html_Attributes$dir = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'dir', value);
+	};
+	var _elm_lang$html$Html_Attributes$dropzone = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'dropzone', value);
+	};
+	var _elm_lang$html$Html_Attributes$itemprop = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'itemprop', value);
+	};
+	var _elm_lang$html$Html_Attributes$lang = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'lang', value);
+	};
+	var _elm_lang$html$Html_Attributes$tabindex = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'tabIndex',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$charset = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'charset', value);
+	};
+	var _elm_lang$html$Html_Attributes$content = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'content', value);
+	};
+	var _elm_lang$html$Html_Attributes$httpEquiv = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'httpEquiv', value);
+	};
+	var _elm_lang$html$Html_Attributes$language = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'language', value);
+	};
+	var _elm_lang$html$Html_Attributes$src = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'src', value);
+	};
+	var _elm_lang$html$Html_Attributes$height = function (value) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'height',
+			_elm_lang$core$Basics$toString(value));
+	};
+	var _elm_lang$html$Html_Attributes$width = function (value) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'width',
+			_elm_lang$core$Basics$toString(value));
+	};
+	var _elm_lang$html$Html_Attributes$alt = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'alt', value);
+	};
+	var _elm_lang$html$Html_Attributes$preload = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'preload', value);
+	};
+	var _elm_lang$html$Html_Attributes$poster = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'poster', value);
+	};
+	var _elm_lang$html$Html_Attributes$kind = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'kind', value);
+	};
+	var _elm_lang$html$Html_Attributes$srclang = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'srclang', value);
+	};
+	var _elm_lang$html$Html_Attributes$sandbox = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'sandbox', value);
+	};
+	var _elm_lang$html$Html_Attributes$srcdoc = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'srcdoc', value);
+	};
+	var _elm_lang$html$Html_Attributes$type$ = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'type', value);
+	};
+	var _elm_lang$html$Html_Attributes$value = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'value', value);
+	};
+	var _elm_lang$html$Html_Attributes$defaultValue = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'defaultValue', value);
+	};
+	var _elm_lang$html$Html_Attributes$placeholder = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'placeholder', value);
+	};
+	var _elm_lang$html$Html_Attributes$accept = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'accept', value);
+	};
+	var _elm_lang$html$Html_Attributes$acceptCharset = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'acceptCharset', value);
+	};
+	var _elm_lang$html$Html_Attributes$action = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'action', value);
+	};
+	var _elm_lang$html$Html_Attributes$autocomplete = function (bool) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'autocomplete',
+			bool ? 'on' : 'off');
+	};
+	var _elm_lang$html$Html_Attributes$autosave = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'autosave', value);
+	};
+	var _elm_lang$html$Html_Attributes$enctype = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'enctype', value);
+	};
+	var _elm_lang$html$Html_Attributes$formaction = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'formAction', value);
+	};
+	var _elm_lang$html$Html_Attributes$minlength = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'minLength',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$method = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'method', value);
+	};
+	var _elm_lang$html$Html_Attributes$name = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'name', value);
+	};
+	var _elm_lang$html$Html_Attributes$pattern = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'pattern', value);
+	};
+	var _elm_lang$html$Html_Attributes$size = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'size',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$for = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'htmlFor', value);
+	};
+	var _elm_lang$html$Html_Attributes$form = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'form', value);
+	};
+	var _elm_lang$html$Html_Attributes$max = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'max', value);
+	};
+	var _elm_lang$html$Html_Attributes$min = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'min', value);
+	};
+	var _elm_lang$html$Html_Attributes$step = function (n) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'step', n);
+	};
+	var _elm_lang$html$Html_Attributes$cols = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'cols',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$rows = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'rows',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$wrap = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'wrap', value);
+	};
+	var _elm_lang$html$Html_Attributes$usemap = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'useMap', value);
+	};
+	var _elm_lang$html$Html_Attributes$shape = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'shape', value);
+	};
+	var _elm_lang$html$Html_Attributes$coords = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'coords', value);
+	};
+	var _elm_lang$html$Html_Attributes$challenge = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'challenge', value);
+	};
+	var _elm_lang$html$Html_Attributes$keytype = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'keytype', value);
+	};
+	var _elm_lang$html$Html_Attributes$align = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'align', value);
+	};
+	var _elm_lang$html$Html_Attributes$cite = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'cite', value);
+	};
+	var _elm_lang$html$Html_Attributes$href = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'href', value);
+	};
+	var _elm_lang$html$Html_Attributes$target = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'target', value);
+	};
+	var _elm_lang$html$Html_Attributes$downloadAs = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'download', value);
+	};
+	var _elm_lang$html$Html_Attributes$hreflang = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'hreflang', value);
+	};
+	var _elm_lang$html$Html_Attributes$media = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'media', value);
+	};
+	var _elm_lang$html$Html_Attributes$ping = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'ping', value);
+	};
+	var _elm_lang$html$Html_Attributes$rel = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'rel', value);
+	};
+	var _elm_lang$html$Html_Attributes$start = function (n) {
+		return A2(
+			_elm_lang$html$Html_Attributes$stringProperty,
+			'start',
+			_elm_lang$core$Basics$toString(n));
+	};
+	var _elm_lang$html$Html_Attributes$headers = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'headers', value);
+	};
+	var _elm_lang$html$Html_Attributes$scope = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'scope', value);
+	};
+	var _elm_lang$html$Html_Attributes$manifest = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$stringProperty, 'manifest', value);
+	};
+	var _elm_lang$html$Html_Attributes$boolProperty = F2(
+		function (name, bool) {
+			return A2(
+				_elm_lang$html$Html_Attributes$property,
+				name,
+				_elm_lang$core$Json_Encode$bool(bool));
+		});
+	var _elm_lang$html$Html_Attributes$hidden = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'hidden', bool);
+	};
+	var _elm_lang$html$Html_Attributes$contenteditable = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'contentEditable', bool);
+	};
+	var _elm_lang$html$Html_Attributes$spellcheck = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'spellcheck', bool);
+	};
+	var _elm_lang$html$Html_Attributes$async = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'async', bool);
+	};
+	var _elm_lang$html$Html_Attributes$defer = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'defer', bool);
+	};
+	var _elm_lang$html$Html_Attributes$scoped = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'scoped', bool);
+	};
+	var _elm_lang$html$Html_Attributes$autoplay = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'autoplay', bool);
+	};
+	var _elm_lang$html$Html_Attributes$controls = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'controls', bool);
+	};
+	var _elm_lang$html$Html_Attributes$loop = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'loop', bool);
+	};
+	var _elm_lang$html$Html_Attributes$default = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'default', bool);
+	};
+	var _elm_lang$html$Html_Attributes$seamless = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'seamless', bool);
+	};
+	var _elm_lang$html$Html_Attributes$checked = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'checked', bool);
+	};
+	var _elm_lang$html$Html_Attributes$selected = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'selected', bool);
+	};
+	var _elm_lang$html$Html_Attributes$autofocus = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'autofocus', bool);
+	};
+	var _elm_lang$html$Html_Attributes$disabled = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'disabled', bool);
+	};
+	var _elm_lang$html$Html_Attributes$multiple = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'multiple', bool);
+	};
+	var _elm_lang$html$Html_Attributes$novalidate = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'noValidate', bool);
+	};
+	var _elm_lang$html$Html_Attributes$readonly = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'readOnly', bool);
+	};
+	var _elm_lang$html$Html_Attributes$required = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'required', bool);
+	};
+	var _elm_lang$html$Html_Attributes$ismap = function (value) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'isMap', value);
+	};
+	var _elm_lang$html$Html_Attributes$download = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'download', bool);
+	};
+	var _elm_lang$html$Html_Attributes$reversed = function (bool) {
+		return A2(_elm_lang$html$Html_Attributes$boolProperty, 'reversed', bool);
+	};
+	var _elm_lang$html$Html_Attributes$classList = function (list) {
+		return _elm_lang$html$Html_Attributes$class(
+			A2(
+				_elm_lang$core$String$join,
+				' ',
+				A2(
+					_elm_lang$core$List$map,
+					_elm_lang$core$Basics$fst,
+					A2(_elm_lang$core$List$filter, _elm_lang$core$Basics$snd, list))));
+	};
+	var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
+
+	var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode_ops[':='], 'keyCode', _elm_lang$core$Json_Decode$int);
+	var _elm_lang$html$Html_Events$targetChecked = A2(
+		_elm_lang$core$Json_Decode$at,
+		_elm_lang$core$Native_List.fromArray(
+			['target', 'checked']),
+		_elm_lang$core$Json_Decode$bool);
+	var _elm_lang$html$Html_Events$targetValue = A2(
+		_elm_lang$core$Json_Decode$at,
+		_elm_lang$core$Native_List.fromArray(
+			['target', 'value']),
+		_elm_lang$core$Json_Decode$string);
+	var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+	var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+	var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+	var _elm_lang$html$Html_Events$onFocus = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'focus',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onBlur = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'blur',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+		_elm_lang$html$Html_Events$defaultOptions,
+		{preventDefault: true});
+	var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+		return A3(
+			_elm_lang$html$Html_Events$onWithOptions,
+			'submit',
+			_elm_lang$html$Html_Events$onSubmitOptions,
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'change',
+			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+	};
+	var _elm_lang$html$Html_Events$onInput = function (tagger) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'input',
+			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+	};
+	var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseout',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseover',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseleave',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseenter',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mouseup',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'mousedown',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'dblclick',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$onClick = function (msg) {
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'click',
+			_elm_lang$core$Json_Decode$succeed(msg));
+	};
+	var _elm_lang$html$Html_Events$Options = F2(
+		function (a, b) {
+			return {stopPropagation: a, preventDefault: b};
+		});
+
 	var _evancz$elm_markdown$Native_Markdown = function() {
 
 
@@ -7599,20 +8090,125 @@
 			return {githubFlavored: a, defaultHighlighting: b, sanitize: c, smartypants: d};
 		});
 
-	var _moarwick$elm_webpack_starter$Main$p1 = '\n# Asynchronous Behaviour in Elm\n\nAsynchronous programming, regardless of the application, is the concept of submitting some work to be performed elsewhere, and being notified when the work has been completed. It\'s very common in UI development, as UIs usually communicate with some backend.\n\n## Side Effects & Elm Commands\n\n*Side effects* are things that happen inside of a function that modify some external state or interact with components outside of the scope of the function. Things like IO and networking are side effects. Because asynchronous programs inherently produce side effects, meaning that our functions are impure, we need a way to model such side effects. It\'s not that side effects are *bad*, it is just common to see side effects mismanaged in programs.\n\nElm has a way of modelling side effects created by functions called **commands**. A command can be thought of as an intention to modify the state of the Elm program, as commands are handled by the `update` function that we\'re already familiar with. In fact, you\'ve already seen commands in action when you handled events produced by your view in the previous tutorial.\n\nAs the application programmer, you don\'t generally synthesize your own commands. Commands are typically created and dispatched internally by Elm. The only interaction with commands you\'ll use directly is the `Cmd.none` value to indicate that no command is being performed.\n\n## Subscriptions\n\nSubscriptions are the basis of asynchronous Elm programs. Subscriptions connect an Elm program to events that are generated asynchronously.\n';
-	var _moarwick$elm_webpack_starter$Main$main = {
-		main: A2(
+	var _moarwick$elm_webpack_starter$Components_Expand$expand = F3(
+		function (click, showing, content) {
+			return showing ? A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$button,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Events$onClick(click)
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Hide Solution')
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('soln')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_evancz$elm_markdown$Markdown$toHtml,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								content)
+							]))
+					])) : A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(click)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Show Solution')
+					]));
+		});
+
+	var _moarwick$elm_webpack_starter$Util$markdown = function (paragraph) {
+		return A2(
+			_evancz$elm_markdown$Markdown$toHtml,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			paragraph);
+	};
+	var _moarwick$elm_webpack_starter$Util$getOrDefault = F3(
+		function (i, arr, def) {
+			var _p0 = A2(_elm_lang$core$Array$get, i, arr);
+			if (_p0.ctor === 'Just') {
+				return _p0._0;
+			} else {
+				return def;
+			}
+		});
+
+	var _moarwick$elm_webpack_starter$Main$p5 = '\n![Random quote example GIF](./static/img/random-quote-example.gif)\n\n## Reacting to Asynchronous Events\n\nTo wrap up this final tutorial, let\'s reflect back to our goal: creating FRP UIs using Elm. In web applications, it\'s common to deal with asynchronous events. Elm helps the programmer model these events using commands, subscriptions, and tasks.\n\n- Commands tell Elm that you intend to do something.\n- Subscriptions tell Elm what external events you want to listen to.\n- Tasks represent units of work that can be performed.\n\nIf you recall the last tutorial, you were already using the asynchronous features of Elm without realizing it. This tutorial was meant to act as a deep-dive into taking advantage of these features to build richer applications. Most importantly, our UIs stay functionally reactive: the UI is re-rendered (from the programmers point of view) when external events notify the application of changes (subscriptions) and when tasks are performed.\n';
+	var _moarwick$elm_webpack_starter$Main$soln4 = '\n```elm\nimport Html exposing (Html, div, text, button)\nimport Html.Events exposing (onClick)\nimport Html.App\nimport Http\nimport Task exposing (Task)\n\nmain : Program Never\nmain = Html.App.program { view = view\n                        , init = init\n                        , subscriptions = \\_ -> Sub.none\n                        , update = update\n                        }\n\n-- Loading a quote\nurl : String\nurl = \"http://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=text\"\n\ngetNewQuote : Cmd Msg\ngetNewQuote = Task.perform FailedToGetQuote GotNewQuote (Http.getString url)\n\n-- Model\ntype alias Model = { loading : Bool\n                   , error : Bool\n                   , quote : String\n                   }\n\ninit : (Model, Cmd Msg)\ninit = (Model True False \"\", getNewQuote)\n\n-- Update\ntype Msg = GetNewQuote | GotNewQuote String | FailedToGetQuote Http.Error\n\nupdate : Msg -> Model -> (Model, Cmd Msg)\nupdate msg model =\n  case msg of\n    GetNewQuote -> init\n    GotNewQuote newQuote -> (Model False False newQuote, Cmd.none)\n    FailedToGetQuote _ -> (Model False True \"\", Cmd.none)\n\n-- View\nview : Model -> Html Msg\nview model =\n  if model.loading then\n    text \"Loading a random quote...\"\n  else if model.error then\n    div []\n      [ text \"Unable to load a quote! :(\"\n      , div[] [ button [ onClick GetNewQuote ] [ text \"Try again\" ] ]\n      ]\n  else\n    div []\n      [ text model.quote\n      , div [] [ button [ onClick GetNewQuote ] [ text \"Get another quote!\" ] ]\n      ]\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p4 = '\n## Tasks\n\nIn Elm, tasks represent units of work that can be *performed* to produce a **result** or an **error**. Additionally, asynchronous tasks do not block the UI - this means that while an expensive asynchronous task is executing, the UI will still respond to interactions from the user (such as mouse clicks, scrolling, keyboard interactions, etc...).\n\nUnlike commands, you can synthesize tasks yourself:\n\n```elm\n> Task.succeed 4\n<task> : Task a number\n\n> Task.fail \"File not found!\"\n<task> : Task String a\n```\n\nWe can also `perform` tasks. The type definition for `perform` is `(err -> msg) -> (ok -> msg) -> Task err ok -> Cmd msg`. This might look a little hairy, so let\'s break it down.\n\n- `(err -> msg)`: A function that is called with the error after the task is performed and produces a `Msg`.\n- `(ok -> msg)`: A function that is called with the result after the task is performed and produces a `Msg`.\n- `Task err ok`: The task to be performed with variable error type `err` and variable result type `ok`.\n- `Cmd msg`: The return value of `Task.perform`. The performed task is handled by a command (meaning we can respond to the task being completed in the `update` function)\n\n### Random Quote Application\n\nTo see an example, let\'s build a simple application that displays a random quote with a button to load a different quote. To do this, we\'ll use the following web service to provide us with random quotes: http://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=text\n\nElm has an `Http` library that can be used to make HTTP requests. We\'ll use `Http.getString` to load the contents of that webpage. `Http.getString` has the type definition: `String -> Task Http.Error String` - we supply the URL to load, and we get a task that can be executed to actually do that work. Note that a `Task` represents a unit of work, it does not begin executing the work until you say.\n\n### Getting a Quote over HTTP\n\n```elm\ntype Msg = GotNewQuote String | FailedToGetQuote Http.Error\n\nurl : String\nurl = \"http://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=text\"\n\ngetNewQuote : Cmd Msg\ngetNewQuote = Task.perform FailedToGetQuote GotNewQuote (Http.getString url)\n```\n\nThe `getNewQuote` value is a name we assigned to the logic that performs our task. Performed tasks produce `Cmd`s, so they can be handled by our `update` function. Here, the `FailedToGetQuote Http.Error` message will be passed to `update` if we cannot load the webpage for whatever reason. The `GotNewQuote String` message will be passed to `update` if we successfully load the webpage.\n\n### Model\n\n```elm\ntype alias Model = { loading : Bool\n                   , error : Bool\n                   , quote : String\n                   }\n\ninit : (Model, Cmd Msg)\ninit = (Model True False \"\", getNewQuote)\n```\n\nOur `init` function doesn\'t return `Cmd.none` this time. Instead, we immediately call `getNewQuote` so that the task is performed when our application is initialized.\n\n### Update\n\n```elm\nupdate : Msg -> Model -> (Model, Cmd Msg)\nupdate msg model =\n  case msg of\n    GotNewQuote newQuote -> (Model False False newQuote, Cmd.none)\n    FailedToGetQuote _ -> (Model False True \"\", Cmd.none)\n```\n\nThis function responds to either the `GotNewQuote` or `FailedToGetQuote` message. If we receive `GotNewQuote`, then the task must have been successful, so we update the quote in our state. If `FailedToGetQuote` is received, then the task must have failed, so we store that in our state so we can notify the user that there was a problem.\n\n### View\n\n```elm\nview : Model -> Html Msg\nview model =\n  if model.loading then\n    text \"Loading a random quote...\"\n  else if model.error then\n    text \"Unable to load a quote! :(\"\n  else\n    text model.quote\n```\n\n**Your turn**: Tie all of these pieces together to create the application *but* modify it to include a button to load a new quote and a button to retry the task if it fails.\n';
+	var _moarwick$elm_webpack_starter$Main$soln3 = '\n```elm\nimport Html exposing (Html, div)\nimport Html.App\nimport Html.Attributes exposing (style)\nimport Keyboard exposing (KeyCode)\n\nmain : Program Never\nmain = Html.App.program { init = init\n                        , update = update\n                        , subscriptions = subscriptions\n                        , view = view\n                        }\n\n-- Update\ntype Msg = KeyPress KeyCode\n\nupdate : Msg -> Model -> (Model, Cmd Msg)\nupdate msg model =\n  let\n    (x, y) = model\n  in\n    case msg of\n      KeyPress keycode ->\n        case keycode of\n          37 -> ((x - 1, y), Cmd.none) -- Left\n          38 -> ((x, y - 1), Cmd.none) -- Up\n          39 -> ((x + 1, y), Cmd.none) -- Right\n          40 -> ((x, y + 1), Cmd.none) -- Down\n          _  -> (model, Cmd.none) -- Ignore all other key presses\n\n-- Model\ntype alias Model = (Int, Int)\n\n-- Init\ninit : (Model, Cmd Msg)\ninit = ((0, 0), Cmd.none)\n\n-- Subscriptions\nsubscriptions : Model -> Sub Msg\nsubscriptions model = Keyboard.downs KeyPress\n\n-- View\nview : Model -> Html Msg\nview model =\n  let\n    (x, y) = model\n    pos = style [ (\"backgroundColor\", \"blue\")\n                , (\"width\", \"10px\")\n                , (\"height\", \"10px\")\n                , (\"position\", \"fixed\")\n                , (\"top\", toString y ++ \"px\")\n                , (\"left\", toString x ++ \"px\")\n                ]\n  in\n    div [ pos ] []\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p3 = '\nAs always, we\'ll also need to create a `view` to draw our dot on the screen at the position defined by our model:\n\n```elm\nview : Model -> Html Msg\nview model =\n  let\n    (x, y) = model\n    pos = style [ (\"backgroundColor\", \"blue\")\n                , (\"width\", \"10px\")\n                , (\"height\", \"10px\")\n                , (\"position\", \"fixed\")\n                , (\"top\", toString y ++ \"px\")\n                , (\"left\", toString x ++ \"px\")\n                ]\n  in\n    div [ pos ] []\n```\n\nWe\'ve created the `view`, `update`, and `init` functions. Lastly, we need to define our `subscriptions`. Remember, subscriptions connect asynchronous effects to our application. Our subscription will subscribe to the keyboard `downs` effect (documented here: http://package.elm-lang.org/packages/elm-lang/keyboard/1.0.1/Keyboard#downs).\n\nNotice that the type definition for the `subscriptions` function we need to write is `Model -> Sub msg` and the type definition for `Keyboard.downs` is `(KeyCode -> msg) -> Sub msg` - `Keyboard.downs` will return a subscription for us to use (`Sub`)!\n\n```elm\nsubscriptions : Model -> Sub Msg\nsubscriptions model = Keyboard.downs KeyPress\n```\n\nWhat we\'re telling Elm here is that we want the `KeyPress` action to be fired whenever a key is pressed down on the keyboard. That\'s all we have to do! Finally, we wire everything together using Elm\'s `Html.App.program` utility.\n\n**Your turn:** Try tying this application together. *Hint*: here are the `import`s you\'ll need:\n\n```elm\nimport Html exposing (Html, div)\nimport Html.App\nimport Html.Attributes exposing (style)\nimport Keyboard exposing (KeyCode)\n```\n';
+	var _moarwick$elm_webpack_starter$Main$soln2 = '\n```elm\ntype Msg = KeyPress KeyCode\n\nupdate : Msg -> Model -> (Model, Cmd Msg)\nupdate msg model =\n  let\n    (x, y) = model\n  in\n    case msg of\n      KeyPress keycode ->\n        case keycode of\n          37 -> ((x - 1, y), Cmd.none) -- Left\n          38 -> ((x, y - 1), Cmd.none) -- Up\n          39 -> ((x + 1, y), Cmd.none) -- Right\n          40 -> ((x, y + 1), Cmd.none) -- Down\n          _  -> (model, Cmd.none) -- Ignore all other key presses\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p2 = '\nSecond, let\'s think about the actions that can be performed in our app. What do you think the actions we need to respond to are? How do we write our `update` function to modify our model in response to these actions?\n\n**Your turn**: Try to figure out how you would update your model based on the actions that can be performed.\n';
+	var _moarwick$elm_webpack_starter$Main$soln1 = '\n```elm\n-- Model to track coordinates of the dot.\ntype alias Model = (Int, Int)\n\ninit : (Model, Cmd Msg)\ninit = ((0, 0), Cmd.none)\n```\n';
+	var _moarwick$elm_webpack_starter$Main$p1 = '\n# Asynchronous Behaviour in Elm\n\nAsynchronous programming, regardless of the application, is the concept of submitting some work to be performed elsewhere, and being notified when the work has been completed. It\'s very common in UI development, as UIs usually communicate with some backend.\n\n## Elm Commands\n\nElm has a way of modelling side effects created by functions called **commands**. A command can be thought of as an intention to modify the state of the Elm program, as commands are handled by the `update` function that we\'re already familiar with. In fact, you\'ve already seen commands in action when you handled events produced by your view in the previous tutorial.\n\nAs the application programmer, you don\'t generally synthesize your own commands. Commands are typically created and dispatched internally by Elm. The only interaction with commands you\'ll use directly is the `Cmd.none` value to indicate that no command is being performed. Functions that generate commands declare so in their type definitions, and also name the type of commands that are generated. Typically, commands generate `Msg`s (as we saw in the last tutorial).\n\n### Using Commands in Elm Programs\n\nThe first step to using commands in Elm is to use `Html.App.program` rather than `Html.App.beginnerProgram` like we did in the last tutorial. The difference is:\n\n- `program` accepts an `init` value to create the initial model, instead of accepting a `model` value.\n- `program` must define the subscriptions that the program has (more on this later).\n- The `update` function we write returns `(Model, Cmd Msg)` instead of just `Model`\n\nHere\'s how we would use `program` to tie together the counter example from the last tutorial:\n\n```elm\nimport Html exposing (Html, div, button, text)\nimport Html.App\nimport Html.Events exposing (onClick)\n\n-- Model\ntype alias Model = Int\n\n-- Init\ninit : (Model, Cmd Msg)\ninit = (0, Cmd.none)\n\n-- Update\ntype Msg = Increment | Decrement | Reset\n\nupdate : Msg -> Model -> (Model, Cmd Msg)\nupdate msg model =\n  case msg of\n    Increment -> (model + 1, Cmd.none)\n    Decrement -> (model - 1, Cmd.none)\n    Reset -> init\n\n-- View\nview : Model -> Html Msg\nview model =\n  div []\n    [ button [ onClick Decrement ] [ text \"-\" ]\n    , text (toString model)\n    , button [ onClick Increment ] [ text \"+\" ]\n    , button [ onClick Reset ] [ text \"Reset\" ]\n    ]\n\n-- Subscriptions (we\'ll talk about this in the next section)\nsubscriptions : Model -> Sub Msg\nsubscriptions model = Sub.none -- We have no subscriptions yet!\n\n-- Tie it all together\nmain : Program Never\nmain = Html.App.program { init = init\n                        , view = view\n                        , update = update\n                        , subscriptions = subscriptions\n                        }\n```\n\n## Subscriptions\n\nSubscriptions are the basis of asynchronous Elm programs. Subscriptions connect an Elm program to events that are generated asynchronously such as mouse clicks, keyboard interactions, or network events. Let\'s start with an example program that shows you how to use subscriptions step by step.\n\n### Example Application\n\nThis example application will place two dots on the screen and allow the user to move one around using the arrow keys on their keyboard - not entirely practical, but a light introduction to subscriptions.\n\nFirst, let\'s think about the model. What data do we need to track? How do we initialize the data?\n\n**Your turn**: Try to figure out how you would model the position of the dot on the screen before continuing.\n';
+	var _moarwick$elm_webpack_starter$Main$update = F2(
+		function (msg, model) {
+			var nextValue = function (soln) {
+				return _elm_lang$core$Basics$not(
+					A3(_moarwick$elm_webpack_starter$Util$getOrDefault, soln, model, true));
+			};
+			var _p0 = msg;
+			var _p1 = _p0._0;
+			return A3(
+				_elm_lang$core$Array$set,
+				_p1,
+				nextValue(_p1),
+				model);
+		});
+	var _moarwick$elm_webpack_starter$Main$model = _elm_lang$core$Array$fromList(
+		_elm_lang$core$Native_List.fromArray(
+			[false, false, false, false]));
+	var _moarwick$elm_webpack_starter$Main$ToggleSoln = function (a) {
+		return {ctor: 'ToggleSoln', _0: a};
+	};
+	var _moarwick$elm_webpack_starter$Main$solnExpander = F3(
+		function (model, i, soln) {
+			return A3(
+				_moarwick$elm_webpack_starter$Components_Expand$expand,
+				_moarwick$elm_webpack_starter$Main$ToggleSoln(i),
+				A3(_moarwick$elm_webpack_starter$Util$getOrDefault, i, model, false),
+				soln);
+		});
+	var _moarwick$elm_webpack_starter$Main$view = function (model) {
+		return A2(
 			_elm_lang$html$Html$article,
 			_elm_lang$core$Native_List.fromArray(
 				[]),
 			_elm_lang$core$Native_List.fromArray(
 				[
-					A2(
-					_evancz$elm_markdown$Markdown$toHtml,
-					_elm_lang$core$Native_List.fromArray(
-						[]),
-					_moarwick$elm_webpack_starter$Main$p1)
-				]))
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p1),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 0, _moarwick$elm_webpack_starter$Main$soln1),
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p2),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 1, _moarwick$elm_webpack_starter$Main$soln2),
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p3),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 2, _moarwick$elm_webpack_starter$Main$soln3),
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p4),
+					A3(_moarwick$elm_webpack_starter$Main$solnExpander, model, 3, _moarwick$elm_webpack_starter$Main$soln4),
+					_moarwick$elm_webpack_starter$Util$markdown(_moarwick$elm_webpack_starter$Main$p5)
+				]));
+	};
+	var _moarwick$elm_webpack_starter$Main$main = {
+		main: _elm_lang$html$Html_App$beginnerProgram(
+			{model: _moarwick$elm_webpack_starter$Main$model, view: _moarwick$elm_webpack_starter$Main$view, update: _moarwick$elm_webpack_starter$Main$update})
 	};
 
 	var Elm = {};
