@@ -1,8 +1,8 @@
 import Html exposing (Html, article)
-import Markdown
+import Util exposing (..)
 
 main : Html a
-main = article [] [ Markdown.toHtml [] content ]
+main = article [] [ markdown content ]
 
 content : String
 content = """
