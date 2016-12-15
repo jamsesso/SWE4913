@@ -79,4 +79,10 @@ I do believe that Elm was a good choice to introduce functional and reactive pro
 I faced two major challenges while working on this project. The first challenge was succinctly defining functional programming. I found reactive programming to be a much easier concept to explain. With reactive programming, it was easy to show examples related to procedural programming, but describing functional programming was not as easy. Using words like *declarative*, *immutable*, or *pure* are not beginner friendly and don't describe the benefits of functional programming.
 
 The second issue was coming up with exercises for the reader. Coming up with an exercise to challenge the user to consider what they've learned while simultaneously keeping the task at a level that is understandable to a beginner is more difficult than it seems. This might simply be a symptom of choosing Elm as the language for this project as a fair amount of background information is required in order to get even simple programs running.
+
+## What Next?
+
+After completing this tutorial set, I would encourage the reader to explore other implementations of functioally reactive UIs. My personal preference is [ReactJS](https://facebook.github.io/react/) which can be used with [Redux](https://github.com/reactjs/redux) which makes for a very Elm-like UI development experience. React differs from Elm by the fact that it allows state to be stored at the component (Elm 'view') level. In fact, without Redux, there is no global state in React. Additionally, React is written in Javascript, so you can always fall back to those object-oriented or procedural habits in cases where you don't find functional implementations to be clear or easy.
+
+#### Happy Programming!
 """
